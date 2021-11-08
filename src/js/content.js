@@ -26,7 +26,7 @@ function formatTime(seconds) {
         (result.minute > 0 ? `${result.minute} min.,` : '')
     ];
     const timeString = timeStrings.join(' ');
-    return timeString.substring(0, timeString.length - 1);;
+    return timeString.replace(/,$/, '');
 }
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -34,7 +34,7 @@ window.addEventListener('DOMContentLoaded', () => {
         if(document.querySelector('#xayo-info')) return;
         const element = document.querySelector('.viewer-card');
         if(!element) return;
-        const name = element.querySelector('.tw-link').textContent;
+        const name = element.querySelector('.tw-link').textContent.toLowerCase();
         const xayoInfo = document.createElement('div');
         xayoInfo.id = 'xayo-info';
         element.insertBefore(xayoInfo, element.children[1]);
