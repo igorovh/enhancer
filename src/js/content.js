@@ -1,4 +1,5 @@
 let cardChecker;
+let timeFormat = 'full';
 
 async function getData(name) {
     return await new Promise((resolve, reject) => {
@@ -14,22 +15,29 @@ const timeStructure = {
     second: 1
 }
 function formatTime(seconds) {
-    let result = {};
-    Object.keys(timeStructure).forEach(key => {
-        result[key] = Math.floor(seconds / timeStructure[key]);
-        seconds -= result[key] * timeStructure[key];
-    });
-    const timeStrings = [
-        (result.week > 0 ? `${result.week} ${result.week > 1 ? 'tyg.': ' tydz.'},` : ''),
-        (result.day > 0 ? `${result.day} ${result.day > 1 ? 'dni': ' dzień'},` : ''),
-        (result.hour > 0 ? `${result.hour} godz.,` : ''),
-        (result.minute > 0 ? `${result.minute} min.,` : '')
-    ];
-    const timeString = timeStrings.join(' ');
-    return timeString.replace(/,$/, '');
+    if(timeFormat === 'hour') {
+        return `${(seconds / 60 / 60).toFixed(2)} godz.`;
+    } else {
+        let result = {};
+        Object.keys(timeStructure).forEach(key => {
+            result[key] = Math.floor(seconds / timeStructure[key]);
+            seconds -= result[key] * timeStructure[key];
+        });
+        const timeStrings = [
+            (result.week > 0 ? `${result.week} ${result.week > 1 ? 'tyg.': ' tydz.'},` : ''),
+            (result.day > 0 ? `${result.day} ${result.day > 1 ? 'dni': ' dzień'},` : ''),
+            (result.hour > 0 ? `${result.hour} godz.,` : ''),
+            (result.minute > 0 ? `${result.minute} min.,` : '')
+        ];
+        const timeString = timeStrings.join(' ');
+        return timeString.replace(/,$/, '');
+    }
 }
 
 window.addEventListener('DOMContentLoaded', () => {
+    chrome.storage.sync.get({
+        te_xayo_format: 'full'
+    }, options => timeFormat = options.te_xayo_format);
     cardChecker = setInterval(async () => {
         if(document.querySelector('#xayo-info')) return;
         const element = document.querySelector('.viewer-card');
