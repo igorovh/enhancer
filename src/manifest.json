@@ -1,7 +1,7 @@
 {
   "name": "Enhancer for Twitch",
   "version": "1.2",
-  "description": "Enhances twitch.tv",
+  "description": "Enhances Twitch.TV",
   "manifest_version": 2,
   "permissions": [
     "*://xayo.pl/*",
@@ -13,7 +13,10 @@
   "content_scripts": [
     {
       "matches": ["*://www.twitch.tv/*"],
-      "js": ["js/content.js"],
+      "js": [
+        "js/xayo.js",
+        "js/buttons.js"
+      ],
       "css": ["css/content.css"],
       "run_at": "document_start",
       "all_frames": true
@@ -26,5 +29,8 @@
     "page": "pages/options.html",
     "chrome_style": true,
     "browser_style": true
-}
+  },
+  "browser_action": {
+    "default_popup": "pages/popup.html"
+  }
 }

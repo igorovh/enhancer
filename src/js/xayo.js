@@ -30,7 +30,7 @@ function formatTime(seconds) {
             (result.minute > 0 ? `${result.minute} min.,` : '')
         ];
         const timeString = timeStrings.join(' ');
-        return timeString.replace(/,$/, '');
+        return timeString.replace(/\s*$/,'').replace(/,$/, '');
     }
 }
 
@@ -53,11 +53,16 @@ window.addEventListener('DOMContentLoaded', () => {
             xayoInfo.innerHTML += `<div class="xayo-line">Ten użytkownik nie istnieje w bazie danych lub xayo.pl posiada aktuanie problemy techniczne.</div>`;
             return;
         }
+        let fullTime = 0;
+        json.forEach(streamer => fullTime += (streamer.count * 5 * 60));
         for(let i = 0; i < 5; i++) {
             const streamer = json[i];
             if(!streamer) continue;
+            const seconds = streamer.count * 5 * 60;
             xayoInfo.innerHTML += `<div class="xayo-line"><span class="xayo-header">${i + 1}. </span>` + 
-                `<a href="https://twitch.tv/${streamer.streamer}" class="xayo-channel">${streamer.streamer}</a>: ${formatTime(streamer.count * 5 * 60)}</div>`;
+                `<a href="https://twitch.tv/${streamer.streamer}" class="xayo-channel">${streamer.streamer}</a>: ` + 
+                `${formatTime(seconds)} <span class="xayo-percent">~ ${((seconds / fullTime) * 100).toFixed(0)}%</span></div>`;
         }
+        xayoInfo.innerHTML += `<div class="xayo-line">~ ${formatTime(fullTime)}</div>`
     }, 1000);
 });
