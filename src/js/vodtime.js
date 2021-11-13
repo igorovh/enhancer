@@ -30,7 +30,7 @@ async function getCreateTime(id) {
         headers: {
             'Client-ID': 'kimne78kx3ncx6brgo4mv6wki5h1ko',
             'Accept': 'application/vnd.twitchtv.v5+json'
-        }
+        },
     });
     const json = await data.json();
     return new Date(json.created_at);

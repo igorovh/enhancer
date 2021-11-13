@@ -1,10 +1,12 @@
 {
   "name": "Twitch Enhancer",
-  "version": "1.25",
+  "version": "1.26",
   "description": "Enhances Twitch.TV",
   "manifest_version": 2,
   "permissions": [
     "*://xayo.pl/*",
+    "*://api.twitch.tv/*",
+    "*://www.twitch.tv/*",
     "storage"
   ],
   "background": {
@@ -32,5 +34,10 @@
   },
   "browser_action": {
     "default_popup": "pages/popup.html"
-  }
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{09b8dba2-ae33-4bea-8bf1-d85e50691408}"
+    }
+  } 
 }
