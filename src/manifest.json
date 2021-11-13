@@ -34,10 +34,5 @@
   },
   "browser_action": {
     "default_popup": "pages/popup.html"
-  },
-  "browser_specific_settings": {
-    "gecko": {
-      "id": "{09b8dba2-ae33-4bea-8bf1-d85e50691408}"
-    }
   } 
 }
