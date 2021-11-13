@@ -16,16 +16,17 @@
     width: 100%;
 }
 
-.xayo-line:hover .xayo-percent {
-    opacity: 1;
-}
-
 .xayo-percent {
     opacity: 0;
 }
 
-#te-buttons-wrapper {
-    display: flex !important;
-    justify-content: center;
-    margin-bottom: 20px;
+.xayo-line:hover .xayo-percent {
+    opacity: 1;
 }
+
+#vod-time:hover {
+    opacity: 0.75;
+    cursor: pointer;
+}
+
+

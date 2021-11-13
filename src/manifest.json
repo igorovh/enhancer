@@ -1,6 +1,6 @@
 {
-  "name": "Enhancer for Twitch",
-  "version": "1.2",
+  "name": "Twitch Enhancer",
+  "version": "1.25",
   "description": "Enhances Twitch.TV",
   "manifest_version": 2,
   "permissions": [
@@ -15,7 +15,7 @@
       "matches": ["*://www.twitch.tv/*"],
       "js": [
         "js/xayo.js",
-        "js/buttons.js"
+        "js/vodtime.js"
       ],
       "css": ["css/content.css"],
       "run_at": "document_start",
