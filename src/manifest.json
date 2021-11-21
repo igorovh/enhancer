@@ -17,7 +17,8 @@
       "matches": ["*://www.twitch.tv/*"],
       "js": [
         "js/xayo.js",
-        "js/vodtime.js"
+        "js/vodtime.js",
+        "js/buttons.js"
       ],
       "css": ["css/content.css"],
       "run_at": "document_start",
