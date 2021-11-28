@@ -1,4 +1,4 @@
-let buttonsChecker;
+let panelChecker;
 
 const links = [
     {
@@ -17,13 +17,16 @@ const links = [
 
 function getName() {
     let url = window.location.href.replace(/(^\w+:|^)\/\//, '');
-    return url.split('/')[1];
+    const elements = url.split('/');
+    let name = elements[1];
+    if(name === 'popout') return elements[2];
+    return name;
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-    buttonsChecker = setInterval(() => {
-        const channelInfo = document.querySelector('.about-section__panel')?.querySelector('.fqTjdi');
+    panelChecker = setInterval(() => {
         if(document.querySelector('#te-buttons-wrapper')) return;
+        const channelInfo = document.querySelector('.about-section__panel')?.querySelector('.fqTjdi');
         if(!channelInfo) return;
         const buttonsWrapper = document.createElement('div');
         channelInfo.appendChild(buttonsWrapper);
@@ -34,6 +37,8 @@ window.addEventListener('DOMContentLoaded', () => {
         let buttons = [];
         const name = getName().toLowerCase();
         links.forEach(link => buttons.push(`<a href="${link.url.replace('%name%', name.toLowerCase())}">${link.name}</a>`));
-        buttonsWrapper.innerHTML += '<br />' + buttons.join(' · ');
+        //TODO buttonsWrapper.innerHTML += '<br /><div id="te-chatters">Chatters Loading...</div>'; //Creating panel for chatters
+        buttonsWrapper.innerHTML += buttons.join(' · ');
     }, 1000);
 });
+

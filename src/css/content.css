@@ -24,6 +24,15 @@
     opacity: 1;
 }
 
+.xayo-end {
+    width: calc(100% - 10px);
+    height: 1px;
+    background-color: rgb(87, 87, 87);
+    border-radius: 50px;
+    margin-top: 3px;
+    margin-bottom: 5px;
+}
+
 #vod-time:hover {
     opacity: 0.75;
     cursor: pointer;
