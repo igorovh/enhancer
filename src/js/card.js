@@ -54,7 +54,7 @@ async function createXayo() {
     const xayoInfo = document.createElement('div');
     xayoInfo.id = 'xayo-info';
     element.insertBefore(xayoInfo, element.children[1]);
-    xayoInfo.innerHTML += `<div class="xayo-line"><a href="https://xayo.pl/${username}" class="xayo-header">xayo.pl/${username}</a></div>`;
+    xayoInfo.innerHTML += `<div class="xayo-line"><a target="_blank" href="https://xayo.pl/${username}" class="xayo-header">xayo.pl/${username}</a></div>`;
     xayoInfo.innerHTML += `<div id="xayo-loading" class="xayo-line">Loading...</div>`;
     const json = await getData(username);
     console.log('[xayo-twitch]', `Got data from background script!`);
@@ -82,5 +82,5 @@ async function createKonfident(element) {
     if(!element) return;
     const name = getName(); //panel.js
     element.innerHTML += `<div class="xayo-line">View latest chat logs by clicking here:</div>`;
-    element.innerHTML += `<a href="https://konfident.vopp.top/latest/?streamer=${name}&user=${username}"><div class="xayo-line xayo-header">konfident.vopp.top</div></a>`;
+    element.innerHTML += `<a target="_blank" href="https://konfident.vopp.top/latest/?streamer=${name}&username=${username}"><div class="xayo-line xayo-header">konfident.vopp.top</div></a>`;
 }
