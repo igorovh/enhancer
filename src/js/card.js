@@ -5,7 +5,7 @@ let username = '';
 
 async function getData(name) {
     return await new Promise((resolve, reject) => {
-        chrome.runtime.sendMessage({ name: name }, response => resolve(response));
+        chrome.runtime.sendMessage({ action: 'checkUser', name: name }, response => resolve(response));
     });
 }
 
@@ -18,7 +18,7 @@ const timeStructure = {
 }
 function formatTime(seconds) {
     if(timeFormat === 'hour') {
-        return `${(seconds / 60 / 60).toFixed(2)} godz.`;
+        return `${(seconds / 60 / 60).toFixed(2)} hours`;
     } else {
         let result = {};
         Object.keys(timeStructure).forEach(key => {
@@ -26,10 +26,10 @@ function formatTime(seconds) {
             seconds -= result[key] * timeStructure[key];
         });
         const timeStrings = [
-            (result.week > 0 ? `${result.week} ${result.week > 1 ? 'tyg.': ' tydz.'},` : ''),
-            (result.day > 0 ? `${result.day} ${result.day > 1 ? 'dni': ' dzień'},` : ''),
-            (result.hour > 0 ? `${result.hour} godz.,` : ''),
-            (result.minute > 0 ? `${result.minute} min.,` : '')
+            (result.week > 0 ? `${result.week} ${result.week > 1 ? 'weeks': ' week'},` : ''),
+            (result.day > 0 ? `${result.day} ${result.day > 1 ? 'days': ' day'},` : ''),
+            (result.hour > 0 ? `${result.hour} ${result.hour > 1 ? 'hours': ' hour'},` : ''),
+            (result.minute > 0 ? `${result.minute} min,` : '')
         ];
         const timeString = timeStrings.join(' ');
         return timeString.replace(/\s*$/,'').replace(/,$/, '');

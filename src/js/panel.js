@@ -28,17 +28,31 @@ window.addEventListener('DOMContentLoaded', () => {
         if(document.querySelector('#te-buttons-wrapper')) return;
         const channelInfo = document.querySelector('.about-section__panel')?.querySelector('.fqTjdi');
         if(!channelInfo) return;
-        const buttonsWrapper = document.createElement('div');
-        channelInfo.appendChild(buttonsWrapper);
-        console.log(channelInfo.children);
-        buttonsWrapper.id = 'te-buttons-wrapper';
-        buttonsWrapper.className = 'CoreText-sc-cpl358-0 ibBfde social-media-link-overflow';
-        console.log('[te] Creating buttons');
-        let buttons = [];
-        const name = getName().toLowerCase();
-        links.forEach(link => buttons.push(`<a href="${link.url.replace('%name%', name.toLowerCase())}">${link.name}</a>`));
-        //TODO buttonsWrapper.innerHTML += '<br /><div id="te-chatters">Chatters Loading...</div>'; //Creating panel for chatters
-        buttonsWrapper.innerHTML += buttons.join(' · ');
+        createMenu(channelInfo);
+        createLinks(channelInfo);
     }, 1000);
 });
 
+function createMenu(element) {
+    const menuWrapper = document.createElement('div');
+    element.appendChild(menuWrapper);
+    menuWrapper.id = 'te-menu-wrapper';
+    console.log('[te] Creating menu.');
+    const settingsButton = document.createElement('a');
+    settingsButton.href = '#';
+    settingsButton.textContent = 'Click here to open Twitch Enhancer settings.';
+    settingsButton.addEventListener('click', () => chrome.runtime.sendMessage({ action: 'settings' }));
+    menuWrapper.appendChild(settingsButton)
+}
+
+function createLinks(element) {
+    const buttonsWrapper = document.createElement('div');
+    element.appendChild(buttonsWrapper);
+    buttonsWrapper.id = 'te-buttons-wrapper';
+    buttonsWrapper.className = 'CoreText-sc-cpl358-0 ibBfde social-media-link-overflow';
+    console.log('[te] Creating buttons.');
+    let buttons = [];
+    const name = getName().toLowerCase();
+    links.forEach(link => buttons.push(`<a href="${link.url.replace('%name%', name.toLowerCase())}">${link.name}</a>`));
+    buttonsWrapper.innerHTML += buttons.join(' · ');
+}

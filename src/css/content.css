@@ -42,4 +42,12 @@
     color: #b4b4b4;
 }
 
+.viewer-badge {
+    width: 18px;
+    height: 18px;
+}
 
+#te-menu-wrapper {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
