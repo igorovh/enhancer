@@ -23,7 +23,6 @@ function load() {
         document.querySelector('#te-xayo-format').value = options.te_xayo_format;
         document.querySelector('#te-real-vod-time').checked = options.te_real_vod_time;
         document.querySelector('#te-viewer-badges').checked = options.te_viewer_badges;
-        updateTable();
     });
 }
 

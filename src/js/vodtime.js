@@ -17,15 +17,6 @@ function getId(link) {
 }
 
 async function getCreateTime(id) {
-    // const data = await fetch(`https://api.twitch.tv/v5/videos/${id}/comments`, {
-    //     headers: {
-    //         'Client-ID': 'kimne78kx3ncx6brgo4mv6wki5h1ko'
-    //     }
-    // });
-    // const json = await data.json();
-    // const message = json.comments[0];
-    // const createdDate = new Date(message.created_at);
-    // return new Date(createdDate.getTime() - (message.content_offset_seconds * 1000));
     const data = await fetch(`https://api.twitch.tv/kraken/videos/${id}`, {
         headers: {
             'Client-ID': 'kimne78kx3ncx6brgo4mv6wki5h1ko',

@@ -5,7 +5,7 @@ Click **[here](https://addons.mozilla.org/pl/firefox/addon/twitch-enhancer/)** t
 
 # Features
 
-## Enhanced user card:
+## Enhanced user card
 Now user card contains streamers that this user is watching and it allows you to see latest logs of him.
 
 *Currenlty it only supports xayo.pl but in the future it will take data from vislaud.com*

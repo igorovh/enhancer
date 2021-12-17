@@ -13,20 +13,25 @@ let blocklist = [
 ];
 
 
-const chatChecker = setInterval(async () => {
-    const newChatTarget = document.querySelector('.chat-scrollable-area__message-container');
-    if(!newChatTarget) return;
-    chatTarget = newChatTarget;
-    if(chatTarget.classList.contains('wic-injected')) return;
-    cache = [];
-    users = [];
-    startCache();
-    startUsers();
-    chatTarget.classList.add('wic-injected');
-    console.info('[te] Injecting chat observer...');
-    if(observer) observer.disconnect();
-    createObserver(chatTarget);
-}, 1000);
+chrome.storage.sync.get({
+    te_viewer_badges: true
+}, options => {
+    if(!options.te_viewer_badges) return;
+    const chatChecker = setInterval(async () => {
+        const newChatTarget = document.querySelector('.chat-scrollable-area__message-container');
+        if(!newChatTarget) return;
+        chatTarget = newChatTarget;
+        if(chatTarget.classList.contains('wic-injected')) return;
+        cache = [];
+        users = [];
+        startCache();
+        startUsers();
+        chatTarget.classList.add('wic-injected');
+        console.info('[te] Injecting chat observer...');
+        if(observer) observer.disconnect();
+        createObserver(chatTarget);
+    }, 1000);
+});
 
 function startCache() {
     if(cacheChecker) clearInterval(cacheChecker);
@@ -50,7 +55,7 @@ function startUsers() {
         const json = await data.json();
         json.forEach(cacheUser);
         tempUsers.forEach(tempUser => users = users.filter(user => user !== tempUser));
-    }, 1000 * 10);
+    }, 1000 * 5);
 }
 
 function cacheUser(user) {
