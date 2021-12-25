@@ -7,15 +7,27 @@
     <title>Enhancer for Twitch</title>
 </head>
 <body>
-    User card time format:<br />
+    <b>User card</b><br />
+    Time format:<br />
     <select name="te-xayo-format" id="te-xayo-format">
         <option value="full">Full (e.g. 1  week, 3 days, 3 hours, 7 min)</option>
         <option value="hour">Only hours (e.g. 350h)</option>
+    </select><br />
+    Service: <br />
+    <select name="te-xayo-service" id="te-xayo-service">
+        <option value="xayo">xayoo.pl (only polish community)</option>
+        <option value="vislaud">vislaud.com (all; beta)</option>
     </select>
     <hr>
+    <b>Past Broadcasts</b><br />
     Real video time: <input type="checkbox" id="te-real-vod-time"> 
     <hr>
-    Viewer Badges: <input type="checkbox" id="te-viewer-badges"> <br /><br />
+    <b>Chat</b><br />
+    Viewer Badges: <input type="checkbox" id="te-viewer-badges"> <br />
+    Group Badges: <input type="checkbox" id="te-group-badges"> <br />
+    Viewer Actions: <input type="checkbox" id="te-viewer-actions"> <br />
+    <a href= "chat.html" target="_blank">Click here to open advanced chat settings.</a><br />
+    <br />
     <button id="te-save-button">Save</button>
     <span id="te-save-info"></span>
     <script src="../js/options.js"></script>

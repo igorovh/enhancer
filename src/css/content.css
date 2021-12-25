@@ -51,3 +51,8 @@
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+.te-hidden-message {
+    color: rgb(190, 190, 190);
+    font-style: italic;
+}

@@ -9,20 +9,29 @@ function generateRandomEmoji() {
 function save() {
     chrome.storage.sync.set({
         te_xayo_format: document.querySelector('#te-xayo-format').value,
+        te_xayo_service: document.querySelector('#te-xayo-service').value,
         te_real_vod_time: document.querySelector('#te-real-vod-time').checked,
-        te_viewer_badges: document.querySelector('#te-viewer-badges').checked
+        te_viewer_badges: document.querySelector('#te-viewer-badges').checked,
+        te_group_badges: document.querySelector('#te-group-badges').checked,
+        te_viewer_actions: document.querySelector('#te-viewer-actions').checked
     }, () => document.querySelector('#te-save-info').textContent = ` Saved! ${generateRandomEmoji()}`);
 }
 
 function load() {
     chrome.storage.sync.get({
         te_xayo_format: 'full',
+        te_xayo_service: 'xayo',
         te_real_vod_time: true,
-        te_viewer_badges: true
+        te_viewer_badges: true,
+        te_group_badges: true,
+        te_viewer_actions: true
     }, options => {
         document.querySelector('#te-xayo-format').value = options.te_xayo_format;
+        document.querySelector('#te-xayo-service').value = options.te_xayo_service;
         document.querySelector('#te-real-vod-time').checked = options.te_real_vod_time;
         document.querySelector('#te-viewer-badges').checked = options.te_viewer_badges;
+        document.querySelector('#te-group-badges').checked = options.te_group_badges;
+        document.querySelector('#te-viewer-actions').checked = options.te_viewer_actions;
     });
 }
 
@@ -30,5 +39,3 @@ window.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#te-save-button').addEventListener('click', save);
     load();
 });
-
-//TODO Add everything in options

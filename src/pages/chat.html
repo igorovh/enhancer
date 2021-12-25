@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../js/chat_options.js"></script>
+    <title>Chat Settings | Twitch Enhancer</title>
+    <style>
+        table, td, th {
+            border: 1px solid #333;
+            text-align: center;
+        }
+        table img {
+            width: 24px;
+            height: 24px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Custom Icons</h1>
+    <form id="icons">
+        <table id="te-icons">
+            <tbody class="dont-delete">
+                <tr>
+                    <th>Streamer/Group Name</th>
+                    <th>Custom Icon Link</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td><input name="name" type="text"></td>
+                    <td><input name="icon" type="text"></td>
+                    <td><input type="button" value="Add" id="add-icon"></td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <h1>Viewer Actions</h1>
+    <form id="actions">
+        <table id="te-actions">
+            <tbody class="dont-delete">
+                <tr>
+                    <th>Streamer/Group Name</th>
+                    <th>Action</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td><input name="name" type="text"></td>
+                    <td>
+                        <select name="action">
+                            <option value="hide">Hide message</option>
+                            <option value="delete">Delete message</option>
+                        </select>
+                    </td>
+                    <td><input type="button" value="Add" id="add-action"></td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <h1>Current Groups:</h1>
+    <ul id="groups">
+    </ul>
+</body>
+</html>
