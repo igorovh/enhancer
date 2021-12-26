@@ -17,6 +17,7 @@ let blocklist = [
 
 let chatTarget;
 let chatObserver;
+let popup;
 
 let chatOptions;
 
@@ -46,6 +47,16 @@ chrome.storage.sync.get({
             users = [];
             startCache();
             startUsers();
+
+            let tempPopup = document.querySelector('#te-badge-popup');
+            if(tempPopup) tempPopup.remove();
+            popup = document.createElement('div');
+            popup.id = 'te-badge-popup';
+            document.body.appendChild(popup);
+            popup.innerHTML += '<img>';
+            popup.innerHTML += '<span></span>';
+            popup.classList.add('badge-popup-hidden');
+
             chatTarget.classList.add('wic-injected');
             console.info('[te] Injecting chat observer...');
             if(chatObserver) chatObserver.disconnect();
@@ -160,15 +171,36 @@ function addBadge(badge, badges) {
     };
     image.src = badge.badge;
     image.className = 'chat-badge viewer-badge ffz-badge';
-    image.title = `${badge.streamer} Viewer`;
+    image.setAttribute('streamer', badge.streamer);
+    image.addEventListener('mouseenter', showPopup, false);
+    image.addEventListener('mouseleave', hidePopup, false);
     badges.classList.remove(`te-${badge.name}-message-badges`);
 }
 
 function doAction(action, message, old = false) {
     if(action.action === 'hide') {
-        console.log('[te]', message.querySelector('[data-test-selector="chat-line-message-body"]'));
         const content = message.querySelector('[data-test-selector="chat-line-message-body"]') || message.querySelector('.message');
         content.innerHTML = `<span class="te-hidden-message">This message was hidden by Twitch Enhancer.</span>`
     }
     if(action.action === 'delete' && !old) message.remove();
+}
+
+function showPopup(event) {
+    if(popup.classList.contains('badge-popup-visible')) return;
+    const streamer = event.srcElement.getAttribute('streamer');
+    const img = popup.querySelector('img');
+    img.alt = streamer;
+    img.src = event.srcElement.src;
+    popup.querySelector('span').textContent = streamer;
+    let y = event.pageY - 50;
+    popup.style.top = (y < 0 ? 0 : y) + 'px';
+    popup.style.left = (event.pageX + 25) + 'px';
+    popup.classList.remove('badge-popup-hidden');
+    popup.classList.add('badge-popup-visible')
+}
+
+function hidePopup() {
+    if(popup.classList.contains('badge-popup-hidden')) return;
+    popup.classList.remove('badge-popup-visible');
+    popup.classList.add('badge-popup-hidden')
 }

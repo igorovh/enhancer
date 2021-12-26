@@ -56,3 +56,32 @@
     color: rgb(190, 190, 190);
     font-style: italic;
 }
+
+#te-badge-popup {
+    z-index: 100;
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100px;
+    height: 130px;
+    border-radius: 5px;
+    background: white;
+    color: black;
+    text-align: center;
+    font-weight: bold;
+    word-wrap: break-word;
+}
+
+#te-badge-popup img {
+    width: 80px;
+    height: 80px;
+    margin-top: 10px;
+}
+
+.badge-popup-visible {
+    display: block;
+}
+
+.badge-popup-hidden {
+    display: none;
+}
