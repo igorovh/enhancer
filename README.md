@@ -25,7 +25,7 @@ It adds most commonly used pages.
 
 
 
-## Viewers Badges (beta)
+## Viewers Badges
 This feature will take the most watched streamer of user and add his profile picture as badge in the chat.
 
 ![Viewers Badges](https://user-images.githubusercontent.com/37638480/146066598-cae5a047-6be1-48d0-865d-65d3fb1f5fc1.png)
