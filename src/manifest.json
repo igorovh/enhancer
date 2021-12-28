@@ -19,7 +19,7 @@
       "matches": ["*://www.twitch.tv/*"],
       "js": [
         "js/panel.js",
-        "js/card.js",
+        "js/usercard.js",
         "js/vodtime.js"
       ],
       "css": ["css/content.css"],
