@@ -2,11 +2,6 @@ let cardChecker;
 let timeFormat = 'full';
 let service = 'auto'
 let username = '';
-let data = {
-    current: {},
-    xayo: {},
-    vislaud: {}
-}
 
 async function getData(name) {
     return await new Promise((resolve, reject) => {
@@ -88,7 +83,6 @@ async function createWatchtime() {
             `;
         });
         watchtimeWrapper.innerHTML += `<div class="te-card-line">~ ${formatTime(json.time)}</div>`
-        watchtimeWrapper.innerHTML += `<div class="te-card-line"><a href="#" class="te-card-header" onclick="" >Click here to change to vislaud.com</a></div>`;
     }
     watchtimeWrapper.innerHTML += `<div class="te-card-line"><div class="te-card-separator"></div></div>`;
 }
