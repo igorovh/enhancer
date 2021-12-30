@@ -53,6 +53,6 @@ function createLinks(element) {
     console.log('[te] Creating buttons.');
     let buttons = [];
     const name = getName().toLowerCase();
-    links.forEach(link => buttons.push(`<a href="${link.url.replace('%name%', name.toLowerCase())}">${link.name}</a>`));
+    links.forEach(link => buttons.push(`<a target="_blank" href="${link.url.replace('%name%', name.toLowerCase())}">${link.name}</a>`));
     buttonsWrapper.innerHTML += buttons.join(' · ');
 }

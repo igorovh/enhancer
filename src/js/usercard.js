@@ -2,6 +2,11 @@ let cardChecker;
 let timeFormat = 'full';
 let service = 'auto'
 let username = '';
+let data = {
+    current: {},
+    xayo: {},
+    vislaud: {}
+}
 
 async function getData(name) {
     return await new Promise((resolve, reject) => {
@@ -47,7 +52,9 @@ window.addEventListener('DOMContentLoaded', () => {
             const element = document.querySelector('.viewer-card');
             if(!element) return;
             if(document.querySelector('#te-card-wrapper')) return;
-            username = element.getElementsByClassName('ScCoreLink-sc-udwpw5-0 AKPzc tw-link')[0]?.textContent.toLowerCase();
+            username = element.getElementsByClassName('ScCoreLink-sc-udwpw5-0 AKPzc tw-link')[0]?.textContent.toLowerCase() || 
+                element.getElementsByClassName('ScCoreLink-sc-udwpw5-0 itEAmU tw-link')[0]?.textContent.toLowerCase();
+            if(username.includes('(')) username = username.substring(username.indexOf('(') + 1, username.indexOf(')'));
             const cardWrapper = document.createElement('div');
             cardWrapper.id = 'te-card-wrapper';
             element.insertBefore(cardWrapper, element.children[1]);
@@ -81,6 +88,7 @@ async function createWatchtime() {
             `;
         });
         watchtimeWrapper.innerHTML += `<div class="te-card-line">~ ${formatTime(json.time)}</div>`
+        watchtimeWrapper.innerHTML += `<div class="te-card-line"><a href="#" class="te-card-header" onclick="" >Click here to change to vislaud.com</a></div>`;
     }
     watchtimeWrapper.innerHTML += `<div class="te-card-line"><div class="te-card-separator"></div></div>`;
 }

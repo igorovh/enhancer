@@ -17,7 +17,6 @@ let blocklist = [
 
 let chatTarget;
 let chatObserver;
-let popup;
 
 let chatOptions;
 
@@ -47,16 +46,6 @@ chrome.storage.sync.get({
             users = [];
             startCache();
             startUsers();
-
-            let tempPopup = document.querySelector('#te-badge-popup');
-            if(tempPopup) tempPopup.remove();
-            popup = document.createElement('div');
-            popup.id = 'te-badge-popup';
-            document.body.appendChild(popup);
-            popup.innerHTML += '<img>';
-            popup.innerHTML += '<span></span>';
-            popup.classList.add('badge-popup-hidden');
-
             chatTarget.classList.add('wic-injected');
             console.info('[te] Injecting chat observer...');
             if(chatObserver) chatObserver.disconnect();
@@ -82,7 +71,7 @@ function createObserver(chatTarget) {
 function checkMessage(element) {
     let name = element.querySelector('.chat-line__username')?.textContent.toLowerCase();
     if(!name) return;
-    if(name.includes('(')) name = name.split('(', ')')[1];
+    if(name.includes('(')) name = name.substring(name.indexOf('(') + 1, name.indexOf(')'));
     if(blocklist.includes(name)) return;
     element.classList.add(`te-${name}-message`)
     const badges = element.querySelector('.chat-line__username-container')?.children[0] || element.querySelector('.chat-line__message--badges');
@@ -186,21 +175,21 @@ function doAction(action, message, old = false) {
 }
 
 function showPopup(event) {
-    if(popup.classList.contains('badge-popup-visible')) return;
+    let popup = document.querySelector('#te-badge-popup');
+    if(popup) popup.remove();
+    popup = document.createElement('div');
+    popup.id = 'te-badge-popup';
     const streamer = event.srcElement.getAttribute('streamer');
-    const img = popup.querySelector('img');
-    img.alt = streamer;
-    img.src = event.srcElement.src;
-    popup.querySelector('span').textContent = streamer;
+    popup.innerHTML += `<img src="${event.srcElement.src}" alt="${streamer}">`;
+    popup.innerHTML += `<span>${streamer}</span>`;
     let y = event.pageY - 50;
     popup.style.top = (y < 0 ? 0 : y) + 'px';
     popup.style.left = (event.pageX + 25) + 'px';
-    popup.classList.remove('badge-popup-hidden');
-    popup.classList.add('badge-popup-visible')
+    document.body.appendChild(popup);
 }
 
 function hidePopup() {
-    if(popup.classList.contains('badge-popup-hidden')) return;
-    popup.classList.remove('badge-popup-visible');
-    popup.classList.add('badge-popup-hidden')
+    const popup = document.querySelector('#te-badge-popup');
+    if(!popup) return;
+    popup.remove();
 }

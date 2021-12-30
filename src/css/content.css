@@ -58,7 +58,7 @@
 }
 
 #te-badge-popup {
-    z-index: 100;
+    z-index: 1337;
     position: absolute;
     left: 0;
     right: 0;
@@ -76,12 +76,4 @@
     width: 80px;
     height: 80px;
     margin-top: 10px;
-}
-
-.badge-popup-visible {
-    display: block;
-}
-
-.badge-popup-hidden {
-    display: none;
 }
