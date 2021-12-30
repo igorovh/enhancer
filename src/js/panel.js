@@ -19,7 +19,7 @@ function getName() {
     let url = window.location.href.replace(/(^\w+:|^)\/\//, '');
     const elements = url.split('/');
     let name = elements[1];
-    if(name === 'popout') return elements[2];
+    if(name === 'popout' || elements[0].includes('dashboard')) return elements[2];
     return name;
 }
 

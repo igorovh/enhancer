@@ -1,6 +1,6 @@
 {
   "name": "Twitch Enhancer",
-  "version": "2.3.3",
+  "version": "2.3.4",
   "description": "Enhances Twitch.TV",
   "manifest_version": 2,
   "permissions": [
@@ -16,7 +16,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["*://www.twitch.tv/*"],
+      "matches": ["*://www.twitch.tv/*", "*://dashboard.twitch.tv/*"],
       "js": [
         "js/panel.js",
         "js/usercard.js",
@@ -27,7 +27,7 @@
       "all_frames": true
     },
     {
-      "matches": ["*://www.twitch.tv/*"],
+      "matches": ["*://www.twitch.tv/*", "*://dashboard.twitch.tv/*"],
       "js": [
         "js/chat.js"
       ],
