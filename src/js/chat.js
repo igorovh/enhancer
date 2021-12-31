@@ -3,6 +3,12 @@ let cache = [];
 let usersChecker, cacheChecker;
 
 let groups = [];
+let honors = [
+    {
+        name: 'czarny_animekkk1337',
+        description: 'for nothing'
+    }
+]
 
 let customIcons = [];
 let actions = [];
@@ -69,13 +75,16 @@ function createObserver(chatTarget) {
 
 
 function checkMessage(element) {
-    let name = element.querySelector('.chat-line__username')?.textContent.toLowerCase();
+    let nameElement = element.querySelector('.chat-line__username');
+    if(!nameElement) return;
+    const name = nameElement.textContent.toLowerCase();
     if(!name) return;
     if(name.includes('(')) name = name.substring(name.indexOf('(') + 1, name.indexOf(')'));
     if(blocklist.includes(name)) return;
     element.classList.add(`te-${name}-message`)
     const badges = element.querySelector('.chat-line__username-container')?.children[0] || element.querySelector('.chat-line__message--badges');
     if(!badges) return;
+    checkHonor(name, nameElement);
     badges.classList.add(`te-${name}-message-badges`);
     const cacheUser = cache.find(user => user.name === name);
     if(cacheUser) {
@@ -192,4 +201,9 @@ function hidePopup() {
     const popup = document.querySelector('#te-badge-popup');
     if(!popup) return;
     popup.remove();
+}
+
+function checkHonor(name, element) {
+    const color = element.style.color || element.parentElement.style.color;
+    element.style.textShadow = `${color} 1px 0 10px`;
 }
