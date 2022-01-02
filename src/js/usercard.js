@@ -3,6 +3,24 @@ let timeFormat = 'full';
 let service = 'auto'
 let username = '';
 
+const honors = [
+    {
+        type: 'permanent',
+        name: 'nylon',
+        description: "Creating <a href=\"https://vislaud.com\">vislaud.com</a> and <a href=\"https://xayo.pl\">xayo.pl</a>."
+    },
+    {
+        type: 'permanent',
+        name: 'lewus',
+        description: "Promoting this extension."
+    },
+    {
+        type: 'temporary',
+        name: 'czarny_animekkk1337',
+        description: "For nothing"
+    }
+]
+
 async function getData(name) {
     return await new Promise((resolve, reject) => {
         chrome.runtime.sendMessage({ action: 'checkUser', service, name }, response => resolve(response));
@@ -53,19 +71,24 @@ window.addEventListener('DOMContentLoaded', () => {
             const cardWrapper = document.createElement('div');
             cardWrapper.id = 'te-card-wrapper';
             element.insertBefore(cardWrapper, element.children[1]);
-            await createWatchtime();
-            await createKonfident();
+            createWatchtime();
+            createHonors();
+            createKonfident();
         }, 1000);
     });
 });
 
 async function createWatchtime() {
     const wrapper = document.querySelector('#te-card-wrapper');
-    const watchtimeWrapper = document.createElement('div');
+    let watchtimeWrapper = document.createElement('div');
+    watchtimeWrapper.id = 'te-card-watchtime';
     wrapper.appendChild(watchtimeWrapper);
     watchtimeWrapper.innerHTML += `<div id="te-watchtime-loading" class="te-card-line">Loading...</div>`;
-    const json = await getData(username, 'xayo');
-    document.querySelector('#te-watchtime-loading').remove();
+    watchtimeWrapper.innerHTML += `<div class="te-card-line"><div class="te-card-separator"></div></div>`;
+    const json = await getData(username);
+    watchtimeWrapper = document.getElementById('te-card-watchtime'); // XD?
+    watchtimeWrapper.innerHTML = '';
+    console.info('[te]', 'Data downloaded (usercard).');
     if(json.error || json.watchtimes.length < 1) {
         watchtimeWrapper.innerHTML += `<div class="te-card-line">An error occurred, please try again later.</div>`;
         watchtimeWrapper.innerHTML += `<div class="te-card-line">You still can check him manually on these pages:</div>`;
@@ -85,6 +108,19 @@ async function createWatchtime() {
         watchtimeWrapper.innerHTML += `<div class="te-card-line">~ ${formatTime(json.time)}</div>`
     }
     watchtimeWrapper.innerHTML += `<div class="te-card-line"><div class="te-card-separator"></div></div>`;
+}
+
+async function createHonors() {
+    const honor = honors.find(honor => honor.name.toLowerCase() === username);
+    if(!honor) return;
+    const wrapper = document.querySelector('#te-card-wrapper');
+    wrapper.innerHTML += `
+        <div id="te-card-honor">
+            ${honor.type === 'permanent' ? '<div class="te-card-line" style="font-weight: bold; font-size: 10px;">THANKS, FOR:</div>' : ''}
+            ${honor.description}
+            <div class="te-card-line"><div class="te-card-separator"></div></div>
+        </div>
+    `;
 }
 
 async function createKonfident() {

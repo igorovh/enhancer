@@ -1,6 +1,6 @@
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     if(msg.action === 'checkUser') {
-        console.log(`Checking user ${msg.name}...`);
+        console.log(`Checking user ${msg.name} by ${msg.service}...`);
         if(msg.service === 'auto') {
             getAuto(msg.name).then(sendResponse);
         } else if(msg.service === 'xayo') {

@@ -3,12 +3,6 @@ let cache = [];
 let usersChecker, cacheChecker;
 
 let groups = [];
-let honors = [
-    {
-        name: 'czarny_animekkk1337',
-        description: 'for nothing'
-    }
-]
 
 let customIcons = [];
 let actions = [];
@@ -204,6 +198,7 @@ function hidePopup() {
 }
 
 function checkHonor(name, element) {
-    const color = element.style.color || element.parentElement.style.color;
-    element.style.textShadow = `${color} 1px 0 10px`;
+    if(!honors.find(honor => honor.name.toLowerCase() === name.toLowerCase())) return; //usercard.js
+    const color = element.style.color;
+    element.style.textShadow = `${color} 0 0 10px`;
 }
