@@ -3,23 +3,7 @@ let timeFormat = 'full';
 let service = 'auto'
 let username = '';
 
-const honors = [
-    {
-        type: 'permanent',
-        name: 'nylon',
-        description: "Creating <a href=\"https://vislaud.com\">vislaud.com</a> and <a href=\"https://xayo.pl\">xayo.pl</a>."
-    },
-    {
-        type: 'permanent',
-        name: 'lewus',
-        description: "Promoting this extension."
-    },
-    {
-        type: 'temporary',
-        name: 'czarny_animekkk1337',
-        description: "For nothing"
-    }
-]
+let honors = [];
 
 async function getData(name) {
     return await new Promise((resolve, reject) => {
@@ -54,7 +38,10 @@ function formatTime(seconds) {
     }
 }
 
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', async () => {
+    const data = await fetch(`http://localhost:7773/honors?name=${getName()}`); //panel.js
+    honors = await data.json();
+    console.info('[te]', `Loaded ${honors.length} honors.`);
     chrome.storage.sync.get({
         te_xayo_format: 'full',
         te_xayo_service: 'auto'
