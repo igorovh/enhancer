@@ -39,7 +39,7 @@ function formatTime(seconds) {
 }
 
 window.addEventListener('DOMContentLoaded', async () => {
-    const data = await fetch(`http://localhost:7773/honors?name=${getName()}`); //panel.js
+    const data = await fetch(`https://teapi.vopp.top/honors?name=${getName()}`); //panel.js
     honors = await data.json();
     console.info('[te]', `Loaded ${honors.length} honors.`);
     chrome.storage.sync.get({
