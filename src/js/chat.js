@@ -71,7 +71,7 @@ function createObserver(chatTarget) {
 function checkMessage(element) {
     let nameElement = element.querySelector('.chat-line__username');
     if(!nameElement) return;
-    const name = nameElement.textContent.toLowerCase();
+    let name = nameElement.textContent.toLowerCase();
     if(!name) return;
     if(name.includes('(')) name = name.substring(name.indexOf('(') + 1, name.indexOf(')'));
     if(blocklist.includes(name)) return;
@@ -188,7 +188,7 @@ function showPopup(event) {
     let y = event.pageY - 50;
     popup.style.top = (y < 0 ? 0 : y) + 'px';
     popup.style.left = (event.pageX + 25) + 'px';
-    document.body.appendChild(popup);
+    document.getElementById('root').children[0].appendChild(popup);
 }
 
 function hidePopup() {
