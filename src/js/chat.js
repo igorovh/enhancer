@@ -104,12 +104,11 @@ function startUsers() {
     if(usersChecker) clearInterval(usersChecker);
     usersChecker = setInterval(async () => {
         if(users.length < 1) return;
-        const tempUsers = users.slice();
-        tempUsers.length = 100;
+        const tempUsers = users.slice(0, 100);
         const usersString = tempUsers.join(',');
         console.info(`[te] Found ${users.length} new viewers.`);
         users = [];
-        const data = await fetch(`https://vislaud.com/api/chatters?logins=${usersString}`);
+        const data = await fetch(`https://teapi.vopp.top/chat/${usersString}`);
         const json = await data.json();
         json.forEach(cacheUser);
         tempUsers.forEach(tempUser => users = users.filter(user => user !== tempUser));

@@ -63,7 +63,7 @@
     left: 0;
     right: 0;
     width: 100px;
-    height: 130px;
+    height: max-content;
     border-radius: 5px;
     background: white;
     color: black;
