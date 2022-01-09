@@ -21,10 +21,13 @@ window.addEventListener('DOMContentLoaded', () => {
         const currGroups = document.querySelector('#groups');
         groups.forEach(group => {
             currGroups.innerHTML += `
-            <li style="margin: 5px 0;">
-                <img src="${group.icon}" alt="${group.name}" width="30px" style="margin: -5px 0;">
-                <span style="font-size: 20px;"><strong>${group.name}: </strong>${group.streamers.join(', ')}.</span>
-            </li>
+            <div class="group">
+                <div class="group__card">
+                    <div class="group__name">${group.name}</div>
+                    <img src="${group.icon}" alt="${group.name}" class="group__image">
+                </div>
+                <div class="group__members">${group.streamers.join(', ')}.</div>
+            </div>
         `
         });
     });
@@ -37,21 +40,31 @@ function updateTable() {
     const iconsTable = document.getElementById('te-icons');
     icons.forEach(icon => {
         iconsTable.innerHTML += `
-        <tr>
-            <td>${icon.name}</td>
-            <td><img src="${icon.icon}" title="${icon.name} Viewer"></td>
-            <td><input type="button" value="Remove" streamer="${icon.name}" class="remove-icon"></td>
-        </tr>
+        <tbody class="row">
+            <tr>
+                <td><div class="td__inner">${icon.name}</div></td>
+                <td><div class="td__inner"><img class="custom--icon__img" src="${icon.icon}" title="${icon.name} Viewer"></div></td>
+                <td><div class="td__inner"><button value="Remove" streamer="${icon.name}" class="remove-icon"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="-8.5 -7.5 30 30">
+                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+              </svg>
+            <span style="margin-right:10px">Remove</span></button></div></td>
+            </tr>
+        </tbody>
         `
     });
     const actionsTable = document.getElementById('te-actions');
     actions.forEach(action => {
         actionsTable.innerHTML += `
-        <tr>
-            <td>${action.name}</td>
-            <td>${actionsText[action.action]}</td>
-            <td><input type="button" value="Remove" streamer="${action.name}" class="remove-action"></td>
-        </tr>
+        <tbody class="row">
+            <tr>
+                <td><div class="td__inner">${action.name}</div></td>
+                <td><div class="td__inner">${actionsText[action.action]}</div></td>
+                <td><div class="td__inner"><button value="Remove" streamer="${action.name}" class="remove-action"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="-8.5 -7.5 30 30">
+                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+              </svg>
+            <span style="margin-right:10px">Remove</span></button></div></td>
+            </tr>
+        </tbody>
         `
     });
     document.querySelectorAll('.remove-icon').forEach(button => button.addEventListener('click', removeIcon, false));
@@ -100,3 +113,8 @@ function removeAction(evt) {
     actions = actions.filter(action => action.name.toLowerCase() !== evt.currentTarget.getAttribute('streamer'));
     save();
 }
+
+const data = await fetch('../manifest.json').then(data => data.json()).then(data => {
+    const { version } = data;
+    document.querySelector("#version").textContent = `v${version}`;
+});
