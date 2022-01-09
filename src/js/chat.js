@@ -116,7 +116,7 @@ function startUsers() {
 }
 
 function cacheUser(user) {
-    if(user.watchtimes.length > 1) {
+    if(user.watchtimes.length > 0) {
         user.watchtimes.sort((a, b) => {
             return b.watchtime - a.watchtime;
         });
