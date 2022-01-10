@@ -15,7 +15,13 @@ function save() {
         te_group_badges: document.querySelector('#te-group-badges').checked,
         te_viewer_actions: document.querySelector('#te-viewer-actions').checked,
         te_xayo_service: document.querySelector('#te-xayo-service').value
-    }, () => document.querySelector('#te-save-info').textContent = ` Saved! ${generateRandomEmoji()}`);
+    }, () => {
+        const button = document.querySelector('#te-save-button');
+        button.textContent = `Saved! ${generateRandomEmoji()}`;
+        setTimeout(() =>{
+            button.textContent = `Save`;
+        }, 1500);
+    });
 }
 
 function load() {
