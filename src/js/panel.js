@@ -18,6 +18,10 @@ const links = [
         url: 'https://emotes.vopp.top/?name=%name%'
     },
     {
+        name: 'vislaud.com',
+        url: 'https://vislaud.com/%name%'
+    },
+    {
         name: 'xayo.pl',
         url: 'https://xayo.pl/%name%'
     }
