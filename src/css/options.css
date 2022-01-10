@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400&display=swap');
+:root{
+    --primary-color: rgb(24 24 24);
+    --secondary-color: rgb(20 20 20);
+    --purple-text-color: rgb(169, 112, 255);
+}
+::-webkit-scrollbar{
+    display: none;
+}
+html, body{
+    box-sizing: border-box;
+    padding: 0;
+    margin: .5em;
+    background-color: var(--primary-color);
+    color: white;
+    font-family: Sora, sans-serif;
+}
+body{
+    width: 400px;
+    height: 540px;
+}
+h3{
+    color: white;
+}
+#header{
+    font-size: 2em;
+    color: var(--purple-text-color);
+    background-color: var(--secondary-color);
+    padding: 1.5em;
+    text-align: center;
+    margin-bottom: .5em;
+}
+.option{
+    margin-bottom: 1em;
+}
+.bottom__options{
+    display: flex;
+}
+.option__description{
+    color: var(--purple-text-color);
+    font-size: 1em;
+}
+#pastbroadcasts__options{
+    width: 100%;
+    background-color: var(--secondary-color);
+    margin-right: 1em;
+    padding: 1em;
+}
+#chat__options{
+    width: 100%;
+    background-color: var(--secondary-color);
+    padding: 1em;
+}
+.bottom__option{
+    font-size: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1em;
+}
+#bottom__buttons{
+    display: flex;
+    justify-content: space-between;
+}
+button{
+    display: flex;
+    justify-content: center;
+    background: rgba(0, 0, 0, .2);
+    border: none !important;
+    color: white !important;
+    border-radius: 0.5em !important;
+    cursor: pointer;
+    transition: .1s;
+    padding: 1.5em;
+    background-image: none !important;
+    box-shadow: none !important;
+    padding-inline-end: 18px !important;
+    padding-inline-start: 18px !important;
+    min-height: 4em !important;
+}
+button:hover{
+    background: rgb(30 30 30);
+}
+select{
+    padding: 1em;
+    background-color: var(--secondary-color);
+    border: none;
+    color: white;
+    border-radius: 0.5em;
+    width: 100%;
+    background-image: none !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+}
+select:hover{
+    color: white !important;
+}
+input[type=checkbox]{
+	height: 0;
+	width: 0;
+	visibility: hidden;
+}
+
+label {
+	cursor: pointer;
+	text-indent: -9999px;
+	width: 25px;
+	height: 15px;
+	background: grey;
+	display: block;
+	border-radius: 100px;
+	position: relative;
+}
+
+label:after {
+	content: '';
+	position: absolute;
+	top: 1px;
+	left: 1px;
+	width: 13px;
+	height: 13px;
+	background: #fff;
+	border-radius: 90px;
+	transition: 0.3s;
+}
+
+input:checked + label {
+	background: var(--purple-text-color);
+}
+
+input:checked + label:after {
+	left: calc(100%);
+	transform: translateX(-100%);
+}
+
+label:active:after {
+	width: 10px;
+}
