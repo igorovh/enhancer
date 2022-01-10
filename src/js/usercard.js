@@ -104,7 +104,7 @@ async function createHonors() {
     wrapper.innerHTML += `
         <div id="te-card-honor">
             ${honor.type === 'permanent' ? '<div class="te-card-line" style="font-weight: bold; font-size: 10px;">THANKS, FOR:</div>' : ''}
-            ${honor.description}
+            <div class="te-card-line">${honor.description}</div>
             <div class="te-card-line"><div class="te-card-separator"></div></div>
         </div>
     `;
