@@ -28,7 +28,9 @@ window.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <div class="group__members">${group.streamers.join(', ')}.</div>
             </div>
-        `
+        `;
+        if(!browser) var browser = chrome;
+        document.querySelector("#version").textContent = `v${browser.runtime.getManifest().version}`;
         });
     });
 });
@@ -113,8 +115,3 @@ function removeAction(evt) {
     actions = actions.filter(action => action.name.toLowerCase() !== evt.currentTarget.getAttribute('streamer'));
     save();
 }
-
-const data = await fetch('../manifest.json').then(data => data.json()).then(data => {
-    const { version } = data;
-    document.querySelector("#version").textContent = `v${version}`;
-});
