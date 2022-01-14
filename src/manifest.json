@@ -18,6 +18,7 @@
     {
       "matches": ["*://www.twitch.tv/*", "*://dashboard.twitch.tv/*"],
       "js": [
+        "js/utils/database.js",
         "js/panel.js",
         "js/usercard.js",
         "js/vodtime.js"

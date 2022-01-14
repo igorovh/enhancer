@@ -1,6 +1,5 @@
 let users = [];
-let cache = [];
-let usersChecker, cacheChecker;
+let usersChecker;
 
 let groups = [];
 
@@ -42,9 +41,7 @@ chrome.storage.sync.get({
             if(!newChatTarget) return;
             chatTarget = newChatTarget;
             if(chatTarget.classList.contains('wic-injected')) return;
-            cache = [];
             users = [];
-            startCache();
             startUsers();
             chatTarget.classList.add('wic-injected');
             console.info('[te] Injecting chat observer...');
@@ -55,7 +52,7 @@ chrome.storage.sync.get({
 });
 
 function createObserver(chatTarget) {
-    const callback = function(mutationList, observer) {
+    const callback = (mutationList, observer) => {
         for(const mutation of mutationList) {
             if(mutation.type === 'childList' && mutation.addedNodes) {
                 for(const element of mutation.addedNodes) checkMessage(element)
@@ -63,12 +60,12 @@ function createObserver(chatTarget) {
         }
     }
     chatObserver = new MutationObserver(callback);
-    chatObserver.observe(chatTarget, {attributes: true, childList: true});
+    chatObserver.observe(chatTarget, { attributes: true, childList: true });
     console.info(`[te] Chat observer has been started.`)
 }
 
 
-function checkMessage(element) {
+async function checkMessage(element) {
     let nameElement = element.querySelector('.chat-line__username');
     if(!nameElement) return;
     let name = nameElement.textContent.toLowerCase();
@@ -80,24 +77,15 @@ function checkMessage(element) {
     if(!badges) return;
     checkHonor(name, nameElement);
     badges.classList.add(`te-${name}-message-badges`);
-    const cacheUser = cache.find(user => user.name === name);
-    if(cacheUser) {
+    const cacheUser = await getUser(name);
+    if(cacheUser && !cacheUser.error) {
         cacheUser.ttl = 600;
         if(actions.length > 0) {
-            const action = actions.find(action => action.name.toLowerCase() === cacheUser.streamer.toLowerCase());
+            const action = actions.find(action => action.name.toLowerCase() === cacheUser.streamer.streamer.toLowerCase());
             if(action) doAction(action, element);
         }
         if(chatOptions.te_viewer_badges || chatOptions.te_group_badges) addBadge(cacheUser, badges);
-    } else addUser(name);
-}
-
-function startCache() {
-    if(cacheChecker) clearInterval(cacheChecker);
-    cacheChecker = setInterval(() => {
-        cache.forEach(user => user.ttl = user.ttl - 10);
-        cache = cache.filter(user => user.ttl > 0);
-        console.info(`[te] Current cached users: ${cache.length}`);
-    }, 1000 * 10);
+    } else checkUser(name);
 }
 
 function startUsers() {
@@ -123,33 +111,34 @@ function cacheUser(user) {
         const streamer = user.watchtimes[0].streamer;
         const dataUser = {
             name: user.login,
-            streamer: streamer.displayName,
-            badge: streamer.profileImageUrl,
-            ttl: 600
+            streamer: {
+                streamer: streamer.displayName,
+                badge: streamer.profileImageUrl
+            }
         };
+        addUser(dataUser);
         if(groups.length > 0) {
-            const group = groups.find(group => group.streamers.includes(dataUser.streamer.toLowerCase()));
+            const group = groups.find(group => group.streamers.includes(dataUser.streamer.streamer.toLowerCase()));
             if(group) {
-                dataUser.streamer = group.name;
-                dataUser.badge = group.icon;
+                dataUser.streamer.streamer = group.name;
+                dataUser.streamer.badge = group.icon;
             }
         }
         if(customIcons.length > 0) {
-            const custom = customIcons.find(icon => icon.name.toLowerCase() === dataUser.streamer.toLowerCase());
-            if(custom) dataUser.badge = custom.icon;
+            const custom = customIcons.find(icon => icon.name.toLowerCase() === dataUser.streamer.streamer.toLowerCase());
+            if(custom) dataUser.streamer.badge = custom.icon;
         }
         if(actions.length > 0) {
-            const action = actions.find(action => action.name.toLowerCase() === dataUser.streamer.toLowerCase());
+            const action = actions.find(action => action.name.toLowerCase() === dataUser.streamer.streamer.toLowerCase());
             if(action) chatTarget.querySelectorAll(`.te-${dataUser.name}-message`).forEach(messagesWrapper => doAction(action, messagesWrapper));
         }
-        cache.push(dataUser);
         if(chatOptions.te_viewer_badges || chatOptions.te_group_badges) {
             chatTarget.querySelectorAll(`.te-${dataUser.name}-message-badges`).forEach(badgesWrapper => addBadge(dataUser, badgesWrapper));
         }
     }
 }
 
-function addUser(name) {
+function checkUser(name) {
     if(users.includes(name)) return;
     users.push(name);
 }
@@ -160,9 +149,9 @@ function addBadge(badge, badges) {
         if(badges.children.length < 1) badges.appendChild(image);
         else badges.insertBefore(image, badges.children[0]);
     };
-    image.src = badge.badge;
+    image.src = badge.streamer.badge;
     image.className = 'chat-badge viewer-badge ffz-badge';
-    image.setAttribute('streamer', badge.streamer);
+    image.setAttribute('streamer', badge.streamer.streamer);
     image.addEventListener('mouseenter', showPopup, false);
     image.addEventListener('mouseleave', hidePopup, false);
     badges.classList.remove(`te-${badge.name}-message-badges`);
