@@ -47,9 +47,17 @@ chrome.storage.sync.get({
             console.info('[te] Injecting chat observer...');
             if(chatObserver) chatObserver.disconnect();
             createObserver(chatTarget);
+            getCurrentChatters();
         }, 1000);
     }
 });
+
+async function getCurrentChatters() {
+    const data = await fetch(`https://teapi.vopp.top/chatters/${getName()}`);
+    const json = await data.json();
+    for(const user of json) cacheUser(user)
+    console.log(`[te] Cached ${json.length} chatters.`);
+}
 
 function createObserver(chatTarget) {
     const callback = (mutationList, observer) => {
@@ -96,7 +104,7 @@ function startUsers() {
         const usersString = tempUsers.join(',');
         console.info(`[te] Found ${users.length} new viewers.`);
         users = [];
-        const data = await fetch(`https://teapi.vopp.top/chat/${usersString}?name=${getName()}`); // TODO Fix if url contains "?""
+        const data = await fetch(`https://teapi.vopp.top/chat/${usersString}?channel=${getName()}`);
         const json = await data.json();
         json.forEach(cacheUser);
         tempUsers.forEach(tempUser => users = users.filter(user => user !== tempUser));
