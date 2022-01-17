@@ -1,6 +1,6 @@
 {
   "name": "Twitch Enhancer",
-  "version": "2.3.10",
+  "version": "2.3.11",
   "description": "Enhances Twitch.TV",
   "manifest_version": 2,
   "permissions": [

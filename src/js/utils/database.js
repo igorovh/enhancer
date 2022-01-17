@@ -20,7 +20,6 @@ request.onsuccess = () => {
       .openCursor(range).onsuccess = (e) => {
         const cursor = e.target.result;
         if (!cursor) return;
-        removed++;
         cursor.delete();
         cursor.continue();
     };

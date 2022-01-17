@@ -96,7 +96,7 @@ function startUsers() {
         const usersString = tempUsers.join(',');
         console.info(`[te] Found ${users.length} new viewers.`);
         users = [];
-        const data = await fetch(`https://teapi.vopp.top/chat/${usersString}`);
+        const data = await fetch(`https://teapi.vopp.top/chat/${usersString}?name=${getName()}`); // TODO Fix if url contains "?""
         const json = await data.json();
         json.forEach(cacheUser);
         tempUsers.forEach(tempUser => users = users.filter(user => user !== tempUser));
