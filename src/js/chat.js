@@ -53,6 +53,7 @@ chrome.storage.sync.get({
 });
 
 async function getCurrentChatters() {
+    console.log(`[te] Trying to load chatters.`);
     const data = await fetch(`https://teapi.vopp.top/chatters/${getName()}`);
     const json = await data.json();
     for(const user of json) cacheUser(user)
@@ -87,12 +88,25 @@ async function checkMessage(element) {
     badges.classList.add(`te-${name}-message-badges`);
     const cacheUser = await getUser(name);
     if(cacheUser && !cacheUser.error) {
-        cacheUser.ttl = 600;
+        cacheUser.type = 'normal';
+        if(groups.length > 0 && chatOptions.te_group_badges) {
+            const group = groups.find(group => group.streamers.includes(cacheUser.streamer.streamer.toLowerCase()));
+            if(group) {
+                cacheUser.streamer.streamer = group.name;
+                cacheUser.streamer.badge = group.icon;
+                cacheUser.type = 'group';
+            }
+        }
+        if(customIcons.length > 0) {
+            const custom = customIcons.find(icon => icon.name.toLowerCase() === cacheUser.streamer.streamer.toLowerCase());
+            if(custom) cacheUser.streamer.badge = custom.icon;
+        }
         if(actions.length > 0) {
             const action = actions.find(action => action.name.toLowerCase() === cacheUser.streamer.streamer.toLowerCase());
             if(action) doAction(action, element);
         }
-        if(chatOptions.te_viewer_badges || chatOptions.te_group_badges) addBadge(cacheUser, badges);
+        if(chatOptions.te_group_badges && !chatOptions.te_viewer_badges && cacheUser.type === 'group') addBadge(cacheUser, badges);
+        else if(chatOptions.te_viewer_badges) addBadge(cacheUser, badges);
     } else checkUser(name);
 }
 
@@ -125,24 +139,26 @@ function cacheUser(user) {
             }
         };
         addUser(dataUser);
-        if(groups.length > 0) {
+        if(actions.length > 0) {
+            const action = actions.find(action => action.name.toLowerCase() === dataUser.streamer.streamer.toLowerCase());
+            if(action) chatTarget.querySelectorAll(`.te-${dataUser.name}-message`).forEach(messagesWrapper => doAction(action, messagesWrapper));
+        }
+        dataUser.type = 'normal';
+        if(groups.length > 0 && chatOptions.te_group_badges) {
             const group = groups.find(group => group.streamers.includes(dataUser.streamer.streamer.toLowerCase()));
             if(group) {
                 dataUser.streamer.streamer = group.name;
                 dataUser.streamer.badge = group.icon;
+                dataUser.type = 'group';
             }
         }
         if(customIcons.length > 0) {
             const custom = customIcons.find(icon => icon.name.toLowerCase() === dataUser.streamer.streamer.toLowerCase());
             if(custom) dataUser.streamer.badge = custom.icon;
         }
-        if(actions.length > 0) {
-            const action = actions.find(action => action.name.toLowerCase() === dataUser.streamer.streamer.toLowerCase());
-            if(action) chatTarget.querySelectorAll(`.te-${dataUser.name}-message`).forEach(messagesWrapper => doAction(action, messagesWrapper));
-        }
-        if(chatOptions.te_viewer_badges || chatOptions.te_group_badges) {
+        if(chatOptions.te_group_badges && !chatOptions.te_viewer_badges && dataUser.type === 'group') {
             chatTarget.querySelectorAll(`.te-${dataUser.name}-message-badges`).forEach(badgesWrapper => addBadge(dataUser, badgesWrapper));
-        }
+        } else if(chatOptions.te_viewer_badges) chatTarget.querySelectorAll(`.te-${dataUser.name}-message-badges`).forEach(badgesWrapper => addBadge(dataUser, badgesWrapper));
     }
 }
 
