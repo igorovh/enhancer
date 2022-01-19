@@ -150,7 +150,7 @@ function selectTab() {
 function appendListeners(){
     ;[
         document.querySelector('#te-xayo-format-full'),
-        document.querySelector('#te-xayo-format-hours'),
+        document.querySelector('#te-xayo-format-hour'),
         document.querySelector('#te-xayo-service-auto'),
         document.querySelector('#te-xayo-service-xayo'),
         document.querySelector('#te-xayo-service-vislaud'),
