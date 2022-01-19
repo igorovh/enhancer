@@ -1,1 +1,3 @@
-chrome.runtime.openOptionsPage();
+chrome.tabs.create({
+    url: "./pages/options.html"
+});

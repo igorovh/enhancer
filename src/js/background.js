@@ -10,7 +10,9 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
         }
         return true;
     } else if(msg.action === 'settings') {
-        chrome.runtime.openOptionsPage();
+        chrome.tabs.create({
+            url: "./pages/options.html"
+        });
     }
 });
 

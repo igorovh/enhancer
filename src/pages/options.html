@@ -2,65 +2,182 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../css/options.css" rel="stylesheet">
-    <title>Enhancer for Twitch</title>
     <script src="../js/options.js" defer></script>
+    <link rel="stylesheet" href="../css/options.css">
+    <title>Settings | Twitch Enhancer</title>
 </head>
 <body>
-    <div id="header">Twitch Enhancer</div>
-    <h2>User card</h2>
-    <div class="option">
-        <div class="option__description">Time format:</div>
-        <select name="te-xayo-format" id="te-xayo-format">
-            <option value="full">Full (e.g. 1  week, 3 days, 3 hours, 7 min)</option>
-            <option value="hour">Only hours (e.g. 350h)</option>
-        </select>
-    </div>
-    <div class="option">
-    <div class="option__description">Service:</div>
-        <select name="te-xayo-service" id="te-xayo-service">
-            <option value="auto">Auto (both)</option>
-            <option value="xayo">xayo.pl (only polish)</option>
-            <option value="vislaud">vislaud.com (top 100 eng & top 100 pl)</option>
-        </select>
-    </div>
-    <div class="option bottom__options">
-        <div id="pastbroadcasts__options">
-            <h3>Past Broadcasts</h3>
-            <div class="bottom__option">Real video time
-                <input type="checkbox" id="te-real-vod-time">
-                <label for="te-real-vod-time">Toggle</label>
+    <div id="layout">
+        <div id="header">
+            <div id="header__title">Twitch Enhancer</div>
+            <div id="header__description">Settings</div>
+        </div>
+        <div id="settings__tabs">
+            <div class="settings__tab icons settings__tab--active">Icons/Groups</div>
+            <div class="settings__tab chat settings__tab">Chat</div>
+            <div class="settings__tab usercard">Usercard</div>
+            <div class="settings__tab videos">Videos</div>
+            <div class="settings__tab qal">Quick Access Links</div>
+        </div>
+        <div id="options">
+            <!-- ICONS OPTIONS -->
+            <div class="option option--active icons">
+                <h1>Custom Icons</h1>
+                <form id="icons">
+                    <table id="te-icons">
+                        <thead>
+                            <th>Streamer/Group Name</th>
+                            <th>Custom Icon Link</th>
+                            <th>Add/Remove</th>
+                        </thead>
+                        <tbody class="dont-delete row">
+                            <tr>
+                                <td><div class="td__inner"><input placeholder="Type here..." name="name" type="text"></div></td>
+                                <td><div class="td__inner"><input placeholder="Type here..." name="icon" type="text"></div></td>
+                                <td><div class="td__inner"><button value="Add" id="add-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
+                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                    </svg>
+                                    <span style="margin-right:10px">Add</span>
+                                </button></div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+                <h1>Viewer Actions</h1>
+                <form id="actions">
+                    <table id="te-actions">
+                            <thead>
+                                <th>Streamer/Group Name</th>
+                                <th>Action</th>
+                                <th>Add/Remove</th>
+                            </thead>
+                            <tbody class="dont-delete row">
+                            <tr>
+                                <td><div class="td__inner"><input name="name" placeholder="Type here..." type="text"></div></td>
+                                <td>
+                                    <div class="td__inner">
+                                        <select name="action">
+                                            <option value="hide">Hide message</option>
+                                            <option value="delete">Delete message</option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td><div class="td__inner"><button value="Add" id="add-action">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
+                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                    </svg>
+                                    <span style="margin-right:10px">Add</span>
+                                </button></div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+                <h1>Current Groups</h1>
+                <div id="groups">
+                </div>
+            </div>
+            <!-- CHAT OPTIONS -->
+            <div class="option chat">
+                <div class="checkbox__option">
+                    <div class="checkbox__option--text">
+                        <div class="checkbox__option--title">Viewer Badges</div>
+                        <div class="checkbox__option--description">Enable viewer badges for users in chat</div>
+                    </div>
+                    <div class="checkbox__container">
+                        <input type="checkbox" id="te-viewer-badges">
+                        <label class="checkbox__container--label" for="te-viewer-badges">Toggle</label>
+                    </div>  
+                </div>
+                <div class="checkbox__option">
+                    <div class="checkbox__option--text">
+                        <div class="checkbox__option--title">Group Badges</div>
+                        <div class="checkbox__option--description">Enable group badges</div>
+                    </div>
+                    <div class="checkbox__container">
+                        <input type="checkbox" id="te-group-badges">
+                        <label class="checkbox__container--label" for="te-group-badges">Toggle</label>
+                    </div>
+                </div>
+                <div class="checkbox__option">
+                    <div class="checkbox__option--text">
+                        <div class="checkbox__option--title">Viewer Actions</div>
+                        <div class="checkbox__option--description">Enable viewer action (settings in Icons/Groups tab)</div>
+                    </div>
+                    <div class="checkbox__container">
+                        <input type="checkbox" id="te-viewer-actions">
+                        <label class="checkbox__container--label" for="te-viewer-actions">Toggle</label>
+                    </div>
+                </div>
+            </div>
+            <!-- USERCARD OPTIONS -->
+            <div class="option option usercard">
+                <div class="select__option">
+                    <div class="select__option--text">
+                        <div class="select__option--title">Time format</div>
+                        <div class="select__option--description">Format for watchtime displayed in usercard</div>
+                    </div>
+                    <div class="select__option--radio">
+                        <input type="radio" name="te-xayo-format" id="te-xayo-format-full" checked>
+                        <input type="radio" name="te-xayo-format" id="te-xayo-format-hours">
+                          <label for="te-xayo-format-full" class="option tf-option-1">
+                             <span>Full</span>
+                             </label>
+                          <label for="te-xayo-format-hours" class="option tf-option-2">
+                             <span>Hours</span>
+                          </label>
+                    </div>
+                </div>
+                <div class="select__option">
+                    <div class="select__option--text">
+                        <div class="select__option--title">Service</div>
+                        <div class="select__option--description">Service for watchtime data (Auto - both, xayo.pl - only PL, vislaud.com - top 100 ENG & top 100 PL)</div>
+                    </div>
+                    <div class="select__option--radio">
+                        <input type="radio" name="te-xayo-service" id="te-xayo-service-auto" checked>
+                        <input type="radio" name="te-xayo-service" id="te-xayo-service-xayo">
+                        <input type="radio" name="te-xayo-service" id="te-xayo-service-vislaud">
+                        <label for="te-xayo-service-auto" class="option s-option-1">
+                            <span>Auto</span>
+                        </label>
+                        <label for="te-xayo-service-xayo" class="option s-option-2">
+                            <span>xayo.pl</span>
+                        </label>
+                        <label for="te-xayo-service-vislaud" class="option s-option-3">
+                            <span>vislaud.com</span>
+                        </label>
+                    </div>
+                    
+                </div>
+            </div>
+            <!-- VIDEOS OPTIONS -->
+            <div class="option videos">
+                <div class="checkbox__option">
+                    <div class="checkbox__option--text">
+                        <div class="checkbox__option--title">Real VOD time</div>
+                        <div class="checkbox__option--description">Show real time in VODs</div>
+                    </div>
+                    <div class="checkbox__container">
+                        <input type="checkbox" id="te-real-vod-time">
+                        <label class="checkbox__container--label" for="te-real-vod-time">Toggle</label>
+                    </div>
+                </div>
+            </div>
+            <!-- QAL OPTIONS -->
+            <div class="option qal">
+                <div class="checkbox__option">
+                    <div class="checkbox__option--text">Feature in development...</div>
+                </div>
             </div>
         </div>
-        <div id="chat__options">
-            <h3>Chat</h3>
-            <div class="bottom__option">Viewer Badges
-                <input type="checkbox" id="te-viewer-badges">
-                <label for="te-viewer-badges">Toggle</label>
-            </div>
-            <div class="bottom__option">Group Badges
-                <input type="checkbox" id="te-group-badges">
-                <label for="te-group-badges">Toggle</label>
-            </div>
-            <div class="bottom__option">Viewer Actions
-                <input type="checkbox" id="te-viewer-actions">
-                <label for="te-viewer-actions">Toggle</label>
-            </div>
-        </div>
-    </div>
-    <div id="bottom__buttons">
-        <a href="chat.html" style="text-decoration: none" target="_blank">
-            <button id="te-advanced-settings-button">
-                <svg style="margin-right: .75em" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
-                    <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
-                    <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
-                </svg>
-                Advanced settings
-            </button>
-        </a>
-        <button id="te-save-button">Save</button>
+        <div id="footer">
+            <div id="footer__logo"><img style="width:17px; margin-right: 0.5em" alt="logo" src="../img/icon.png"> Twitch Enhancer <span id="version"></span></div>
+            <a id="github__link" target="_blank" rel="noreferrer" href="https://github.com/animekkk/twitch-enhancer">
+                <svg style="margin-right: 0.3em" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+                Github
+            </a>
+        </div> 
     </div>
 </body>
 </html>
