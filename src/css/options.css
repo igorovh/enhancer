@@ -69,6 +69,16 @@ tr{
 }
 #icons, #actions{
     margin-bottom: 10em;
+    animation: settings-tab .2s forwards cubic-bezier(0.25, 0.1, 0.5, 1.25);
+}
+#actions{
+    opacity: 0;
+    animation-delay: .1s;
+}
+#groups{
+    animation: settings-tab .2s forwards cubic-bezier(0.25, 0.1, 0.5, 1.25);
+    opacity: 0;
+    animation-delay: .2s;
 }
 .custom__icon--img{
     width: 50px;
@@ -195,12 +205,14 @@ button.remove-icon, button.remove-action{
 }
 .option--active{
     display: block;
-    animation: settings-tab .3s forwards cubic-bezier(0.25, 0.1, 0.5, 1.25);
+}
+.option--active:not(.icons){
+    animation: settings-tab .2s forwards cubic-bezier(0.25, 0.1, 0.5, 1.25);
 }
 @keyframes settings-tab {
     from{
         opacity: 0;
-        transform: scale(0);
+        transform: scale(0.95);
     }
     to{
         opacity: 1;

@@ -28,6 +28,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 currGroups.innerHTML = "";
                 groups.forEach(group => {
                     currGroups.innerHTML += `
+                    <h1>Current Groups</h1>
                     <div class="group">
                         <div class="group__card">
                             <div class="group__name">${group.name}</div>
@@ -37,7 +38,7 @@ window.addEventListener('DOMContentLoaded', () => {
                     </div>
                 `
                 });
-            }).catch(err => currGroups.innerHTML = `<div id="groups__loading">Error while loading groups. Refresh the page.</div>`);
+            }).catch(err => currGroups.innerHTML = `<h1>Current Groups</h1><div id="groups__loading">Error while loading groups. Refresh the page.</div>`);
 
             if(!browser) var browser = chrome;
             document.querySelector("#version").textContent = `v${browser.runtime.getManifest().version}`;
