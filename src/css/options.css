@@ -364,14 +364,14 @@ input[type="radio"]{
   display: none;
 }
 #te-xayo-format-full:checked:checked ~ .tf-option-1,
-#te-xayo-format-hours:checked:checked ~ .tf-option-2{
+#te-xayo-format-hour:checked:checked ~ .tf-option-2{
   background: var(--purple-text-color);
 }
 .select__option--radio .option span{
   font-size: 1.5em;
 }
 #te-xayo-format-full:checked:checked ~ .tf-option-1 span,
-#te-xayo-format-hours:checked:checked ~ .tf-option-2 span{
+#te-xayo-format-hour:checked:checked ~ .tf-option-2 span{
   color: var(--secondary-color);
 }
 #te-xayo-service-auto:checked:checked ~ .s-option-1,
