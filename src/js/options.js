@@ -25,10 +25,9 @@ window.addEventListener('DOMContentLoaded', () => {
         await fetch('https://teapi.vopp.top/groupBadges')
             .then(res => res.json())
             .then(groups => {
-                currGroups.innerHTML = "";
+                currGroups.innerHTML = "<h1>Current Groups</h1>";
                 groups.forEach(group => {
                     currGroups.innerHTML += `
-                    <h1>Current Groups</h1>
                     <div class="group">
                         <div class="group__card">
                             <div class="group__name">${group.name}</div>
