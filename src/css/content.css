@@ -58,7 +58,7 @@
 }
 
 #te-badge-popup {
-    z-index: 1337;
+    z-index: 9999;
     position: absolute;
     left: 0;
     right: 0;
