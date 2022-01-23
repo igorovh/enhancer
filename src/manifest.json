@@ -1,6 +1,6 @@
 {
   "name": "Twitch Enhancer",
-  "version": "2.3.12",
+  "version": "2.3.13",
   "description": "Enhances Twitch.TV",
   "manifest_version": 2,
   "permissions": [
@@ -40,7 +40,7 @@
     "128": "img/icon.png"
   },
   "options_ui": {
-    "page": "pages/options.html"
+    "page": "pages/popup.html"
   },
   "browser_action": {
     "default_popup": "pages/popup.html"
