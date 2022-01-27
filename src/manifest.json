@@ -1,48 +1,29 @@
 {
-  "name": "Twitch Enhancer",
-  "version": "2.3.13",
-  "description": "Enhances Twitch.TV",
-  "manifest_version": 2,
-  "permissions": [
-    "*://xayo.pl/*",
-    "*://vislaud.com/*",
-    "*://api.twitch.tv/*",
-    "*://www.twitch.tv/*",
-    "*://teapi.vopp.top/*",
-    "storage"
-  ],
-  "background": {
-    "scripts": ["js/background.js"]
-  },
-  "content_scripts": [
-    {
-      "matches": ["*://www.twitch.tv/*", "*://dashboard.twitch.tv/*"],
-      "js": [
-        "js/utils/database.js",
-        "js/panel.js",
-        "js/usercard.js",
-        "js/vodtime.js"
-      ],
-      "css": ["css/content.css"],
-      "run_at": "document_start",
-      "all_frames": true
+    "name": "Twitch Enhancer",
+    "description": "Extension that enhances twitch.tv!",
+    "version": "3.0.0",
+    "manifest_version": 3,
+    "content_scripts": [
+		{
+			"matches": ["*://*.twitch.tv/*"],
+			"js": ["js/inject.js"],
+			"all_frames": true,
+			"runAt": "document_start"
+		}
+	],
+    "web_accessible_resources": [
+		{
+			"resources": ["js/*.js"],
+			"matches": ["*://*.twitch.tv/*"]
+		}
+	],
+    "icons": {
+        "128": "img/icon.png"
     },
-    {
-      "matches": ["*://www.twitch.tv/*", "*://dashboard.twitch.tv/*"],
-      "js": [
-        "js/chat.js"
-      ],
-      "run_at": "document_end",
-      "all_frames": true
-    }
-  ],
-  "icons": {
-    "128": "img/icon.png"
-  },
-  "options_ui": {
-    "page": "pages/popup.html"
-  },
-  "browser_action": {
-    "default_popup": "pages/popup.html"
-  } 
+    "permissions": [
+        "storage"
+    ],
+    "host_permissions": [
+        "*://*.twitch.tv/*"
+    ]
 }
