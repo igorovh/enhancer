@@ -2,7 +2,8 @@ export class Listener {
 
     callbacks = []
 
-    constructor(finder, repeat, time) {
+    constructor(id, finder, repeat, time) {
+        this.id = id;
         this.finder = finder;
         this.repeat = repeat;
         this.time = time;

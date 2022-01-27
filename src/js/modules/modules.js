@@ -1,0 +1,1 @@
+export { usercardModule } from './usercard/usercard.js';
