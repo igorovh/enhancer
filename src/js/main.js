@@ -1,8 +1,8 @@
-import { usercardListener } from './listeners/listeners.js';
-import { usercardModule } from './modules/modules.js';
+import { usercardListener, qalListener } from './listeners/listeners.js';
+import { usercardModule, qalModule } from './modules/modules.js';
 
-const listeners = [ usercardListener ];
-const modules = [ usercardModule ];
+const listeners = [ qalListener ];
+const modules = [ qalModule ];
 
 for(const module of modules) {
     const listener = listeners.find(listener => listener.id === module.id);
@@ -12,8 +12,8 @@ for(const module of modules) {
 
 for(const listener of listeners) {
     const interval = setInterval(() => {
-        const found = listener.finder();
-        if(found) listener.callbacks.forEach(callback => callback());
+        const found = listener.finder(document);
+        if(found) listener.callbacks.forEach(callback => callback(found));
         if(found && !listener.repeat) clearInterval(interval);
     }, listener.time);
 }

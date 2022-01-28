@@ -8,7 +8,8 @@
 			"matches": ["*://*.twitch.tv/*"],
 			"js": ["js/inject.js"],
 			"all_frames": true,
-			"runAt": "document_start"
+			"runAt": "document_start",
+            "css": ["css/content.css"]
 		}
 	],
     "web_accessible_resources": [

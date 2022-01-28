@@ -1,0 +1,19 @@
+#te-menu-wrapper {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #bf94ff;
+}
+
+#te-menu-wrapper:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+#te-buttons-wrapper {
+    color: #b4b4b4;
+}
+
+#te-buttons-wrapper a {
+    color: #bf94ff;
+    font-weight: bold;
+}
