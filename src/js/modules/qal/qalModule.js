@@ -6,20 +6,19 @@ export const qalModule = new Module('qal', callback);
 
 function callback(element) {
     element.setAttribute('twitch-enhancer', '');
-    createMenu(element);
     createLinks(element);
 }
 
-function createMenu(element) {
-    const menuWrapper = document.createElement('div');
-    element.appendChild(menuWrapper);
-    menuWrapper.id = 'te-menu-wrapper';
-    console.log('[te] Creating menu.');
-    const settingsButton = document.createElement('span');
-    settingsButton.textContent = 'Click here to open Twitch Enhancer settings.';
-    settingsButton.addEventListener('click', () => chrome.runtime.sendMessage({ action: 'settings' }));
-    menuWrapper.appendChild(settingsButton)
-}
+// function createMenu(element) {
+//     const menuWrapper = document.createElement('div');
+//     element.appendChild(menuWrapper);
+//     menuWrapper.id = 'te-menu-wrapper';
+//     console.log('[te] Creating menu.');
+//     const settingsButton = document.createElement('span');
+//     settingsButton.textContent = 'Click here to open Twitch Enhancer settings.';
+//     settingsButton.addEventListener('click', () => chrome.runtime.sendMessage({ action: 'settings' }));
+//     menuWrapper.appendChild(settingsButton)
+// }
 
 function createLinks(element) {
     const buttonsWrapper = document.createElement('div');

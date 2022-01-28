@@ -14,7 +14,7 @@
 	],
     "web_accessible_resources": [
 		{
-			"resources": ["js/*.js"],
+			"resources": ["js/*.js", "img/*.png"],
 			"matches": ["*://*.twitch.tv/*"]
 		}
 	],
