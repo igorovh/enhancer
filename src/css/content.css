@@ -17,3 +17,13 @@
     color: #bf94ff;
     font-weight: bold;
 }
+
+#te-settings-button {
+    width: 20px;
+    height: 20px;
+}
+
+#te-settings-button:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}

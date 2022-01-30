@@ -17,3 +17,5 @@ for(const listener of listeners) {
         if(found && !listener.repeat) clearInterval(interval);
     }, listener.time);
 }
+
+export const extensionUrl = document.getElementById('twitch-enhancer-script').src.replace('js/main.js', '%name%');

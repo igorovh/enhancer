@@ -2,7 +2,7 @@
     "name": "Twitch Enhancer",
     "description": "Extension that enhances twitch.tv!",
     "version": "3.0.0",
-    "manifest_version": 3,
+    "manifest_version": 2,
     "content_scripts": [
 		{
 			"matches": ["*://*.twitch.tv/*"],
@@ -13,18 +13,14 @@
 		}
 	],
     "web_accessible_resources": [
-		{
-			"resources": ["js/*.js", "img/*.png"],
-			"matches": ["*://*.twitch.tv/*"]
-		}
+        "js/*.js",
+        "img/*.png"
 	],
     "icons": {
         "128": "img/icon.png"
     },
     "permissions": [
-        "storage"
-    ],
-    "host_permissions": [
+        "storage",
         "*://*.twitch.tv/*"
     ]
 }
