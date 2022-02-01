@@ -1,8 +1,8 @@
-import { usercardListener, chatButtonsListener, qalListener } from './listeners/listeners.js';
-import { usercardModule, chatButtonModule ,qalModule } from './modules/modules.js';
+import { usercardListener, chatButtonsListener, chatMessagesListener, qalListener } from './listeners/listeners.js';
+import { usercardModule, chatButtonModule, chatEmotesModule, qalModule } from './modules/modules.js';
 
-const listeners = [ chatButtonsListener, qalListener ];
-const modules = [ chatButtonModule, qalModule ];
+const listeners = [ chatButtonsListener, chatMessagesListener, qalListener ];
+const modules = [ chatButtonModule, chatEmotesModule, qalModule ];
 
 for(const module of modules) {
     const listener = listeners.find(listener => listener.id === module.id);
