@@ -1,4 +1,5 @@
 import { Module } from '../module.js';
+import { addText } from '../../utils/chatInput.js';
 
 export const chatEmotesModule = new Module('chatMessages', callback);
 
@@ -24,6 +25,8 @@ function prepareEmotes(emotes) {
             if(typeof event !== 'object') return;
             if(event.button !== 1) return;
             const name = emote.alt;
+            console.log('[te]', emote);
+            addText(name, true);
         });
     });
 }
