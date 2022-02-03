@@ -1,9 +1,8 @@
-let input;
-
 export function addText(message, pretty) {
-    if(!input) input = document.querySelector('textarea[data-a-target="chat-input"]');
+    const input = document.querySelector('textarea[data-a-target="chat-input"]');
+    if(!input) return;
     let value = input.value || input.textContent;
-    if(pretty && !value.endsWith(' ')) message = ' ' + message;
+    if(pretty && !value.endsWith(' ') && value.length > 0) message = ' ' + message;
     message = value + message;
     const nativeInput = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, 'value').set;
     nativeInput.call(input, message);

@@ -1,5 +1,5 @@
-import { extensionUrl } from '../main.js';
+import { twitchEnhancer } from '../main.js';
 
 export function getFile(path) {
-    return extensionUrl.replace('%name%', path);
+    return twitchEnhancer.url.replace('%name%', path);
 }

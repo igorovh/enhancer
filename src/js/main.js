@@ -18,4 +18,4 @@ for(const listener of listeners) {
     }, listener.time);
 }
 
-export const extensionUrl = document.getElementById('twitch-enhancer-script').src.replace('js/main.js', '%name%');
+export const twitchEnhancer = window.twitchEnhancer;
