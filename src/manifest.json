@@ -14,7 +14,8 @@
 	],
     "web_accessible_resources": [
         "js/*.js",
-        "img/*.png"
+        "img/*.png",
+        "html/*/*.html"
 	],
     "icons": {
         "128": "img/icon.png"
@@ -22,5 +23,11 @@
     "permissions": [
         "storage",
         "*://*.twitch.tv/*"
-    ]
+    ],
+    "options_ui": {
+        "page": "html/popup/popup.html"
+    },
+    "browser_action": {
+        "default_popup": "html/popup/popup.html"
+    } 
 }
