@@ -10,7 +10,7 @@ const head = document.head || document.getElementsByTagName('head')[0] || docume
 
 const settingsScript = document.createElement('script');
 settingsScript.id = 'twitch-enhancer-settings';
-settingsScript.text = `(window.twitchEnahncer = ${JSON.stringify(twitchEnhancer)})();`; 
+settingsScript.text = `window.twitchEnhancer = ${JSON.stringify(twitchEnhancer)};`; 
 head.insertBefore(settingsScript, head.lasChild);
 
 const script = document.createElement('script');
