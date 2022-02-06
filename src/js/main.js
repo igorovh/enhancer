@@ -1,8 +1,13 @@
-import { usercardListener, chatButtonsListener, chatMessagesListener, qalListener } from './listeners/listeners.js';
-import { usercardModule, chatButtonModule, chatEmotesModule, qalModule } from './modules/modules.js';
+import { loadHonors } from './data/honors.js';
+import { chatButtonsListener, chatMessagesListener, qalListener, usercardListener } from './listeners/listeners.js';
+import { chatButtonModule, chatEmotesModule, qalModule, usercardModule } from './modules/modules.js';
 
-const listeners = [ chatButtonsListener, chatMessagesListener, qalListener ];
-const modules = [ chatButtonModule, chatEmotesModule, qalModule ];
+//await loadHonors();
+
+console.log('[te]', 'test1');
+
+const listeners = [ chatButtonsListener, chatMessagesListener, qalListener, usercardListener ];
+const modules = [ chatButtonModule, chatEmotesModule, qalModule, usercardModule ];
 
 for(const module of modules) {
     const listener = listeners.find(listener => listener.id === module.id);
