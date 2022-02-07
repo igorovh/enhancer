@@ -2,21 +2,22 @@ import { Module } from '../module.js';
 import { fixName } from '../../utils/name.js';
 import { getName } from '../../utils/url.js';
 import { honors } from '../../data/honors.js';
+import { logger } from '../../utils/logger.js';
 
 export const usercardModule = new Module('usercard', callback);
 
 function callback(element) {
+    logger.info('Found user card.');
     element.setAttribute('twitch-enhancer', '');
     let username = element.getElementsByClassName('ScCoreLink-sc-udwpw5-0 AKPzc tw-link')[0]?.textContent.toLowerCase() || 
         element.getElementsByClassName('ScCoreLink-sc-udwpw5-0 itEAmU tw-link')[0]?.textContent.toLowerCase();
-    nausernameme = fixName(username);
+    username = fixName(username);
     const cardWrapper = document.createElement('div');
     cardWrapper.id = 'te-card-wrapper';
     element.insertBefore(cardWrapper, element.children[1]);
     createWatchtime(username, cardWrapper);
     createHonors(username, cardWrapper);
     createKonfident(username, cardWrapper);
-    console.log('[te]', honors);
 }
 
 async function createWatchtime(username, cardWrapper) {
