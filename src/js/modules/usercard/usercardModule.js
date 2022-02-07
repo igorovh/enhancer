@@ -24,7 +24,7 @@ async function createWatchtime(username, cardWrapper) {
 
 }
 
-async function createHonors(username) {
+async function createHonors(username, cardWrapper) {
     const honor = honors.find(honor => honor.name.toLowerCase() === username);
     if(!honor) return;
     cardWrapper.innerHTML += `

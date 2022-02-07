@@ -1,13 +1,4 @@
-#te-menu-wrapper {
-    margin-top: 20px;
-    margin-bottom: 10px;
-    color: #bf94ff;
-}
-
-#te-menu-wrapper:hover {
-    cursor: pointer;
-    text-decoration: underline;
-}
+/* QAL */
 
 #te-buttons-wrapper {
     margin-top: 10px;
@@ -19,6 +10,8 @@
     font-weight: bold;
 }
 
+/* Usercard */
+
 #te-settings-button {
     width: 20px;
     height: 20px;
@@ -27,4 +20,40 @@
 #te-settings-button:hover {
     cursor: pointer;
     opacity: 0.8;
+}
+
+/* Usercard */
+#te-card-wrapper {
+    width: 330px;
+    margin: 10px 10px 5px 10px;
+}
+
+.te-card-header {
+    font-weight: bold;
+}
+
+.te-card-header a {
+    text-decoration: none;
+    color: white;
+}
+
+.te-card-line {
+    width: 100%;
+}
+
+.te-card-percent {
+    opacity: 0;
+}
+
+.te-card-line:hover .te-card-percent {
+    opacity: 1;
+}
+
+.te-card-separator {
+    width: calc(100% - 10px);
+    height: 1px;
+    background-color: rgb(87, 87, 87);
+    border-radius: 50px;
+    margin-top: 3px;
+    margin-bottom: 5px;
 }

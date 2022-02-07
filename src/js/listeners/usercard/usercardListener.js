@@ -1,6 +1,6 @@
 import { Listener } from '../listener.js';
 
-export const usercardListener = new Listener('usercard', finder, false, 1000);
+export const usercardListener = new Listener('usercard', finder, true, 1000);
 
 function finder(document) {
     const usercard = document.querySelector('.viewer-card');
