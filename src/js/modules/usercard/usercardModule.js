@@ -31,6 +31,7 @@ async function createWatchtime(username, cardWrapper) {
     const json = await getData(username, twitchEnhancer.settings.te_xayo_service);
     watchtimeWrapper = document.getElementById('te-card-watchtime'); // XD?
     watchtimeWrapper.innerHTML = '';
+    console.log(json)
     if(json.error || json.watchtimes.length < 1) {
         watchtimeWrapper.innerHTML += `<div class="te-card-line">An error occurred, please try again later.</div>`;
         watchtimeWrapper.innerHTML += `<div class="te-card-line">You still can check him manually on these pages:</div>`;
@@ -47,7 +48,7 @@ async function createWatchtime(username, cardWrapper) {
                 </div>
             `;
         });
-        watchtimeWrapper.innerHTML += `<div class="te-card-line">~ ${formatTime(json.time, watchtime.time, twitchEnhancer.settings.te_xayo_format)}</div>`
+        watchtimeWrapper.innerHTML += `<div class="te-card-line">~ ${formatTime(json.time, twitchEnhancer.settings.te_xayo_format)}</div>`
     }
     watchtimeWrapper.innerHTML += `<div class="te-card-line"><div class="te-card-separator"></div></div>`;
 }
