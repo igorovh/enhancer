@@ -10,8 +10,8 @@ export const usercardModule = new Module('usercard', callback);
 
 function callback(element) {
     element.setAttribute('twitch-enhancer', '');
-    let username = element.getElementsByClassName('ScCoreLink-sc-udwpw5-0 AKPzc tw-link')[0]?.textContent.toLowerCase() || 
-        element.getElementsByClassName('ScCoreLink-sc-udwpw5-0 itEAmU tw-link')[0]?.textContent.toLowerCase();
+    let username = element.getElementsByClassName('ScCoreLink-sc-udwpw5-0 tw-link')[0]?.textContent.toLowerCase() || 
+        element.getElementsByClassName('ScCoreLink-sc-udwpw5-0 tw-link')[0]?.textContent.toLowerCase();
     username = fixName(username);
     logger.info(`Found new user card - ${username}.`);
     const cardWrapper = document.createElement('div');
