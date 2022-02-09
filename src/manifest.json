@@ -1,6 +1,6 @@
 {
     "name": "Twitch Enhancer",
-    "description": "Extension that enhances twitch.tv!",
+    "description": "Extension that adds what is missing on Twitch.",
     "version": "3.0.0",
     "manifest_version": 2,
     "content_scripts": [

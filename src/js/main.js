@@ -1,12 +1,12 @@
 import { loadHonors } from './data/honors.js';
 import { chatButtonsListener, chatMessagesListener, qalListener, usercardListener } from './listeners/listeners.js';
-import { chatButtonModule, chatEmotesModule, qalModule, usercardModule } from './modules/modules.js';
+import { chatButtonModule, chatEmotesModule, chatMessagesModule, qalModule, usercardModule } from './modules/modules.js';
 import { logger } from './utils/logger.js';
 
 await loadHonors();
 
 const listeners = [ chatButtonsListener, chatMessagesListener, qalListener, usercardListener ];
-const modules = [ chatButtonModule, chatEmotesModule, qalModule, usercardModule ];
+const modules = [ chatButtonModule, chatEmotesModule, chatMessagesModule, qalModule, usercardModule ];
 
 for(const module of modules) {
     const listener = listeners.find(listener => listener.id === module.id);

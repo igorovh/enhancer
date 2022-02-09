@@ -1,5 +1,6 @@
 import { Module } from '../module.js';
 import { addText } from '../../utils/chatInput.js';
+import { logger } from '../../utils/logger.js';
 
 export const chatEmotesModule = new Module('chatMessages', callback);
 
@@ -16,6 +17,7 @@ function callback(element) {
     }
     const chatObserver = new MutationObserver(callback);
     chatObserver.observe(element, { attributes: true, childList: true });
+    logger.info('Chat emotes observer started.');
 }
 
 function prepareEmotes(emotes) {

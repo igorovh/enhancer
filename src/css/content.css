@@ -23,6 +23,7 @@
 }
 
 /* Usercard */
+
 #te-card-wrapper {
     width: 330px;
     margin: 10px 10px 5px 10px;
@@ -56,4 +57,37 @@
     border-radius: 50px;
     margin-top: 3px;
     margin-bottom: 5px;
+}
+
+/* Chat */
+
+.viewer-badge {
+    width: 18px;
+    height: 18px;
+}
+
+#te-badge-popup {
+    z-index: 9999;
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: max-content;
+    height: max-content;
+    border-radius: 5px;
+    background: white;
+    color: black;
+    text-align: center;
+    font-weight: bold;
+    word-wrap: break-word;
+}
+
+#te-badge-popup span {
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+#te-badge-popup img {
+    width: 80px;
+    height: 80px;
+    margin-top: 10px;
 }
