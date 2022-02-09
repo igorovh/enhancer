@@ -33,7 +33,7 @@ async function prepareMessage(message) {
     const badgesList = [];
 
     let viewerBadge = await checkViewerBadges(name);
-    if(viewerBadge.streamer.badge) viewerBadge = fixType(viewerBadge);
+    if(viewerBadge?.streamer?.badge) viewerBadge = fixType(viewerBadge);
     if(viewerBadge) badgesList.push(viewerBadge);
 
     const localBadges = checkLocalBadges(name);
@@ -89,9 +89,12 @@ function hidePopup() {
     popup.remove();
 }
 
+let users = [];
+let block = 0;
+
 async function checkViewerBadges(name) {
     const cacheUser = await getUser(name);
-    if(cacheUser) return cacheUser;
+    if(cacheUser && !cacheUser.error) return cacheUser;
     if(!users.includes(name)) users.push(name);
     return;
 }
@@ -104,21 +107,20 @@ function fixType(user) {
     }
 }
 
-let users = [];
-let block = 0;
-
 function startUsersInterval() {
     setInterval(async () => {
+        console.log('[te]', users);
         if(users.length < 1) return;
         if(block >= Date.now()) return;
-        const names = users[0];
+        let names = users.pop();
         if(users.length > 25) {
-            names = users.slice(0, 50);
+            names = users.slice(0, 100).join(',');
             block = Date.now() + 10000;
             logger.warn('Blocking users interval for 10 seconds.');
         }
         const channel = getName(window.location.href);
-        const data = await fetch(`https://teapi.vopp.top/chat/${names.join(',')}?channel=${channel}`);
+        logger.info(`Downloading new users: ${names}`);
+        const data = await fetch(`https://teapi.vopp.top/chat/${names}?channel=${channel}`);
         const json = await data.json();
         for(const user of json) {
             const cacheUser = {
@@ -128,7 +130,7 @@ function startUsersInterval() {
             }
             addUser(cacheUser);
             users = users.filter(name => name !== cacheUser.name);
-            document.querySelectorAll(`te-${cacheUser.name}-badges`).forEach(badgeElement => addBadges(badgeElement, cacheUser));
+            document.querySelectorAll(`.te-${cacheUser.name}-badges`).forEach(badgeElement => addBadges(badgeElement, Array.of(cacheUser)));
         }
     }, 1000);
     logger.info('Users interval started.');
