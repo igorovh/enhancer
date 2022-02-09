@@ -31,7 +31,6 @@ async function createWatchtime(username, cardWrapper) {
     const json = await getData(username, twitchEnhancer.settings.te_xayo_service);
     watchtimeWrapper = document.getElementById('te-card-watchtime'); // XD?
     watchtimeWrapper.innerHTML = '';
-    console.log(json)
     if(json.error || json.watchtimes.length < 1) {
         watchtimeWrapper.innerHTML += `<div class="te-card-line">An error occurred, please try again later.</div>`;
         watchtimeWrapper.innerHTML += `<div class="te-card-line">You still can check him manually on these pages:</div>`;
@@ -78,7 +77,6 @@ async function createKonfident(username, cardWrapper) {
 // Watchtime
 
 async function getData(name, service) {
-    logger.log(`${name} ${service}`)
     if(service === 'auto') {
         return await getAuto(name);
     } else if(service === 'xayo') {

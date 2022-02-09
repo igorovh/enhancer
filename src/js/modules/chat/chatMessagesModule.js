@@ -1,6 +1,8 @@
 import { Module } from '../module.js';
 import { logger } from '../../utils/logger.js';
 import { localBadges } from '../../data/badges.js';
+import { openDatabase, getUser, addUser } from '../../utils/chatDatabase.js';
+import { getName } from '../../utils/url.js';
 
 export const chatMessagesModule = new Module('chatMessages', callback);
 
@@ -18,20 +20,26 @@ function callback(element) {
     const chatObserver = new MutationObserver(callback);
     chatObserver.observe(element, { attributes: true, childList: true });
     logger.info('Chat messages observer started.');
+    openDatabase();
+    startUsersInterval();
 }
 
-function prepareMessage(message) {
+async function prepareMessage(message) {
     let name = message.querySelector('.chat-line__username')?.textContent.toLowerCase();
     if(!name) return;
     if(name.includes('(')) name = name.substring(name.indexOf('(') + 1, name.indexOf(')'));
     const badgesElement = message.querySelector('.chat-line__username-container')?.children[0] || message.querySelector('.chat-line__message--badges');
     badgesElement.classList.add(`te-${name}-badges`);
     const badgesList = [];
-    //Add Viewer Badge
+
+    let viewerBadge = await checkViewerBadges(name);
+    if(viewerBadge.streamer.badge) viewerBadge = fixType(viewerBadge);
+    if(viewerBadge) badgesList.push(viewerBadge);
+
     const localBadges = checkLocalBadges(name);
     if(localBadges.length > 0) badgesList.push(...localBadges);
-    addBadges(badgesElement, badgesList);
-    console.log(localBadges);
+    
+    if(badgesList.length > 0) addBadges(badgesElement, badgesList);
 }
 
 function checkLocalBadges(name) {
@@ -79,4 +87,49 @@ function hidePopup() {
     const popup = document.querySelector('#te-badge-popup');
     if(!popup) return;
     popup.remove();
+}
+
+async function checkViewerBadges(name) {
+    const cacheUser = await getUser(name);
+    if(cacheUser) return cacheUser;
+    if(!users.includes(name)) users.push(name);
+    return;
+}
+
+function fixType(user) {
+    return {
+        name: user.name,
+        badge: user.streamer.badge,
+        streamer: user.streamer.streamer
+    }
+}
+
+let users = [];
+let block = 0;
+
+function startUsersInterval() {
+    setInterval(async () => {
+        if(users.length < 1) return;
+        if(block >= Date.now()) return;
+        const names = users[0];
+        if(users.length > 25) {
+            names = users.slice(0, 50);
+            block = Date.now() + 10000;
+            logger.warn('Blocking users interval for 10 seconds.');
+        }
+        const channel = getName(window.location.href);
+        const data = await fetch(`https://teapi.vopp.top/chat/${names.join(',')}?channel=${channel}`);
+        const json = await data.json();
+        for(const user of json) {
+            const cacheUser = {
+                name: user.login,
+                badge: user.watchtimes[0].streamer.profileImageUrl,
+                streamer: user.watchtimes[0].streamer.displayName
+            }
+            addUser(cacheUser);
+            users = users.filter(name => name !== cacheUser.name);
+            document.querySelectorAll(`te-${cacheUser.name}-badges`).forEach(badgeElement => addBadges(badgeElement, cacheUser));
+        }
+    }, 1000);
+    logger.info('Users interval started.');
 }
