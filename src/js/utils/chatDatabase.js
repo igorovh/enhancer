@@ -32,6 +32,7 @@ export function openDatabase() {
 }
 
 export async function getUser(name) {
+    if(!db) return { error: 418 };
     const tx = db.transaction('users', 'readonly');
     const users = tx.objectStore('users');
     const index = users.index('by_name');

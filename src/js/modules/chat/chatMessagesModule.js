@@ -3,10 +3,12 @@ import { logger } from '../../utils/logger.js';
 import { localBadges } from '../../data/badges.js';
 import { openDatabase, getUser, addUser } from '../../utils/chatDatabase.js';
 import { getName } from '../../utils/url.js';
+import { addText } from '../../utils/chatInput.js'; 
 
 export const chatMessagesModule = new Module('chatMessages', callback);
 
 function callback(element) {
+    openDatabase();
     element.setAttribute('twitch-enhancer', '');
     const callback = (mutationList, observer) => {
         for(const mutation of mutationList) {
@@ -20,7 +22,6 @@ function callback(element) {
     const chatObserver = new MutationObserver(callback);
     chatObserver.observe(element, { attributes: true, childList: true });
     logger.info('Chat messages observer started.');
-    openDatabase();
     startUsersInterval();
 }
 
@@ -30,6 +31,7 @@ async function prepareMessage(message) {
     if(name.includes('(')) name = name.substring(name.indexOf('(') + 1, name.indexOf(')'));
     const badgesElement = message.querySelector('.chat-line__username-container')?.children[0] || message.querySelector('.chat-line__message--badges');
     badgesElement.classList.add(`te-${name}-badges`);
+    badgesElement.setAttribute('username', name);
     const badgesList = [];
 
     let viewerBadge = await checkViewerBadges(name);
@@ -63,6 +65,7 @@ function addBadges(badgeElement, badgesList) {
         if(badge.suffix) image.setAttribute('suffix', badge.suffix);
         image.addEventListener('mouseenter', showPopup, false);
         image.addEventListener('mouseleave', hidePopup, false);
+        image.addEventListener('click', mentionBadge, false);
         badgeElement.classList.remove(`te-${badge.name}-badges`);
     }
 }
@@ -74,7 +77,7 @@ function showPopup(event) {
     popup.id = 'te-badge-popup';
     const streamer = event.srcElement.getAttribute('streamer');
     const suffix = event.srcElement.getAttribute('suffix');
-    const title = `${streamer} ${suffix ? suffix : 'Viewer'}`;
+    const title = `${streamer} ${suffix ? suffix : ''}`;
     popup.innerHTML += `<img src="${event.srcElement.src}" alt="${streamer}">`;
     popup.innerHTML += `<br /><span>${title}</span>`;
     let y = event.pageY - 50;
@@ -89,12 +92,21 @@ function hidePopup() {
     popup.remove();
 }
 
+function mentionBadge(event) {
+    console.log(event.srcElement.parentElement)
+    const name = event.srcElement.parentElement.getAttribute('username');
+    const streamer = event.srcElement.getAttribute('streamer');
+    const suffix = event.srcElement.getAttribute('suffix');
+    addText(`@${name} - ${streamer} ${suffix ? suffix : 'Viewer'}`, true);
+}
+
 let users = [];
 let block = 0;
 
 async function checkViewerBadges(name) {
     const cacheUser = await getUser(name);
     if(cacheUser && !cacheUser.error) return cacheUser;
+    if(cacheUser.error === 418) return;
     if(!users.includes(name)) users.push(name);
     return;
 }
@@ -109,7 +121,6 @@ function fixType(user) {
 
 function startUsersInterval() {
     setInterval(async () => {
-        console.log('[te]', users);
         if(users.length < 1) return;
         if(block >= Date.now()) return;
         let names = users.pop();
@@ -119,7 +130,7 @@ function startUsersInterval() {
             logger.warn('Blocking users interval for 10 seconds.');
         }
         const channel = getName(window.location.href);
-        logger.info(`Downloading new users: ${names}`);
+        logger.log(`Downloading new users: ${names}`);
         const data = await fetch(`https://teapi.vopp.top/chat/${names}?channel=${channel}`);
         const json = await data.json();
         for(const user of json) {

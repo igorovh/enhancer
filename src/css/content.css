@@ -89,5 +89,5 @@
 #te-badge-popup img {
     width: 80px;
     height: 80px;
-    margin-top: 10px;
+    border-radius: 5px 5px 0 0;
 }
