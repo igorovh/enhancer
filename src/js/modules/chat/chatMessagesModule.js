@@ -121,7 +121,7 @@ function startUsersInterval() {
     setInterval(async () => {
         if(users.length < 1) return;
         if(block >= Date.now()) return;
-        let names = users.pop();
+        let names = users[0];
         if(users.length > 25) {
             names = users.slice(0, 100).sort().join(',');
             block = Date.now() + 10000;
