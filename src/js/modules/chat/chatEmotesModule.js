@@ -25,7 +25,7 @@ function prepareEmotes(emotes) {
     emotes.forEach(emote => {
         emote.addEventListener('mouseup', event => {
             if(typeof event !== 'object') return;
-            if(event.button !== 1) return;
+            if(event.button !== 0) return;
             const name = emote.alt;
             addText(name, true);
         });

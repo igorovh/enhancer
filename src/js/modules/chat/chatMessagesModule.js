@@ -2,7 +2,6 @@ import { Module } from '../module.js';
 import { logger } from '../../utils/logger.js';
 import { localBadges } from '../../data/badges.js';
 import { openDatabase, getUser, addUser } from '../../utils/chatDatabase.js';
-import { getName } from '../../utils/url.js';
 import { addText } from '../../utils/chatInput.js'; 
 
 export const chatMessagesModule = new Module('chatMessages', callback);
@@ -93,7 +92,6 @@ function hidePopup() {
 }
 
 function mentionBadge(event) {
-    console.log(event.srcElement.parentElement)
     const name = event.srcElement.parentElement.getAttribute('username');
     const streamer = event.srcElement.getAttribute('streamer');
     const suffix = event.srcElement.getAttribute('suffix');
@@ -125,13 +123,11 @@ function startUsersInterval() {
         if(block >= Date.now()) return;
         let names = users.pop();
         if(users.length > 25) {
-            names = users.slice(0, 100).join(',');
+            names = users.slice(0, 100).sort().join(',');
             block = Date.now() + 10000;
             logger.warn('Blocking users interval for 10 seconds.');
         }
-        const channel = getName(window.location.href);
-        logger.log(`Downloading new users: ${names}`);
-        const data = await fetch(`https://teapi.vopp.top/chat/${names}?channel=${channel}`);
+        const data = await fetch(`https://teapi.vopp.top/chat/${names}`);
         const json = await data.json();
         for(const user of json) {
             const cacheUser = {
