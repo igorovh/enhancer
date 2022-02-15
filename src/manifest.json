@@ -8,7 +8,7 @@
 			"matches": ["*://*.twitch.tv/*"],
 			"js": ["js/inject.js"],
 			"all_frames": true,
-			"runAt": "document_start",
+			"run_at": "document_start",
             "css": ["css/content.css"]
 		}
 	],
