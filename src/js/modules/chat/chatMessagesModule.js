@@ -95,7 +95,7 @@ function mentionBadge(event) {
     const name = event.srcElement.parentElement.getAttribute('username');
     const streamer = event.srcElement.getAttribute('streamer');
     const suffix = event.srcElement.getAttribute('suffix');
-    addText(`@${name} - ${streamer} ${suffix ? suffix : 'Viewer'} `, true);
+    addText(`@${name} - ${streamer} ${suffix ? suffix : 'Viewer'} `, true, true);
 }
 
 let users = [];

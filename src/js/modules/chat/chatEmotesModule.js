@@ -27,7 +27,7 @@ function prepareEmotes(emotes) {
             if(typeof event !== 'object') return;
             if(event.button !== 0) return;
             const name = emote.alt;
-            addText(`${name} `, true);
+            addText(`${name} `, true, true);
         });
     });
 }
