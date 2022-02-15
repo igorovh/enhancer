@@ -15,6 +15,7 @@
 #te-settings-button {
     width: 20px;
     height: 20px;
+    margin-right: calc(2rem + 20px) !important;
 }
 
 #te-settings-button:hover {
