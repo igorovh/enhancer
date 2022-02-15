@@ -28,9 +28,9 @@ async function prepareMessage(message) {
     const nameElement = message.querySelector('.chat-line__username');
     if(!nameElement) return;
     let name = nameElement.textContent.toLowerCase();
+    if(name.includes('(')) name = name.substring(name.indexOf('(') + 1, name.indexOf(')'));
     nameElement.setAttribute('username', name);
     nameElement.addEventListener('contextmenu', mentionName);
-    if(name.includes('(')) name = name.substring(name.indexOf('(') + 1, name.indexOf(')'));
     const badgesElement = message.querySelector('.chat-line__username-container')?.children[0] || message.querySelector('.chat-line__message--badges');
     badgesElement.classList.add(`te-${name}-badges`);
     badgesElement.setAttribute('username', name);
@@ -65,9 +65,10 @@ function addBadges(badgeElement, badgesList) {
         image.className = 'chat-badge viewer-badge ffz-badge';
         image.setAttribute('streamer', badge.streamer);
         if(badge.suffix) image.setAttribute('suffix', badge.suffix);
-        image.addEventListener('mouseenter', showPopup, false);
-        image.addEventListener('mouseleave', hidePopup, false);
-        image.addEventListener('click', mentionBadge, false);
+        image.addEventListener('mouseenter', showPopup);
+        image.addEventListener('mouseleave', hidePopup);
+        image.addEventListener('click', mentionBadge);
+        image.addEventListener('contextmenu', mentionBadge);
         badgeElement.classList.remove(`te-${badge.name}-badges`);
     }
 }
@@ -95,7 +96,8 @@ function hidePopup() {
 }
 
 function mentionName(event) {
-    const name = event.srcElement.parentElement.getAttribute('username');
+    let name = event.srcElement.parentElement.getAttribute('username');
+    if(!name) name = event.srcElement.parentElement.parentElement.getAttribute('username');
     addText(`@${name} `, true, true);
     event.preventDefault();
 }
@@ -105,6 +107,7 @@ function mentionBadge(event) {
     const streamer = event.srcElement.getAttribute('streamer');
     const suffix = event.srcElement.getAttribute('suffix');
     addText(`@${name} - ${streamer} ${suffix ? suffix : 'Viewer'} `, true, true);
+    event.preventDefault();
 }
 
 let users = [];

@@ -10,7 +10,10 @@ function callback(element) {
         for(const mutation of mutationList) {
             if(mutation.type === 'childList' && mutation.addedNodes) {
                 for(const message of mutation.addedNodes) {
-                    prepareEmotes(message.querySelectorAll('.chat-line__message--emote'));
+                    setTimeout(() => {
+                        prepareEmotes(message.querySelectorAll('.chat-line__message--emote'));
+                    }, 150);
+                    // THANKS TO 7TV :LIKE:
                 }
             }
         }
@@ -23,8 +26,9 @@ function callback(element) {
 function prepareEmotes(emotes) {
     if(emotes.length < 1) return;
     emotes.forEach(emote => {
+        console.log('found emote', emote);
         emote.addEventListener('contextmenu', event => {
-            const name = emote.alt;
+            const name = emote.alt.replace(/ /g, '');
             addText(`${name} `, true, true);
             event.preventDefault();
         });
