@@ -3,6 +3,7 @@ import { logger } from '../../utils/logger.js';
 import { localBadges } from '../../data/badges.js';
 import { openDatabase, getUser, addUser } from '../../utils/chatDatabase.js';
 import { addText } from '../../utils/chatInput.js'; 
+import { honors } from '../../data/honors.js';
 
 export const chatMessagesModule = new Module('chatMessages', callback);
 
@@ -35,6 +36,8 @@ async function prepareMessage(message) {
     badgesElement.classList.add(`te-${name}-badges`);
     badgesElement.setAttribute('username', name);
     const badgesList = [];
+
+    if(honors.find(honor => honor.name.toLowerCase() === name.toLowerCase())) setHonor(nameElement);
 
     let viewerBadge = await checkViewerBadges(name);
     if(viewerBadge?.streamer?.badge) viewerBadge = fixType(viewerBadge);
@@ -71,6 +74,12 @@ function addBadges(badgeElement, badgesList) {
         image.addEventListener('contextmenu', mentionBadge);
         badgeElement.classList.remove(`te-${badge.name}-badges`);
     }
+}
+
+function setHonor(nameElement) {
+    const color = nameElement.style.color || nameElement.firstChild.firstChild.style.color || 'white';
+    console.log(nameElement);
+    nameElement.style.textShadow = `${color} 0 0 10px`;
 }
 
 function showPopup(event) {
