@@ -78,7 +78,6 @@ function addBadges(badgeElement, badgesList) {
 
 function setHonor(nameElement) {
     const color = nameElement.style.color || nameElement.firstChild.firstChild.style.color || 'white';
-    console.log(nameElement);
     nameElement.style.textShadow = `${color} 0 0 10px`;
 }
 
