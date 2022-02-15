@@ -96,7 +96,7 @@ function hidePopup() {
 
 function mentionName(event) {
     const name = event.srcElement.parentElement.getAttribute('username');
-    addText(`@${name} `);
+    addText(`@${name} `, true, true);
     event.preventDefault();
 }
 
