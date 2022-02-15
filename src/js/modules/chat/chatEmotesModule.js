@@ -23,11 +23,11 @@ function callback(element) {
 function prepareEmotes(emotes) {
     if(emotes.length < 1) return;
     emotes.forEach(emote => {
-        emote.addEventListener('mouseup', event => {
-            if(typeof event !== 'object') return;
-            if(event.button !== 0) return;
+        emote.addEventListener('contextmenu', event => {
+            logger.log('test');
             const name = emote.alt;
             addText(`${name} `, true, true);
+            event.preventDefault();
         });
     });
 }
