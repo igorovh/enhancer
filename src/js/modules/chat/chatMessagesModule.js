@@ -95,7 +95,7 @@ function mentionBadge(event) {
     const name = event.srcElement.parentElement.getAttribute('username');
     const streamer = event.srcElement.getAttribute('streamer');
     const suffix = event.srcElement.getAttribute('suffix');
-    addText(`@${name} - ${streamer} ${suffix ? suffix : 'Viewer'}`, true);
+    addText(`@${name} - ${streamer} ${suffix ? suffix : 'Viewer'} `, true);
 }
 
 let users = [];
@@ -121,9 +121,9 @@ function startUsersInterval() {
     setInterval(async () => {
         if(users.length < 1) return;
         if(block >= Date.now()) return;
-        let names = users[0];
+        let names = users.shift();
         if(users.length > 25) {
-            names = users.slice(0, 100).sort().join(',');
+            names = users.splice(0, 100).sort().join(',');
             block = Date.now() + 10000;
             logger.warn('Blocking users interval for 10 seconds.');
         }
@@ -136,7 +136,6 @@ function startUsersInterval() {
                 streamer: user.watchtimes[0].streamer.displayName
             }
             addUser(cacheUser);
-            users = users.filter(name => name !== cacheUser.name);
             document.querySelectorAll(`.te-${cacheUser.name}-badges`).forEach(badgeElement => addBadges(badgeElement, Array.of(cacheUser)));
         }
     }, 1000);

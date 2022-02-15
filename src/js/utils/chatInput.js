@@ -1,4 +1,4 @@
-export function addText(message, pretty) {
+export function addText(message, pretty, focus) {
     const input = document.querySelector('textarea[data-a-target="chat-input"]');
     if(!input) return;
     let value = input.value || input.textContent;
@@ -8,4 +8,5 @@ export function addText(message, pretty) {
     nativeInput.call(input, message);
     const event = new Event('input', { bubbles: true });
     input.dispatchEvent(event);
+    if(focus) input.focus();
 }
