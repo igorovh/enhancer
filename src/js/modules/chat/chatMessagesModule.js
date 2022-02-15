@@ -25,8 +25,11 @@ function callback(element) {
 }
 
 async function prepareMessage(message) {
-    let name = message.querySelector('.chat-line__username')?.textContent.toLowerCase();
-    if(!name) return;
+    const nameElement = message.querySelector('.chat-line__username');
+    if(!nameElement) return;
+    let name = nameElement.textContent.toLowerCase();
+    nameElement.setAttribute('username', name);
+    nameElement.addEventListener('contextmenu', mentionName);
     if(name.includes('(')) name = name.substring(name.indexOf('(') + 1, name.indexOf(')'));
     const badgesElement = message.querySelector('.chat-line__username-container')?.children[0] || message.querySelector('.chat-line__message--badges');
     badgesElement.classList.add(`te-${name}-badges`);
@@ -89,6 +92,12 @@ function hidePopup() {
     const popup = document.querySelector('#te-badge-popup');
     if(!popup) return;
     popup.remove();
+}
+
+function mentionName(event) {
+    const name = event.srcElement.parentElement.getAttribute('username');
+    addText(`@${name} `);
+    event.preventDefault();
 }
 
 function mentionBadge(event) {
