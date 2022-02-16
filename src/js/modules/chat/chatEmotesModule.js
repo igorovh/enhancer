@@ -26,7 +26,6 @@ function callback(element) {
 function prepareEmotes(emotes) {
     if(emotes.length < 1) return;
     emotes.forEach(emote => {
-        console.log('found emote', emote);
         emote.addEventListener('contextmenu', event => {
             const name = emote.alt.replace(/ /g, '');
             addText(`${name} `, true, true);
