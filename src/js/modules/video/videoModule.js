@@ -14,6 +14,7 @@ let timeInterval;
 let idInterval;
 
 function callback(element) {
+    if(!window.location.href.includes('/videos/')) return;
     player = element;
     player.setAttribute('twitch-enhancer', '');
     createTime(player);
