@@ -92,3 +92,10 @@
     height: 80px;
     border-radius: 5px 5px 0 0;
 }
+
+/* Real Vod Time */
+
+#te-vod-time:hover {
+    opacity: 0.75;
+    cursor: pointer;
+}
