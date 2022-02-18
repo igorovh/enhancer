@@ -1,101 +1,156 @@
 /* QAL */
 
 #te-buttons-wrapper {
-    margin-top: 10px;
-    color: #b4b4b4;
+  margin-top: 10px;
+  color: #b4b4b4;
 }
 
 #te-buttons-wrapper a {
-    color: #bf94ff;
-    font-weight: bold;
+  color: #bf94ff;
+  font-weight: bold;
+}
+
+/* Tooltip */
+
+.te-tooltip {
+  background-color: var(--color-text-base);
+  color: var(--color-text-tooltip);
+  text-align: center;
+  padding: 2px 0;
+  border-radius: 4px;
+  font-weight: 600;
+  position: absolute;
+  width: 13em;
+  left: -450%;
+  margin-left: -3.5em;
+  z-index: 9999;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.1s ease-in 0.2s;
+}
+.te-tooltip::after {
+  content: '';
+  position: absolute;
+  left: 100%;
+  border-width: 5px;
+  border-style: solid;
+  pointer-events: none;
+  top: 50%;
+  margin-top: -5px;
+  border-color: transparent transparent transparent var(--color-text-base);
+}
+
+.te-tooltip.te-tooltip-active {
+  visibility: visible;
+  opacity: 1;
 }
 
 /* Settings Button */
 
 #te-settings-button {
-    width: 20px;
-    height: 20px;
-    margin-right: calc(2rem + 20px) !important;
+  position: absolute;
+  right: 4.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius-medium);
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
 }
 
 #te-settings-button:hover {
-    cursor: pointer;
-    opacity: 0.8;
+  background: var(--color-background-button-text-hover);
 }
+
+/* #te-settings-button > .tooltip-over {
+  left: -450%;
+  bottom: 3px;
+  width: 170px;
+  display: none;
+}
+
+#te-settings-button > .tooltip-over::after {
+  left: 100%;
+  margin-left: 0;
+  transform: rotate(-90deg);
+  top: 50%;
+  margin-top: -4px;
+} */
 
 /* Usercard */
 
 #te-card-wrapper {
-    width: 330px;
-    margin: 10px 10px 5px 10px;
+  width: 330px;
+  margin: 10px 10px 5px 10px;
 }
 
 .te-card-header {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .te-card-header a {
-    text-decoration: none;
-    color: white;
+  text-decoration: none;
+  color: white;
 }
 
 .te-card-line {
-    width: 100%;
+  width: 100%;
 }
 
 .te-card-percent {
-    opacity: 0;
+  opacity: 0;
 }
 
 .te-card-line:hover .te-card-percent {
-    opacity: 1;
+  opacity: 1;
 }
 
 .te-card-separator {
-    width: calc(100% - 10px);
-    height: 1px;
-    background-color: rgb(87, 87, 87);
-    border-radius: 50px;
-    margin-top: 3px;
-    margin-bottom: 5px;
+  width: calc(100% - 10px);
+  height: 1px;
+  background-color: rgb(87, 87, 87);
+  border-radius: 50px;
+  margin-top: 3px;
+  margin-bottom: 5px;
 }
 
 /* Chat */
 
 .viewer-badge {
-    width: 18px;
-    height: 18px;
+  width: 18px;
+  height: 18px;
 }
 
 #te-badge-popup {
-    z-index: 9999;
-    position: absolute;
-    left: 0;
-    right: 0;
-    width: max-content;
-    height: max-content;
-    border-radius: 5px;
-    background: white;
-    color: black;
-    text-align: center;
-    font-weight: bold;
-    word-wrap: break-word;
+  z-index: 9999;
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: max-content;
+  height: max-content;
+  border-radius: 5px;
+  background: white;
+  color: black;
+  text-align: center;
+  font-weight: bold;
+  word-wrap: break-word;
 }
 
 #te-badge-popup span {
-    margin-left: 3px;
-    margin-right: 3px;
+  margin-left: 3px;
+  margin-right: 3px;
 }
 
 #te-badge-popup img {
-    width: 80px;
-    height: 80px;
-    border-radius: 5px 5px 0 0;
+  width: 80px;
+  height: 80px;
+  border-radius: 5px 5px 0 0;
 }
 
 /* Real Vod Time */
 
 #te-vod-time:hover {
-    opacity: 0.75;
-    cursor: pointer;
+  opacity: 0.75;
+  cursor: pointer;
 }
