@@ -16,13 +16,12 @@
   background-color: var(--color-text-base);
   color: var(--color-text-tooltip);
   text-align: center;
-  padding: 2px 0;
+  padding: 2px 3px;
   border-radius: 4px;
   font-weight: 600;
   position: absolute;
-  width: 13em;
-  left: -450%;
-  margin-left: -3.5em;
+  right: 3em;
+  white-space: nowrap;
   z-index: 9999;
   visibility: hidden;
   opacity: 0;
@@ -62,21 +61,6 @@
 #te-settings-button:hover {
   background: var(--color-background-button-text-hover);
 }
-
-/* #te-settings-button > .tooltip-over {
-  left: -450%;
-  bottom: 3px;
-  width: 170px;
-  display: none;
-}
-
-#te-settings-button > .tooltip-over::after {
-  left: 100%;
-  margin-left: 0;
-  transform: rotate(-90deg);
-  top: 50%;
-  margin-top: -4px;
-} */
 
 /* Usercard */
 
