@@ -84,6 +84,9 @@ tr {
   opacity: 0;
   animation-delay: 0.2s;
 }
+#options {
+  flex-grow: 1;
+}
 .custom-icon__img {
   width: 50px;
   height: 50px;
@@ -159,11 +162,15 @@ button.remove-action {
   align-items: center;
   justify-content: space-between;
   border-top: 2px solid var(--secondary-color);
-  margin-top: auto;
+  font-size: 0.75rem;
 }
 #footer__logo {
   display: flex;
   align-items: center;
+}
+#footer__logo > svg {
+  margin-right: 0.3rem;
+  fill: rgba(242, 242, 242, 0.5);
 }
 #github-link {
   color: rgba(242, 242, 242, 0.5);
@@ -290,9 +297,6 @@ input:checked + label:after {
   transform: translateX(calc(-100% - 2px));
 }
 
-label:active:after {
-  width: 10px;
-}
 @media screen and (max-width: 1440px) {
   #layout {
     padding: 0 7.5em 0 7.5em;
@@ -321,8 +325,21 @@ label:active:after {
   .group__members {
     left: 12rem;
     top: 14rem;
-    font-size: 0.9em;
+    font-size: 0.9rem;
     z-index: 99;
+  }
+  #settings__tabs {
+    flex-direction: column;
+  }
+  .settings__tab {
+    padding: 1.5rem;
+    text-align: center;
+  }
+  .select__option-radio {
+    flex-direction: column;
+  }
+  .select__option-radio .option {
+    padding: 0.5rem 0.5rem !important;
   }
 }
 
@@ -348,8 +365,7 @@ label:active:after {
   color: rgba(242, 242, 242, 0.5);
 }
 .select__option-radio {
-  display: inline-flex;
-  height: 3rem;
+  display: flex;
   align-items: center;
   border-radius: 30px;
   margin-right: 1.5rem;
@@ -361,8 +377,8 @@ label:active:after {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0.75rem 1.5rem;
   cursor: pointer;
-  padding: 0 10px;
   transition: all 0.2s ease;
 }
 input[type='radio'] {
@@ -391,5 +407,5 @@ input[type='radio'] {
 }
 .select__option-radio > label {
   min-width: 3rem;
-  padding: 0 2rem !important;
+  padding: 0 2rem;
 }
