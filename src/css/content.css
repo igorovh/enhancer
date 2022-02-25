@@ -134,6 +134,10 @@
 
 /* Real Vod Time */
 
+#te-vod-time {
+  margin-left: 0.5rem;
+}
+
 #te-vod-time:hover {
   opacity: 0.75;
   cursor: pointer;
