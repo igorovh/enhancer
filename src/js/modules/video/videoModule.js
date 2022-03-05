@@ -2,7 +2,7 @@ import { Module } from '../module.js';
 import { getVideoId } from '../../utils/url.js';
 import { logger } from '../../utils/logger.js';
 
-export const videoModule = new Module('video', callback);
+export const videoModule = new Module('video', callback, 'te_real_vod_time');
 
 let player;
 

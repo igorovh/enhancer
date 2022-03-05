@@ -9,7 +9,8 @@
             te_group_badges: true,
             te_viewer_actions: true,
             te_viewer_custom_icons: [],
-            te_viewer_actions_list: []
+            te_viewer_actions_list: [],
+            te_real_vod_time: true
         }, options => {
             resolve(options)
         });

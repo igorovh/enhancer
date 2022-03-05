@@ -3,12 +3,13 @@ import { chatButtonListener, chatMessagesListener, qalListener, usercardListener
 import { chatButtonModule, chatEmotesModule, chatMessagesModule, qalModule, usercardModule, videoModule } from './modules/modules.js';
 import { logger } from './utils/logger.js';
 
-await loadHonors();
+export const twitchEnhancer = window.twitchEnhancer;
 
 const listeners = [ chatButtonListener, chatMessagesListener, qalListener, usercardListener, videoListener ];
 const modules = [ chatButtonModule, chatEmotesModule, chatMessagesModule, qalModule, usercardModule, videoModule ];
 
 for(const module of modules) {
+    if(module.setting) if(!twitchEnhancer.settings[module.setting]) continue;
     const listener = listeners.find(listener => listener.id === module.id);
     if(!listener) continue;
     listener.addCallback(module.callback);
@@ -21,7 +22,5 @@ for(const listener of listeners) {
         if(found && !listener.repeat) clearInterval(interval);
     }, listener.time);
 }
-
-export const twitchEnhancer = window.twitchEnhancer;
 
 logger.info('Main script loaded.');
