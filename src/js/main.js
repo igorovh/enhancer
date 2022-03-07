@@ -1,7 +1,7 @@
-import { loadHonors } from './data/honors.js';
 import { chatButtonListener, chatMessagesListener, qalListener, usercardListener, videoListener } from './listeners/listeners.js';
 import { chatButtonModule, chatEmotesModule, chatMessagesModule, qalModule, usercardModule, videoModule } from './modules/modules.js';
 import { logger } from './utils/logger.js';
+import { customIcons } from './data/customIcons.js';
 
 export const twitchEnhancer = window.twitchEnhancer;
 
@@ -22,5 +22,7 @@ for(const listener of listeners) {
         if(found && !listener.repeat) clearInterval(interval);
     }, listener.time);
 }
+
+customIcons.push(...twitchEnhancer.settings.te_viewer_custom_icons);
 
 logger.info('Main script loaded.');

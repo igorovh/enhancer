@@ -4,6 +4,7 @@ import { localBadges } from '../../data/badges.js';
 import { openDatabase, getUser, addUser } from '../../utils/chatDatabase.js';
 import { addText } from '../../utils/chatInput.js'; 
 import { honors } from '../../data/honors.js';
+import { customIcons } from '../../data/customIcons.js';
 
 export const chatMessagesModule = new Module('chatMessages', callback);
 
@@ -41,7 +42,11 @@ async function prepareMessage(message) {
 
     let viewerBadge = await checkViewerBadges(name);
     if(viewerBadge?.streamer?.badge) viewerBadge = fixType(viewerBadge);
-    if(viewerBadge) badgesList.push(viewerBadge);
+    if(viewerBadge) {
+        const customIcon = customIcons.find(icon => icon.name.toLowerCase() === viewerBadge.streamer.toLowerCase());
+        if(customIcon) viewerBadge.badge = customIcon.icon;
+        badgesList.push(viewerBadge);
+    }
 
     const localBadges = checkLocalBadges(name);
     if(localBadges.length > 0) badgesList.push(...localBadges);
