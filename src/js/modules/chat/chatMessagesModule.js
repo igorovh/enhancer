@@ -160,7 +160,7 @@ function startUsersInterval() {
                 badge: user.watchtimes[0].streamer.profileImageUrl,
                 streamer: user.watchtimes[0].streamer.displayName
             }
-            addUser(cacheUser);
+            addUser(cacheUser, user.cache);
             document.querySelectorAll(`.te-${cacheUser.name}-badges`).forEach(badgeElement => addBadges(badgeElement, Array.of(cacheUser)));
         }
     }, 1000);
