@@ -26,7 +26,7 @@
     const settingsScript = document.createElement('script');
     settingsScript.id = 'twitch-enhancer-settings';
     settingsScript.async = true;
-    settingsScript.text = `window.twitchEnhancer = ${JSON.stringify(twitchEnhancer)}; console.info('[TE] Settings script')`; 
+    settingsScript.text = `window.twitchEnhancer = ${JSON.stringify(twitchEnhancer)}; console.info('[TE] Settings script loaded.')`; 
     head.insertBefore(settingsScript, head.lastChild);
     console.info('[TE] Settings script injected.');
     

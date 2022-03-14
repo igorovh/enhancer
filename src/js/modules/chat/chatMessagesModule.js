@@ -5,6 +5,8 @@ import { openDatabase, getUser, addUser } from '../../utils/chatDatabase.js';
 import { addText } from '../../utils/chatInput.js'; 
 import { honors } from '../../data/honors.js';
 import { customIcons } from '../../data/customIcons.js';
+import { groups } from '../../data/groups.js';
+import { twitchEnhancer } from '../../main.js'; 
 
 export const chatMessagesModule = new Module('chatMessages', callback);
 
@@ -42,10 +44,22 @@ async function prepareMessage(message) {
 
     let viewerBadge = await checkViewerBadges(name);
     if(viewerBadge?.streamer?.badge) viewerBadge = fixType(viewerBadge);
+
     if(viewerBadge) {
+        if(twitchEnhancer.settings.te_group_badges) {
+            const groupBadge = groups.find(group => group.streamers.includes(viewerBadge.streamer.toLowerCase()));
+            if(groupBadge) {
+                viewerBadge.suffix = `(${viewerBadge.streamer})`;
+                viewerBadge.streamer = groupBadge.name;
+                viewerBadge.badge = groupBadge.icon;
+                viewerBadge.type = 'group';
+            }
+        }
+
         const customIcon = customIcons.find(icon => icon.name.toLowerCase() === viewerBadge.streamer.toLowerCase());
         if(customIcon) viewerBadge.badge = customIcon.icon;
-        badgesList.push(viewerBadge);
+        if(twitchEnhancer.settings.te_group_badges && !twitchEnhancer.settings.te_viewer_badges && viewerBadge.type === 'group') badgesList.push(viewerBadge);
+        else if(twitchEnhancer.settings.te_viewer_badges) badgesList.push(viewerBadge);
     }
 
     const localBadges = checkLocalBadges(name);
@@ -161,7 +175,7 @@ function startUsersInterval() {
                 streamer: user.watchtimes[0].streamer.displayName
             }
             addUser(cacheUser, user.cache * 1000);
-            document.querySelectorAll(`.te-${cacheUser.name}-badges`).forEach(badgeElement => addBadges(badgeElement, Array.of(cacheUser)));
+            //document.querySelectorAll(`.te-${cacheUser.name}-badges`).forEach(badgeElement => addBadges(badgeElement, Array.of(cacheUser))); Because of not updating group
         }
     }, 1000);
     logger.info('Users interval started.');
