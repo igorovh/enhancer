@@ -46,18 +46,7 @@ async function prepareMessage(message) {
     if(viewerBadge?.streamer?.badge) viewerBadge = fixType(viewerBadge);
 
     if(viewerBadge) {
-        if(twitchEnhancer.settings.te_group_badges) {
-            const groupBadge = groups.find(group => group.streamers.includes(viewerBadge.streamer.toLowerCase()));
-            if(groupBadge) {
-                viewerBadge.suffix = `(${viewerBadge.streamer})`;
-                viewerBadge.streamer = groupBadge.name;
-                viewerBadge.badge = groupBadge.icon;
-                viewerBadge.type = 'group';
-            }
-        }
-
-        const customIcon = customIcons.find(icon => icon.name.toLowerCase() === viewerBadge.streamer.toLowerCase());
-        if(customIcon) viewerBadge.badge = customIcon.icon;
+        viewerBadge = prepareViewerBadge(viewerBadge);
         if(twitchEnhancer.settings.te_group_badges && !twitchEnhancer.settings.te_viewer_badges && viewerBadge.type === 'group') badgesList.push(viewerBadge);
         else if(twitchEnhancer.settings.te_viewer_badges) badgesList.push(viewerBadge);
     }
@@ -66,6 +55,22 @@ async function prepareMessage(message) {
     if(localBadges.length > 0) badgesList.push(...localBadges);
     
     if(badgesList.length > 0) addBadges(badgesElement, badgesList);
+}
+
+function prepareViewerBadge(viewerBadge) {
+    if(twitchEnhancer.settings.te_group_badges) {
+        const groupBadge = groups.find(group => group.streamers.includes(viewerBadge.streamer.toLowerCase()));
+        if(groupBadge) {
+            viewerBadge.suffix = `(${viewerBadge.streamer})`;
+            viewerBadge.streamer = groupBadge.name;
+            viewerBadge.badge = groupBadge.icon;
+            viewerBadge.type = 'group';
+        }
+    }
+
+    const customIcon = customIcons.find(icon => icon.name.toLowerCase() === viewerBadge.streamer.toLowerCase());
+    if(customIcon) viewerBadge.badge = customIcon.icon;
+    return viewerBadge;
 }
 
 function checkLocalBadges(name) {
@@ -175,7 +180,7 @@ function startUsersInterval() {
                 streamer: user.watchtimes[0].streamer.displayName
             }
             addUser(cacheUser, user.cache * 1000);
-            //document.querySelectorAll(`.te-${cacheUser.name}-badges`).forEach(badgeElement => addBadges(badgeElement, Array.of(cacheUser))); Because of not updating group
+            document.querySelectorAll(`.te-${cacheUser.name}-badges`).forEach(badgeElement => addBadges(badgeElement, Array.of(prepareViewerBadge(cacheUser))));
         }
     }, 1000);
     logger.info('Users interval started.');
