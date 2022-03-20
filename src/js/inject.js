@@ -23,18 +23,32 @@
     
     const head = document.head || document.getElementsByTagName('head')[0] || document.documentElement;
     
-    const settingsScript = document.createElement('script');
-    settingsScript.id = 'twitch-enhancer-settings';
-    settingsScript.async = true;
-    settingsScript.text = `window.twitchEnhancer = ${JSON.stringify(twitchEnhancer)}; console.info('[TE] Settings script loaded.')`; 
-    head.insertBefore(settingsScript, head.lastChild);
-    console.info('[TE] Settings script injected.');
-    
-    const script = document.createElement('script');
-    script.id = 'twitch-enhancer-script';
-    script.async = true;
-    script.setAttribute('type', 'module');
-    script.setAttribute('src', chrome.runtime.getURL('js/main.js'));
-    head.insertBefore(script, head.lastChild);
-    console.info('[TE] Main script injected.');
+    const injects = [
+        {
+            id: 'twitch-enhancer-settings',
+            type: 'code',
+            value: `window.twitchEnhancer = ${JSON.stringify(twitchEnhancer)};`
+        },
+        {
+            id: 'tmi-js',
+            type: 'url',
+            value: 'https://unpkg.com/tmi.js@1.8.5/index.js'
+        },
+        {
+            id: 'twitch-enhancer-script',
+            type: 'url',
+            value: chrome.runtime.getURL('js/main.js') 
+        }
+    ];
+
+    for(const inject of injects) {
+        const script = document.createElement('script');
+        script.id = inject.id;
+        script.async = true;
+        script.type = 'module';
+        if(inject.type === 'url') script.src = inject.value;
+        else if(inject.type === 'code') script.text = inject.value; 
+        head.insertBefore(script, head.lastChild);
+        console.log(`[TE] ${script.id} injected!`);
+    }
 })();
