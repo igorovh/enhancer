@@ -27,17 +27,13 @@
         {
             id: 'twitch-enhancer-settings',
             type: 'code',
-            value: `window.twitchEnhancer = ${JSON.stringify(twitchEnhancer)};`
-        },
-        {
-            id: 'tmi-js',
-            type: 'url',
-            value: 'https://unpkg.com/tmi.js@1.8.5/index.js'
+            value: `window.twitchEnhancer = ${JSON.stringify(twitchEnhancer)};`,
         },
         {
             id: 'twitch-enhancer-script',
             type: 'url',
-            value: chrome.runtime.getURL('js/main.js') 
+            value: chrome.runtime.getURL('js/main.js'),
+            module: true
         }
     ];
 
@@ -45,7 +41,7 @@
         const script = document.createElement('script');
         script.id = inject.id;
         script.async = true;
-        script.type = 'module';
+        if(inject.module) script.type = 'module';
         if(inject.type === 'url') script.src = inject.value;
         else if(inject.type === 'code') script.text = inject.value; 
         head.insertBefore(script, head.lastChild);
