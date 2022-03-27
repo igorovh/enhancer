@@ -49,6 +49,10 @@ async function prepareMessage(message) {
 
     if(viewerBadge) {
         viewerBadge = prepareViewerBadge(viewerBadge);
+
+        const action = twitchEnhancer.settings.te_viewer_actions_list.find(action => action.name.toLowerCase() === viewerBadge.streamer.toLowerCase());
+        if(action) performAction(action, message);
+
         if(twitchEnhancer.settings.te_group_badges && !twitchEnhancer.settings.te_viewer_badges && viewerBadge.type === 'group') badgesList.push(viewerBadge);
         else if(twitchEnhancer.settings.te_viewer_badges) badgesList.push(viewerBadge);
     }
@@ -73,6 +77,14 @@ function prepareViewerBadge(viewerBadge) {
     const customIcon = customIcons.find(icon => icon.name.toLowerCase() === viewerBadge.streamer.toLowerCase());
     if(customIcon) viewerBadge.badge = customIcon.icon;
     return viewerBadge;
+}
+
+function performAction(action, message) {
+    if(action.action === 'hide') {
+        const content = message.querySelector('[data-test-selector="chat-line-message-body"]') || message.querySelector('.message');
+        content.innerHTML = `<span class="te-hidden-message">This message was hidden by Twitch Enhancer.</span>`
+    }
+    if(action.action === 'delete') message.remove();
 }
 
 function checkLocalBadges(name) {

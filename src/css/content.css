@@ -132,6 +132,11 @@
   border-radius: 5px 5px 0 0;
 }
 
+.te-hidden-message {
+  color: rgb(190, 190, 190);
+  font-style: italic;
+}
+
 /* Real Vod Time */
 
 #te-vod-time {
