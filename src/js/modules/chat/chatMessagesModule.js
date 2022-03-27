@@ -7,6 +7,7 @@ import { honors } from '../../data/honors.js';
 import { customIcons } from '../../data/customIcons.js';
 import { groups } from '../../data/groups.js';
 import { twitchEnhancer } from '../../main.js'; 
+import { bots } from '../../data/bots.js'
 
 export const chatMessagesModule = new Module('chatMessages', callback);
 
@@ -33,6 +34,7 @@ async function prepareMessage(message) {
     if(!nameElement) return;
     let name = nameElement.textContent.toLowerCase();
     if(name.includes('(')) name = name.substring(name.indexOf('(') + 1, name.indexOf(')'));
+    if(bots.includes(name.toLowerCase())) return;
     nameElement.setAttribute('username', name);
     nameElement.addEventListener('contextmenu', mentionName);
     const badgesElement = message.querySelector('.chat-line__username-container')?.children[0] || message.querySelector('.chat-line__message--badges');
