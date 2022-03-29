@@ -8,25 +8,55 @@ import { customIcons } from '../../data/customIcons.js';
 import { groups } from '../../data/groups.js';
 import { twitchEnhancer } from '../../main.js'; 
 import { bots } from '../../data/bots.js'
+import { sendMessage } from '../../utils/chat.js'
 
 export const chatMessagesModule = new Module('chatMessages', callback);
 
 function callback(element) {
-    openDatabase();
     element.setAttribute('twitch-enhancer', '');
-    const callback = (mutationList, observer) => {
-        for(const mutation of mutationList) {
-            if(mutation.type === 'childList' && mutation.addedNodes) {
-                for(const message of mutation.addedNodes) {
-                    prepareMessage(message);
+    lookForBadges(() => {
+        if(!checkIfCan()) {
+            sendMessage('[Twitch Enhancer] For now "Viewers Badges" works only on channels in which you are vip, moderator or subscriber.');
+            return;
+        }
+        openDatabase();
+        const callback = (mutationList, observer) => {
+            for(const mutation of mutationList) {
+                if(mutation.type === 'childList' && mutation.addedNodes) {
+                    for(const message of mutation.addedNodes) {
+                        prepareMessage(message);
+                    }
                 }
             }
         }
-    }
-    const chatObserver = new MutationObserver(callback);
-    chatObserver.observe(element, { attributes: true, childList: true });
-    logger.info('Chat messages observer started.');
-    startUsersInterval();
+        const chatObserver = new MutationObserver(callback);
+        chatObserver.observe(element, { attributes: true, childList: true });
+        logger.info('Chat messages observer started.');
+        startUsersInterval();
+    });
+}
+
+function lookForBadges(callback) {
+    let times = 0;
+    const badgesInterval = setInterval(() => {
+        if(twitch.getChat().props.userBadges) {
+            clearInterval(badgesInterval);
+            callback();
+            logger.info('Chat badges found!');
+        }
+        if(times > 10) {
+            sendMessage('[Twitch Enhancer] Could not find your chat roles. Try to restart this page to make "Viewer Badges" work.');
+            clearInterval(badgesInterval);
+        }
+        times++;
+    }, 1000);
+}
+
+function checkIfCan() {
+    const badges = twitch.getChat().props.userBadges;
+    return (typeof badges.broadcaster !== 'undefined' || typeof badges.moderator !== 'undefined' || 
+        typeof badges.vip !== 'undefined' || typeof badges.subscriber !== 'undefined' 
+        || typeof honors.find(honor => honor.name === twitch.getChat().props.currentUserDisplayName.toLowerCase()) !== undefined);
 }
 
 async function prepareMessage(message) {

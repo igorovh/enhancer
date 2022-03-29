@@ -409,3 +409,7 @@ input[type='radio'] {
   min-width: 3rem;
   padding: 0 2rem;
 }
+
+.important-information {
+  color: red;
+}

@@ -2,7 +2,7 @@ export const honors = [
     {
         type: 'permanent',
         name: 'czarny_animekkk1337',
-        description: 'test'
+        description: 'For developing.'
     }
 ];
 
