@@ -125,7 +125,7 @@ async function getVislaud(name) {
 }
 
 async function getXayo(name) {
-    let json = await fetch(`https://teapi.vopp.top/user/xayo/${name}`);
+    let json = await fetch(`https://wcapi.vopp.top/user/xayo/${name}`);
     json = await json.json();
     if(json.length < 1) return { error: 404 };
     let allTime = 0;

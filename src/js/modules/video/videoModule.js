@@ -53,7 +53,7 @@ function reset() {
 }
 
 async function getVideoDate(id) {
-  const data = await fetch(`https://teapi.vopp.top/video/${id}`);
+  const data = await fetch(`https://wcapi.vopp.top/video/${id}`);
   const json = await data.json();
   return new Date(json.data[0].created_at);
 }
