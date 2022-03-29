@@ -50,8 +50,8 @@ export async function getUser(name) {
 export function addUser(user, cache = 86400000) {
     const tx = db.transaction('users', 'readwrite');
     const users = tx.objectStore('users');
-    if(cache < 86400000) cache = 86400000; // Min: 1 day
-    if(cache > 604800000) cache = 604800000 // Max: 1 week
-    user.timestamp = new Date(Date.now() + cache);
+    // if(cache < 86400000) cache = 86400000; // Min: 1 day
+    // if(cache > 604800000) cache = 604800000 // Max: 1 week
+    user.timestamp = new Date(Date.now() + 604800000);
     users.put(user);
 }
