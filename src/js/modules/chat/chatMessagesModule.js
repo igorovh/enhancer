@@ -44,7 +44,7 @@ function lookForBadges(callback) {
             callback();
             logger.info('Chat badges found!');
         }
-        if(times > 30) {
+        if(times > 60) {
             sendMessage('[Twitch Enhancer] Could not find your chat roles. Try to restart this page to make "Viewer Badges" work.');
             clearInterval(badgesInterval);
         }
