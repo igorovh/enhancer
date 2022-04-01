@@ -110,11 +110,13 @@ function prepareViewerBadge(viewerBadge) {
 }
 
 function performAction(action, message) {
-    if(action.action === 'hide') {
-        const content = message.querySelector('[data-test-selector="chat-line-message-body"]') || message.querySelector('.message');
-        content.innerHTML = `<span class="te-hidden-message">This message was hidden by Twitch Enhancer.</span>`
-    }
-    if(action.action === 'delete') message.remove();
+    setTimeout(() => { // 7TV fix :)
+        if(action.action === 'hide') {
+            const content = message.querySelector('[data-test-selector="chat-line-message-body"]') || message.querySelector('.message');
+            content.innerHTML = `<span class="te-hidden-message">This message was hidden by Twitch Enhancer.</span>`
+        }
+        if(action.action === 'delete') message.remove();
+    }, 150);
 }
 
 function checkLocalBadges(name) {
