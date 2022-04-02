@@ -8,8 +8,7 @@ import { customIcons } from '../../data/customIcons.js';
 import { groups } from '../../data/groups.js';
 import { twitchEnhancer } from '../../main.js'; 
 import { bots } from '../../data/bots.js'
-import { sendMessage } from '../../utils/chat.js'
-import { getChat } from '../../utils/twitch.js';
+import { getChat, getChatService, sendMessage } from '../../utils/twitch.js';
 
 export const chatMessagesModule = new Module('chatMessages', callback);
 
@@ -18,7 +17,7 @@ function callback(element) {
     window.getChat = getChat;
     lookForBadges(() => {
         if(!checkIfCan()) {
-            sendMessage('[Twitch Enhancer] For now "Viewers Badges" works only on channels in which you are vip, moderator or subscriber.');
+            sendMessage('For now "Viewers Badges" works only on channels in which you are vip, moderator or subscriber.');
             return;
         }
         openDatabase();
@@ -41,13 +40,18 @@ function callback(element) {
 function lookForBadges(callback) {
     let times = 0;
     const badgesInterval = setInterval(() => {
-        if(getChat().props.userBadges) {
+        if(getRoles()) {
             clearInterval(badgesInterval);
             callback();
             logger.info('Chat badges found!');
         }
         if(times > 60) {
-            sendMessage('[Twitch Enhancer] Could not find your chat roles. Try to restart this page to make "Viewer Badges" work.');
+            if(typeof honors.find(honor => honor.name === getChat().props.currentUserDisplayName.toLowerCase()) !== undefined) {
+                clearInterval(badgesInterval);
+                callback();
+                return;
+            }
+            sendMessage('Could not find your chat roles. Try to restart this page to make "Viewer Badges" work.');
             clearInterval(badgesInterval);
         }
         times++;
@@ -55,10 +59,15 @@ function lookForBadges(callback) {
 }
 
 function checkIfCan() {
-    const badges = getChat().props.userBadges;
+    const badges = getRoles();
+    if(!badges) return false;
     return (typeof badges.broadcaster !== 'undefined' || typeof badges.moderator !== 'undefined' || 
         typeof badges.vip !== 'undefined' || typeof badges.subscriber !== 'undefined' 
         || typeof honors.find(honor => honor.name === getChat().props.currentUserDisplayName.toLowerCase()) !== undefined);
+}
+
+function getRoles() {
+    return getChatService().client?.session?.channelstate['#' + getChat().props.channelLogin]?.userState?.badges;
 }
 
 async function prepareMessage(message) {

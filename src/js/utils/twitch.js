@@ -56,3 +56,40 @@ export function getChat() {
 
     return node?.stateNode;
 }
+
+export function getChatController() {
+    const node = findReactParents(
+        getReactInstance(document.querySelectorAll('section[data-test-selector="chat-room-component-layout"]')[0]),
+        n => n.stateNode?.props.messageHandlerAPI && n.stateNode?.props.chatConnectionAPI,
+        100
+    );
+
+    return node?.stateNode;
+}
+
+export function getChatService() {
+    const node = findReactChildren(
+        getReactInstance(document.querySelectorAll('#root div')[0]),
+        n => n.stateNode?.join && n.stateNode?.client,
+        1000
+    );
+
+    return node?.stateNode;
+}
+
+export function sendMessage(message) {
+    const controller = getChatController();
+    
+    if (controller) {
+        const id = Date.now().toString();
+        const text = message.replace(/\$currentChannel/g, controller.props.channelLogin);
+        controller.pushMessage({
+            id,
+            msgid: id,
+            channel: `#${controller.props.channelLogin}`,
+            type: 32,
+            message: `[Twitch Enhancer] ${text}`
+        });
+    }
+}
+
