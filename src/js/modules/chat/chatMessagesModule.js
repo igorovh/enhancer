@@ -9,11 +9,13 @@ import { groups } from '../../data/groups.js';
 import { twitchEnhancer } from '../../main.js'; 
 import { bots } from '../../data/bots.js'
 import { sendMessage } from '../../utils/chat.js'
+import { getChat } from '../../utils/twitch.js';
 
 export const chatMessagesModule = new Module('chatMessages', callback);
 
 function callback(element) {
     element.setAttribute('twitch-enhancer', '');
+    window.getChat = getChat;
     lookForBadges(() => {
         if(!checkIfCan()) {
             sendMessage('[Twitch Enhancer] For now "Viewers Badges" works only on channels in which you are vip, moderator or subscriber.');
@@ -39,7 +41,7 @@ function callback(element) {
 function lookForBadges(callback) {
     let times = 0;
     const badgesInterval = setInterval(() => {
-        if(twitch.getChat().props.userBadges) {
+        if(getChat().props.userBadges) {
             clearInterval(badgesInterval);
             callback();
             logger.info('Chat badges found!');
@@ -53,10 +55,10 @@ function lookForBadges(callback) {
 }
 
 function checkIfCan() {
-    const badges = twitch.getChat().props.userBadges;
+    const badges = getChat().props.userBadges;
     return (typeof badges.broadcaster !== 'undefined' || typeof badges.moderator !== 'undefined' || 
         typeof badges.vip !== 'undefined' || typeof badges.subscriber !== 'undefined' 
-        || typeof honors.find(honor => honor.name === twitch.getChat().props.currentUserDisplayName.toLowerCase()) !== undefined);
+        || typeof honors.find(honor => honor.name === getChat().props.currentUserDisplayName.toLowerCase()) !== undefined);
 }
 
 async function prepareMessage(message) {

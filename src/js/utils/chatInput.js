@@ -1,3 +1,5 @@
+import { getChatInput, getAutocompleteHandler } from './twitch.js';
+
 export function addText(message, pretty, focus) {
     const input = document.querySelector('textarea[data-a-target="chat-input"]');
     if(input) {
@@ -9,8 +11,8 @@ export function addText(message, pretty, focus) {
         input.dispatchEvent(event);
         if(focus) input.focus();
     } else {
-        twitch.getChatInput().props.onChange({ target: { value: fixMessage(message, twitch.getAutocompleteHandler().state.value) }});
-        twitch.getChatInput().focus();
+        getChatInput().props.onChange({ target: { value: fixMessage(message, getAutocompleteHandler().state.value) }});
+        getChatInput().focus();
     }
 }
 
