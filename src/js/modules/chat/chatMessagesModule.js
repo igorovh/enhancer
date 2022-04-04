@@ -14,26 +14,28 @@ export const chatMessagesModule = new Module('chatMessages', callback);
 
 function callback(element) {
     element.setAttribute('twitch-enhancer', '');
-    lookForBadges(() => {
-        if(!checkIfCan()) {
-            sendMessage('For now "Viewers Badges" works only on channels in which you are vip, moderator or subscriber.');
-            return;
-        }
-        openDatabase();
-        const callback = (mutationList, observer) => {
-            for(const mutation of mutationList) {
-                if(mutation.type === 'childList' && mutation.addedNodes) {
-                    for(const message of mutation.addedNodes) {
-                        prepareMessage(message);
+    if(twitchEnhancer.settings.te_group_badges || twitchEnhancer.settings.te_viewer_badges) {
+        lookForBadges(() => {
+            if(!checkIfCan()) {
+                sendMessage('For now "Viewers Badges" works only on channels in which you are vip, moderator or subscriber.');
+                return;
+            }
+            openDatabase();
+            const callback = (mutationList, observer) => {
+                for(const mutation of mutationList) {
+                    if(mutation.type === 'childList' && mutation.addedNodes) {
+                        for(const message of mutation.addedNodes) {
+                            prepareMessage(message);
+                        }
                     }
                 }
             }
-        }
-        const chatObserver = new MutationObserver(callback);
-        chatObserver.observe(element, { attributes: true, childList: true });
-        logger.info('Chat messages observer started.');
-        startUsersInterval();
-    });
+            const chatObserver = new MutationObserver(callback);
+            chatObserver.observe(element, { attributes: true, childList: true });
+            logger.info('Chat messages observer started.');
+            startUsersInterval();
+        });
+    }
 }
 
 function lookForBadges(callback) {
@@ -90,8 +92,10 @@ async function prepareMessage(message) {
     if(viewerBadge) {
         viewerBadge = prepareViewerBadge(viewerBadge);
 
-        const action = twitchEnhancer.settings.te_viewer_actions_list.find(action => action.name.toLowerCase() === viewerBadge.streamer.toLowerCase());
-        if(action) performAction(action, message);
+        if(twitchEnhancer.settings.te_viewer_actions) {
+            const action = twitchEnhancer.settings.te_viewer_actions_list.find(action => action.name.toLowerCase() === viewerBadge.streamer.toLowerCase());
+            if(action) performAction(action, message);
+        }
 
         if(twitchEnhancer.settings.te_group_badges && !twitchEnhancer.settings.te_viewer_badges && viewerBadge.type === 'group') badgesList.push(viewerBadge);
         else if(twitchEnhancer.settings.te_viewer_badges) badgesList.push(viewerBadge);
