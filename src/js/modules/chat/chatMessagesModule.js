@@ -14,7 +14,6 @@ export const chatMessagesModule = new Module('chatMessages', callback);
 
 function callback(element) {
     element.setAttribute('twitch-enhancer', '');
-    window.getChat = getChat;
     lookForBadges(() => {
         if(!checkIfCan()) {
             sendMessage('For now "Viewers Badges" works only on channels in which you are vip, moderator or subscriber.');
