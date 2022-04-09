@@ -4,29 +4,29 @@ const colors = {
     info: 'lime',
     warn: 'yellow',
     error: 'red',
-    log: 'aqua'
+    debug: 'aqua'
 }
 
-function info(message) {
-    typeLog(message, 'info');
+function info(...data) {
+    typeLog('info', data);
 }
 
-function error(message) {
-    typeLog(message, 'error');
+function error(...data) {
+    typeLog('error', data);
 }
 
-function warn(message) {
-    typeLog(message, 'warn');
+function warn(...data) {
+    typeLog('warn', data);
 }
 
-function log(message) {
-    typeLog(message, 'log');
+function debug(...data) {
+    typeLog('debug', data);
 }
 
-function typeLog(message, type) {
-    console.log(`%c${prefix} %c${type.toUpperCase()} %c${message}`, `color: ${colors.prefix}`, `color: ${colors[type]}`, 'color: white');
+function typeLog(type, data) {
+    console[type](`%c${prefix} %c${type.toUpperCase()} %c${data}`, `color: ${colors.prefix}`, `color: ${colors[type]}`, 'color: white');
 }
 
 export const logger = {
-    info, error, warn, log
+    info, error, warn, debug
 }
