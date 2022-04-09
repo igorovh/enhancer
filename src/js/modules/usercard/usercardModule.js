@@ -10,9 +10,8 @@ export const usercardModule = new Module('usercard', callback);
 
 function callback(element) {
     element.setAttribute('twitch-enhancer', '');
-    let username = element.getElementsByClassName('ScCoreLink-sc-udwpw5-0 tw-link')[0]?.textContent.toLowerCase() || 
-        element.getElementsByClassName('ScCoreLink-sc-udwpw5-0 tw-link')[0]?.textContent.toLowerCase();
-    username = fixName(username);
+    let username = serachName(element.getElementsByClassName('ScCoreLink-sc-udwpw5-0 tw-link')) //[0]?.textContent.toLowerCase();
+    if(!username) return;
     logger.info(`Found new user card - ${username}.`);
     const cardWrapper = document.createElement('div');
     cardWrapper.id = 'te-card-wrapper';
@@ -20,6 +19,14 @@ function callback(element) {
     createWatchtime(username, cardWrapper);
     createHonors(username, cardWrapper);
     createKonfident(username, cardWrapper);
+}
+
+function serachName(elements) {
+    for(const element of elements) {
+        const name = fixName(element.textContent.toLowerCase());
+        if(element.href.toLowerCase().includes(name)) return name;
+    }
+    return;
 }
 
 async function createWatchtime(username, cardWrapper) {

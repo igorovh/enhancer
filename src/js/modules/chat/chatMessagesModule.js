@@ -62,6 +62,7 @@ function lookForBadges(callback) {
 function checkIfCan() {
     const badges = getRoles();
     if(!badges) return false;
+    logger.debug(`Your roles: ${Object.keys(badges).join(', ')} (${getChat().props.channelLogin})`);
     return (typeof badges.broadcaster !== 'undefined' || typeof badges.moderator !== 'undefined' || 
         typeof badges.vip !== 'undefined' || typeof badges.subscriber !== 'undefined' 
         || typeof honors.find(honor => honor.name === getChat().props.currentUserDisplayName.toLowerCase()) !== undefined);
