@@ -77,6 +77,21 @@ export function getChatService() {
     return node?.stateNode;
 }
 
+export function getChatMessage(el) {
+    const inst = getReactInstance(el);
+    
+    return inst?.return?.stateNode;
+}
+
+export function getChatMessages() {
+    const lines = [];
+    for(const message of Array.from(document.querySelectorAll('.chat-line__message'))) {
+        const line = getChatMessage(message);
+        if(line) lines.push(line);
+    }
+    return lines;
+}
+
 export function sendMessage(message) {
     const controller = getChatController();
     
