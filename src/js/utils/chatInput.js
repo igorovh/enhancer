@@ -12,7 +12,7 @@ export function addText(message, pretty, focus) {
         if(focus) input.focus();
     } else {
         getChatInput().props.onChange({ target: { value: fixMessage(message, getAutocompleteHandler().state.value) }});
-        getChatInput().focus();
+        if(focus) getChatInput().focus();
     }
 }
 
