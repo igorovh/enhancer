@@ -47,7 +47,7 @@ function lookForBadges(callback) {
             logger.info('Chat badges found!');
         }
         if(times > 60) {
-            if(typeof honors.find(honor => honor.name === getChat().props.currentUserDisplayName.toLowerCase()) !== undefined) {
+            if(typeof honors.find(honor => honor.name === getChat()?.props?.currentUserDisplayName?.toLowerCase()) !== undefined) {
                 clearInterval(badgesInterval);
                 callback();
                 return;
