@@ -222,18 +222,46 @@ function fixType(user) {
     }
 }
 
+const errors = {
+    expire: 0,
+    count: 0
+};
+
 function startUsersInterval() {
     setInterval(async () => {
         if(users.length < 1) return;
         if(block >= Date.now()) return;
+        console.log(errors.count);
+        if((errors.expire + 180000) <= Date.now() && errors.count > 0) {
+            errors.count = 0;
+            errors.expire = 0;
+            logger.info('Reseting chat errors.');
+        } else if(errors.count >= 25) {
+            logger.warn('Blocking users interval for 30 seconds (too many errors).');
+            block = Date.now() + 30000;
+            errors.count = 0;
+            errors.expire = 0;
+            return;
+        }
         let names = users.shift();
         if(users.length > 25) {
             names = users.splice(0, 100).sort().join(',');
             block = Date.now() + 10000;
             logger.warn('Blocking users interval for 10 seconds.');
         }
-        const data = await fetch(`https://teapi.vopp.top/chat/${names}`);
-        const json = await data.json();
+        let json;
+        try {
+            const data = await fetch(`https://teapi.vopp.top/chat/${names}`);
+            if(data.status !== 200) {
+                errors.expire = Date.now();
+                errors.count++;
+            }
+            json = await data.json();
+        } catch(e) {
+            errors.expire = Date.now();
+            errors.count++;
+        }
+        if(!json) return;
         for(const user of json) {
             const cacheUser = {
                 name: user.login,
