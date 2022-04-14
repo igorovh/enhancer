@@ -139,11 +139,17 @@
 
 /* Real Vod Time */
 
-#te-vod-time {
+.te-video-button {
   margin-left: 0.5rem;
 }
 
-#te-vod-time:hover {
+.te-video-button:hover {
   opacity: 0.75;
   cursor: pointer;
+}
+
+/* Clip Download Button */
+
+#te-clip-download {
+  color: white;
 }

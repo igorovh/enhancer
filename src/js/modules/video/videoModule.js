@@ -28,6 +28,7 @@ async function createTime(element) {
   videoElement = element.querySelector('video');
   timeSpan = document.createElement('span');
   timeSpan.id = 'te-vod-time';
+  timeSpan.className = 'te-video-button';
   timeSpan.textContent = 'Loading...';
   timeSpan.addEventListener('click', setTimeFromVod);
   controls.appendChild(timeSpan);
