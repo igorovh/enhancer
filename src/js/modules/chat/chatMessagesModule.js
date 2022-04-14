@@ -12,54 +12,56 @@ import { getChat, getChatService, sendMessage } from '../../utils/twitch.js';
 
 export const chatMessagesModule = new Module('chatMessages', callback);
 
-function callback(element) {
+async function callback(element) {
     element.setAttribute('twitch-enhancer', '');
     if(twitchEnhancer.settings.te_group_badges || twitchEnhancer.settings.te_viewer_badges) {
-        lookForBadges(() => {
-            if(!checkIfCan()) {
-                sendMessage('For now "Viewers Badges" works only on channels in which you are vip, moderator or subscriber.');
-                return;
-            }
-            openDatabase();
-            const callback = (mutationList, observer) => {
-                for(const mutation of mutationList) {
-                    if(mutation.type === 'childList' && mutation.addedNodes) {
-                        for(const message of mutation.addedNodes) {
-                            prepareMessage(message);
-                        }
+        const display = await canDisplay();
+        if(!display) {
+            sendMessage('For now "Viewers Badges" works only on channels in which you are vip, moderator or subscriber.');
+            return;
+        }
+        openDatabase();
+        const callback = (mutationList, observer) => {
+            for(const mutation of mutationList) {
+                if(mutation.type === 'childList' && mutation.addedNodes) {
+                    for(const message of mutation.addedNodes) {
+                        prepareMessage(message);
                     }
                 }
             }
-            const chatObserver = new MutationObserver(callback);
-            chatObserver.observe(element, { attributes: true, childList: true });
-            logger.info('Chat messages observer started.');
-            startUsersInterval();
-        });
+        }
+        const chatObserver = new MutationObserver(callback);
+        chatObserver.observe(element, { attributes: true, childList: true });
+        logger.info('Chat messages observer started.');
+        startUsersInterval();
     }
 }
 
-function lookForBadges(callback) {
-    let times = 0;
-    const badgesInterval = setInterval(() => {
-        if(getRoles()) {
-            clearInterval(badgesInterval);
-            callback();
-            logger.info('Chat badges found!');
-        }
-        if(times > 60) {
-            if(typeof honors.find(honor => honor.name === getChat()?.props?.currentUserDisplayName?.toLowerCase()) !== undefined) {
+function canDisplay() {
+    return new Promise((resolve) => {
+        let times = 0;
+        const badgesInterval = setInterval(() => {
+            if(getRoles()) {
                 clearInterval(badgesInterval);
-                callback();
-                return;
+                resolve(checkRoles());
+                logger.info('Chat badges found!');
             }
-            sendMessage('Could not find your chat roles. Try to restart this page to make "Viewer Badges" work.');
-            clearInterval(badgesInterval);
-        }
-        times++;
-    }, 1000);
+            if(times > 60) {
+                if(typeof honors.find(honor => honor.name === getChat()?.props?.currentUserDisplayName?.toLowerCase()) !== undefined) {
+                    clearInterval(badgesInterval);
+                    resolve(true);
+                    return;
+                }
+                sendMessage('Could not find your chat roles. Try to restart this page to make "Viewer Badges" work.');
+                clearInterval(badgesInterval);
+                resolve(false);
+            }
+            times++;
+        }, 1000);
+    });
 }
 
-function checkIfCan() {
+function checkRoles() {
     const badges = getRoles();
     if(!badges) return false;
     logger.debug(`Your roles: ${Object.keys(badges).join(', ')} (${getChat().props.channelLogin})`);
