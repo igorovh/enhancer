@@ -20,14 +20,19 @@
   border-radius: 4px;
   font-weight: 600;
   position: absolute;
-  right: 3em;
   white-space: nowrap;
   z-index: 9999;
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.1s ease-in 0.2s;
 }
-.te-tooltip::after {
+.te-tooltip-left {
+  right: 3em;
+}
+.te-tooltip-top {
+  bottom: 3em;
+}
+.te-tooltip-left::after {
   content: '';
   position: absolute;
   left: 100%;
@@ -36,6 +41,19 @@
   pointer-events: none;
   top: 50%;
   margin-top: -5px;
+  border-color: transparent transparent transparent var(--color-text-base);
+}
+
+.te-tooltip-top::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  border-width: 5px;
+  border-style: solid;
+  pointer-events: none;
+  left: 50%;
+  margin-left: -5px;
+  transform: rotate(90deg);
   border-color: transparent transparent transparent var(--color-text-base);
 }
 
@@ -151,5 +169,18 @@
 /* Clip Download Button */
 
 #te-clip-download {
-  color: white;
+  color: #fff;
+  margin: 0 0.25rem;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius-medium);
+  cursor: pointer;
+  position: relative;
+}
+
+#te-clip-download:hover {
+  background-color: var(--color-background-button-icon-overlay-hover);
 }
