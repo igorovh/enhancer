@@ -233,7 +233,6 @@ function startUsersInterval() {
     setInterval(async () => {
         if(users.length < 1) return;
         if(block >= Date.now()) return;
-        console.log(errors.count);
         if((errors.expire + 180000) <= Date.now() && errors.count > 0) {
             errors.count = 0;
             errors.expire = 0;

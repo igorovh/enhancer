@@ -121,7 +121,7 @@ button.remove-icon,
 button.remove-action {
   padding: 0.5em 1.3rem;
 }
-#groups__loading {
+#groups--loading {
   margin: 3rem 0 3rem 0;
   display: flex;
   justify-content: center;
@@ -176,7 +176,7 @@ button.remove-action {
   display: flex;
   gap: 1rem;
 }
-#social-link {
+.social-link {
   color: rgba(242, 242, 242, 0.5);
   text-decoration: none;
   display: flex;
@@ -184,7 +184,7 @@ button.remove-action {
   gap: 0.2rem;
   transition: 0.1s;
 }
-#social-link:hover {
+.social-link:hover {
   color: rgba(255, 255, 255, 0.6);
 }
 #version {

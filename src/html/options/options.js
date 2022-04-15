@@ -18,41 +18,31 @@ window.addEventListener('DOMContentLoaded', () => {
       icons = options.te_viewer_custom_icons;
       actions = options.te_viewer_actions_list;
       updateTable();
+      if (!browser) var browser = chrome;
+      document.querySelector('#version').textContent = `v${browser.runtime.getManifest().version}`;
       const currGroups = document.querySelector('#groups');
       currGroups.innerHTML = `
         <div id="groups--loading">
             <svg style="margin-bottom: 2em" width="80" height="20" viewBox="0 0 120 30" xmlns="http://www.w3.org/2000/svg" fill="#A970FF" aria-label="audio-loading"><circle cx="15" cy="15" r="15"><animate attributeName="r" from="15" to="15" begin="0s" dur="0.8s" values="15;9;15" calcMode="linear" repeatCount="indefinite"></animate><animate attributeName="fillOpacity" from="1" to="1" begin="0s" dur="0.8s" values="1;.5;1" calcMode="linear" repeatCount="indefinite"></animate></circle><circle cx="60" cy="15" r="9" attributeName="fillOpacity" from="1" to="0.3"><animate attributeName="r" from="9" to="9" begin="0s" dur="0.8s" values="9;15;9" calcMode="linear" repeatCount="indefinite"></animate><animate attributeName="fillOpacity" from="0.5" to="0.5" begin="0s" dur="0.8s" values=".5;1;.5" calcMode="linear" repeatCount="indefinite"></animate></circle><circle cx="105" cy="15" r="15"><animate attributeName="r" from="15" to="15" begin="0s" dur="0.8s" values="15;9;15" calcMode="linear" repeatCount="indefinite"></animate><animate attributeName="fillOpacity" from="1" to="1" begin="0s" dur="0.8s" values="1;.5;1" calcMode="linear" repeatCount="indefinite"></animate></circle></svg>
             <div class="groups__loading-description">Loading groups...</div>
         </div>`;
-      await fetch('https://wcapi.vopp.top/groupBadges')
-        .then((res) => res.json())
-        .then((groups) => {
-          currGroups.innerHTML = '<h1>Current Groups</h1>';
-          groups.forEach((group) => {
-            currGroups.innerHTML += `
-                    <div class="group">
-                        <div class="group__card">
-                            <div class="group__name">${group.name}</div>
-                            <img src="${group.icon}" alt="${
-              group.name
-            }" class="group__image">
-                        </div>
-                        <div class="group__members">${group.streamers.join(
-                          ', '
-                        )}.</div>
-                    </div>
-                `;
-          });
-        })
-        .catch(
-          (err) =>
-            (currGroups.innerHTML = `<h1>Current Groups</h1><div id="groups__loading">Error while loading groups. Refresh the page.</div>`)
-        );
-
-      if (!browser) var browser = chrome;
-      document.querySelector('#version').textContent = `v${
-        browser.runtime.getManifest().version
-      }`;
+      try {
+        const data = await fetch('https://wcapi.vopp.top/groupBadges');
+        const groups = await data.json();
+        currGroups.innerHTML = '<h1>Current Groups</h1>';
+        groups.forEach((group) => {
+          currGroups.innerHTML += `
+            <div class="group">
+              <div class="group__card">
+                <div class="group__name">${group.name}</div>
+                <img src="${group.icon}" alt="${group.name}" class="group__image">
+              </div>
+              <div class="group__members">${group.streamers.join(', ')}.</div>
+            </div>`;
+        });
+      } catch (err) {
+        currGroups.innerHTML = `<h1>Current Groups</h1><div id="groups--loading">Error while loading groups. Refresh the page.</div>`;
+      }
     }
   );
   const tabs = document.querySelectorAll('.settings__tab');
@@ -88,9 +78,7 @@ function updateTable() {
         <tbody class="row">
             <tr>
                 <td><div class="td__inner">${action.name}</div></td>
-                <td><div class="td__inner">${
-                  actionsText[action.action]
-                }</div></td>
+                <td><div class="td__inner">${actionsText[action.action]}</div></td>
                 <td><div class="td__inner"><button value="Remove" streamer="${
                   action.name
                 }" class="remove-action"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="-8.5 -7.5 30 30">
@@ -124,8 +112,7 @@ function addIcon() {
   if (icons.find((icon) => icon.name === name))
     return alert('This user already exist in this table.');
   const icon = document.forms.icons.icon.value;
-  if (name.length < 1 || icon.length < 1)
-    return alert('Name or icon is empty.');
+  if (name.length < 1 || icon.length < 1) return alert('Name or icon is empty.');
   icons.push({
     name,
     icon,
@@ -135,8 +122,7 @@ function addIcon() {
 
 function removeIcon(evt) {
   icons = icons.filter(
-    (icon) =>
-      icon.name.toLowerCase() !== evt.currentTarget.getAttribute('streamer')
+    (icon) => icon.name.toLowerCase() !== evt.currentTarget.getAttribute('streamer')
   );
   save();
 }
@@ -155,8 +141,7 @@ function addAction() {
 
 function removeAction(evt) {
   actions = actions.filter(
-    (action) =>
-      action.name.toLowerCase() !== evt.currentTarget.getAttribute('streamer')
+    (action) => action.name.toLowerCase() !== evt.currentTarget.getAttribute('streamer')
   );
   save();
 }
@@ -188,9 +173,7 @@ function appendListeners() {
     document.querySelector('#te-viewer-actions'),
   ].forEach((item) => {
     item.addEventListener('change', () => {
-      const format = document.querySelector('#te-xayo-format-full').checked
-        ? 'full'
-        : 'hour';
+      const format = document.querySelector('#te-xayo-format-full').checked ? 'full' : 'hour';
       const service = document.querySelector('#te-xayo-service-auto').checked
         ? 'auto'
         : document.querySelector('#te-xayo-service-xayo').checked
@@ -219,20 +202,12 @@ function loadSettings() {
       te_viewer_actions: true,
     },
     (options) => {
-      document.querySelector(
-        `#te-xayo-service-${options.te_xayo_service}`
-      ).checked = true;
-      document.querySelector(
-        `#te-xayo-format-${options.te_xayo_format}`
-      ).checked = true;
-      document.querySelector('#te-real-vod-time').checked =
-        options.te_real_vod_time;
-      document.querySelector('#te-viewer-badges').checked =
-        options.te_viewer_badges;
-      document.querySelector('#te-group-badges').checked =
-        options.te_group_badges;
-      document.querySelector('#te-viewer-actions').checked =
-        options.te_viewer_actions;
+      document.querySelector(`#te-xayo-service-${options.te_xayo_service}`).checked = true;
+      document.querySelector(`#te-xayo-format-${options.te_xayo_format}`).checked = true;
+      document.querySelector('#te-real-vod-time').checked = options.te_real_vod_time;
+      document.querySelector('#te-viewer-badges').checked = options.te_viewer_badges;
+      document.querySelector('#te-group-badges').checked = options.te_group_badges;
+      document.querySelector('#te-viewer-actions').checked = options.te_viewer_actions;
     }
   );
 }
