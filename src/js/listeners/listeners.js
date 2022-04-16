@@ -1,6 +1,8 @@
-export { chatButtonListener } from './chat/chatButtonsListener.js';
-export { chatMessagesListener } from './chat/chatMessagesListener.js';
-export { qalListener } from './qal/qalListener.js';
-export { usercardListener } from './usercard/usercardListener.js';
-export { videoListener } from './video/videoListener.js';
-export { clipListener } from './clip/clipListener.js';
+import { chatButtonListener } from './chat/chatButtonsListener.js';
+import { chatMessagesListener } from './chat/chatMessagesListener.js';
+import { qalListener } from './qal/qalListener.js';
+import { usercardListener } from './usercard/usercardListener.js';
+import { videoListener } from './video/videoListener.js';
+import { clipListener } from './clip/clipListener.js';
+
+export const extensionListeners = [ chatButtonListener, chatMessagesListener, qalListener, usercardListener, videoListener, clipListener ];

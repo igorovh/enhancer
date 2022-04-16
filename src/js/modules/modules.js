@@ -1,7 +1,10 @@
-export { chatButtonModule } from './chat/chatButtonModule.js';
-export { chatEmotesModule } from './chat/chatEmotesModule.js'
-export { qalModule } from './qal/qalModule.js';
-export { usercardModule } from './usercard/usercardModule.js';
-export { chatMessagesModule } from './chat/chatMessagesModule.js'
-export { videoModule } from './video/videoModule.js';
-export { clipModule } from './clip/clipModule.js';
+import { chatButtonModule } from './chat/chatButtonModule.js';
+import { chatEmotesModule } from './chat/chatEmotesModule.js'
+import { qalModule } from './qal/qalModule.js';
+import { usercardModule } from './usercard/usercardModule.js';
+import { chatMessagesModule } from './chat/chatMessagesModule.js'
+import { videoModule } from './video/videoModule.js';
+import { clipModule } from './clip/clipModule.js';
+import { chatBumpingModule } from './chat/chatBumpingModule.js';
+
+export const extensionModules = [ chatButtonModule, chatEmotesModule, chatMessagesModule, qalModule, usercardModule, videoModule, clipModule ]; 
