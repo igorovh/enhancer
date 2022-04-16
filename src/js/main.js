@@ -5,7 +5,7 @@ import { customIcons } from './data/customIcons.js';
 
 export const twitchEnhancer = window.twitchEnhancer;
 
-const listeners = [ chatButtonListener, chatMessagesListener, qalListener, usercardListener, videoListener, clipListener ];
+const listeners = extensionListeners;
 const modules = extensionModules;
 
 for(const module of modules) {
