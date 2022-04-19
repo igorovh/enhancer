@@ -3,7 +3,7 @@
 (async function () {
     const settings = await new Promise(resolve => {
         chrome.storage.sync.get({
-            te_xayo_format: 'hour',
+            te_xayo_format: 'full',
             te_xayo_service: 'auto',
             te_viewer_badges: true,
             te_group_badges: true,
