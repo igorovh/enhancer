@@ -13,7 +13,8 @@ function callback(element) {
 function createButton(element) {
   const controls = element.querySelector('.player-controls__left-control-group');
   const link = document.createElement('a');
-  link.href = createLink();
+  link.href = '#';
+  link.onclick = downloadClip;
   link.target = '_blank';
   link.rel = 'noopener noreferrer';
   link.id = 'te-clip-download';
@@ -24,11 +25,6 @@ function createButton(element) {
   tooltip(link, 'te-download-clip');
 }
 
-function createLink() {
-  return 'https://clipr.xyz/' + getClipId();
-}
-
-function getClipId() {
-  const url = new URL(window.location.href);
-  return url.pathname.split('/').reverse()[0];
+function downloadClip() {
+  window.open(document.querySelector('video').src);
 }
