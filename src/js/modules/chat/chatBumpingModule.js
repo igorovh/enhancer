@@ -23,9 +23,8 @@ function callback(element) {
 function checkMessage(message, element) {
     if(!message) return;
     element.setAttribute('data-message-id', message.props?.message?.id);
-    console.log(message, '[te]');
     const messageContent = message.props?.message?.message;
-    if(messageContent && messageContent.startsWith('`bump ')) { //`bump 5818577831
+    if(messageContent && messageContent === '^') {
         element.remove();
         const bumpElement = getMessageById(messageContent.split(' ')[1]);
     }
@@ -33,4 +32,4 @@ function checkMessage(message, element) {
 
 function getMessageById(id) {
     return document.querySelector(`div[data-message-id=${id}]`);
-}
+} 
