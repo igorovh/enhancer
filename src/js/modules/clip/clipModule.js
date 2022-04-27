@@ -15,7 +15,6 @@ function createButton(element) {
   const link = document.createElement('a');
   link.href = '#';
   link.onclick = downloadClip;
-  link.target = '_blank';
   link.rel = 'noopener noreferrer';
   link.id = 'te-clip-download';
   link.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20px" height="20px" stroke="currentColor" aria-hidden="true">
