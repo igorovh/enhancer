@@ -26,12 +26,15 @@
   opacity: 0;
   transition: opacity 0.1s ease-in 0.2s;
 }
+
 .te-tooltip-left {
   right: 3em;
 }
+
 .te-tooltip-top {
   bottom: 3em;
 }
+
 .te-tooltip-left::after {
   content: '';
   position: absolute;
@@ -156,10 +159,24 @@
 }
 
 .te-bumps {
+  display: inline-flex;
   margin-left: 0.5rem;
   background-color: rgb(116, 23, 255);
-  border-radius: 5px;
-  padding: 2px;
+  border-radius: 1rem;
+  padding: 0 0.75rem;
+  font-weight: bold;
+  animation: bump .5s;
+}
+
+@keyframes bump {
+  from {
+    transform: scale(1.2);
+
+  }
+
+  to {
+    transform: scale(1);
+  }
 }
 
 /* Real Vod Time */

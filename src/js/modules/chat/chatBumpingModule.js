@@ -55,13 +55,11 @@ function addBump(message) {
 
 function showBumps(amount, element) {
     let bumpsElement;
-    if(element.querySelector('.te-bumps')) {
-        bumpsElement = element.querySelector('.te-bumps');
-    } else {
-        const messageContent = element.querySelector('.message') || element.querySelector('.seventv-message-context') || element.querySelector('span[data-test-selector="chat-line-message-body"]');
-        bumpsElement = document.createElement('span');
-        bumpsElement.className = 'te-bumps';
-        messageContent.appendChild(bumpsElement);
-    }
-    bumpsElement.innerHTML = 'Bumps: ' + amount;
+    if(element.querySelector('.te-bumps')) element.querySelector('.te-bumps').remove();
+    const messageContent = element.querySelector('.message') || element.querySelector('.seventv-message-context') || element.querySelector('span[data-test-selector="chat-line-message-body"]');
+    bumpsElement = document.createElement('div');
+    bumpsElement.className = 'te-bumps';
+    messageContent.appendChild(bumpsElement);
+    
+    bumpsElement.innerHTML = '+' + amount;
 }
