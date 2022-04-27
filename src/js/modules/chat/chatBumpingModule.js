@@ -1,6 +1,8 @@
 import { Module } from '../module.js';
 import { logger } from '../../utils/logger.js';
 import { getChatMessage, getChatMessages } from '../../utils/twitch.js';
+import { tooltip } from '../../utils/tooltip.js';
+
 
 export const chatBumpingModule = new Module('chatMessages', callback);
 
@@ -54,12 +56,12 @@ function addBump(message) {
 }
 
 function showBumps(amount, element) {
-    let bumpsElement;
     if(element.querySelector('.te-bumps')) element.querySelector('.te-bumps').remove();
     const messageContent = element.querySelector('.message') || element.querySelector('.seventv-message-context') || element.querySelector('span[data-test-selector="chat-line-message-body"]');
-    bumpsElement = document.createElement('div');
+    const bumpsElement = document.createElement('div');
     bumpsElement.className = 'te-bumps';
     messageContent.appendChild(bumpsElement);
     
-    bumpsElement.innerHTML = '+' + amount;
+    bumpsElement.innerHTML = '+' + amount + `<span class="te-tooltip te-bump-${element.dataset.messageId} te-tooltip-top">Bumps</span>`;
+    tooltip(bumpsElement, `te-bump-${element.dataset.messageId}`);
 }
