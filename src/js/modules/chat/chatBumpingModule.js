@@ -30,12 +30,13 @@ function callback(element) {
 function checkMessage(message, element) {
     if(!message) return;
     element.setAttribute('data-message-id', message.props?.message?.id);
-    const messageContent = message.props?.message?.message;
-    if(messageContent && messageContent === '^' && message.props.reply) {
+    const messageContent = message.props?.message?.messageBody;
+    if(messageContent && messageContent === '^' && message.props.message.reply) {
         element.remove();
         const bumpElement = getMessageById(message.props.reply.parentMsgId);
         const bumps = addBump(bumpElement);
         showBumps(bumps, bumpElement);
+        console.log('[te]', 'RECIVING BUMP', message);
     }
 }
 
