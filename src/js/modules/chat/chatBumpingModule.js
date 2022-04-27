@@ -1,6 +1,6 @@
 import { Module } from '../module.js';
 import { logger } from '../../utils/logger.js';
-import { getChatMessage, getChatMessages } from '../../utils/twitch.js';
+import { getChatMessage, getChatMessages, getChatService, getChat } from '../../utils/twitch.js';
 import { tooltip } from '../../utils/tooltip.js';
 
 
@@ -35,10 +35,11 @@ function checkMessage(message, element) {
     const messageContent = message.props?.message?.messageBody;
     const regex = /[a-zA-Z0-9]/gm;
     if(messageContent && messageContent.includes('^') && message.props.message.reply && !regex.test(messageContent)) {
-        element.remove();
-        const bumpElement = getMessageById(message.props.reply.parentMsgId);
+        element.style.display = 'none';
+        const id = message.props.reply.parentMsgId;
+        const bumpElement = getMessageById(id);
         const bumps = addBump(bumpElement);
-        showBumps(bumps, bumpElement);
+        showBumps(bumps, bumpElement, id);
     }
 }
 
@@ -55,7 +56,7 @@ function addBump(message) {
     return bumps;
 }
 
-function showBumps(amount, element) {
+function showBumps(amount, element, id, allowBump = true) {
     if(element.querySelector('.te-bumps')) element.querySelector('.te-bumps').remove();
     const messageContent = element.querySelector('.message') || element.querySelector('.seventv-message-context') || element.querySelector('span[data-test-selector="chat-line-message-body"]');
     const bumpsElement = document.createElement('div');
@@ -63,5 +64,22 @@ function showBumps(amount, element) {
     messageContent.appendChild(bumpsElement);
     
     bumpsElement.innerHTML = '+' + amount + `<span class="te-tooltip te-bump-${element.dataset.messageId} te-tooltip-top">Bumps</span>`;
+
+    if(allowBump) bumpsElement.addEventListener('click', () => sendBump(id, element));
+    else bumpsElement.style.cursor = 'no-drop';
     tooltip(bumpsElement, `te-bump-${element.dataset.messageId}`);
+
+    return bumpsElement;
+}
+
+async function sendBump(messageId, message) {
+    getChatService().client.connection.ws.send(`@reply-parent-msg-id=${messageId} PRIVMSG #${getChat().props.channelLogin} :^`);
+
+    if(message) {
+        const element = showBumps(addBump(message), message, messageId, false);
+        setTimeout(() => {
+            element.style.cursor = 'pointer';
+            element.addEventListener('click', () => sendBump(messageId, message));
+        }, 5000);
+    }
 }

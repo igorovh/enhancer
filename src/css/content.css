@@ -172,6 +172,11 @@
   user-select: none;
 }
 
+.te-bumps:hover {
+  background-color: rgb(105, 20, 233);
+  cursor: pointer;
+}
+
 @keyframes bump {
   from {
     transform: scale(1.2);
