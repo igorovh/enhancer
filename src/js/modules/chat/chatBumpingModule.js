@@ -83,11 +83,5 @@ function showBumps(amount, element, id, allowBump = true) {
 async function sendBump(messageId, message) {
     getChatService().client.connection.ws.send(`@reply-parent-msg-id=${messageId} PRIVMSG #${getChat().props.channelLogin} :^`);
 
-    if(message) {
-        const element = showBumps(addBump(message), message, messageId, false);
-        setTimeout(() => {
-            element.style.cursor = 'pointer';
-            element.addEventListener('click', () => sendBump(messageId, message));
-        }, 5000);
-    }
+    if(message) showBumps(addBump(message), message, messageId, false);
 }
