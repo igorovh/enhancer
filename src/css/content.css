@@ -32,7 +32,7 @@
 }
 
 .te-tooltip-top {
-  bottom: 3em;
+  bottom: 2.5em;
 }
 
 .te-tooltip-left::after {
@@ -160,18 +160,21 @@
 
 .te-bumps {
   display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
   margin-left: 0.5rem;
   background-color: rgb(116, 23, 255);
   border-radius: 1rem;
   padding: 0 0.75rem;
   font-weight: bold;
   animation: bump .5s;
+  user-select: none;
 }
 
 @keyframes bump {
   from {
     transform: scale(1.2);
-
   }
 
   to {
