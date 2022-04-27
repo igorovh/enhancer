@@ -31,12 +31,12 @@ function checkMessage(message, element) {
     if(!message) return;
     element.setAttribute('data-message-id', message.props?.message?.id);
     const messageContent = message.props?.message?.messageBody;
-    if(messageContent && messageContent === '^' && message.props.message.reply) {
+    const regex = /[a-zA-Z0-9]/gm;
+    if(messageContent && messageContent.includes('^') && message.props.message.reply && !regex.test(messageContent)) {
         element.remove();
         const bumpElement = getMessageById(message.props.reply.parentMsgId);
         const bumps = addBump(bumpElement);
         showBumps(bumps, bumpElement);
-        console.log('[te]', 'RECIVING BUMP', message);
     }
 }
 
