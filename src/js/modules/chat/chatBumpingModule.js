@@ -12,7 +12,7 @@ function callback(element) {
         for(const mutation of mutationList) {
             if(mutation.type === 'childList' && mutation.addedNodes) {
                 for(const message of mutation.addedNodes) {
-                    checkMessage(getChatMessage(message), message);
+                    checkMessage(message);
                 }
             }
         }
@@ -29,8 +29,12 @@ function callback(element) {
     });
 }
 
-function checkMessage(message, element) {
+function checkMessage(element) {
+    const message = getChatMessage(element);
     if(!message) return;
+
+    if(getChat().props.currentUserLogin !== message.props.message.user.userLogin) createBumpButton(element);
+
     element.setAttribute('data-message-id', message.props?.message?.id);
     const messageContent = message.props?.message?.messageBody;
     const regex = /[a-zA-Z0-9]/gm;
@@ -45,7 +49,11 @@ function checkMessage(message, element) {
 
 function getMessageById(id) {
     return document.querySelector(`div[data-message-id="${id}"]`);
-} 
+}
+
+function createBumpButton(element) {
+    console.log('[te]', 'Should create button here', element);
+}
 
 function addBump(message) {
     let bumps = 1;
