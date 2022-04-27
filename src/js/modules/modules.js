@@ -7,4 +7,4 @@ import { videoModule } from './video/videoModule.js';
 import { clipModule } from './clip/clipModule.js';
 import { chatBumpingModule } from './chat/chatBumpingModule.js';
 
-export const extensionModules = [ chatButtonModule, chatEmotesModule, chatMessagesModule, qalModule, usercardModule, videoModule, clipModule ]; 
+export const extensionModules = [ chatButtonModule, chatEmotesModule, chatMessagesModule, qalModule, usercardModule, videoModule, clipModule, chatBumpingModule ]; 
