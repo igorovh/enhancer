@@ -1,6 +1,6 @@
 import { Module } from '../module.js';
 import { logger } from '../../utils/logger.js';
-import { getChatMessage, getChatMessages, getChatService, getChat } from '../../utils/twitch.js';
+import { getChatMessage, getChatService, getChat, sendMessage } from '../../utils/twitch.js';
 import { tooltip } from '../../utils/tooltip.js';
 
 
@@ -42,6 +42,10 @@ function checkMessage(element) {
         element.style.display = 'none';
         const id = message.props.reply.parentMsgId;
         const bumpElement = getMessageById(id);
+        if(!bumpElement) {
+            sendMessage('Cannot bump this message.');
+            return;
+        } 
         const bumps = addBump(bumpElement);
         showBumps(bumps, bumpElement, id);
     }
