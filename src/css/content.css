@@ -170,11 +170,41 @@
   font-weight: bold;
   animation: bump .5s;
   user-select: none;
+  cursor: pointer;
 }
 
 .te-bumps:hover {
   background-color: rgb(105, 20, 233);
+}
+
+.te-bump-button-wrapper {
+  position: absolute;
+  right: 4rem;
+  top: -1rem;
+  height: var(--button-size-default);
+  width: var(--button-size-default);
+  z-index: 1;
+}
+
+.te-bump-button {
+  justify-content: center;
+  align-items: center;
+  display: none;
+  box-shadow: var(--shadow-elevation-1);
+  background-color: var(--color-background-base);
+  border-radius: var(--border-radius-medium);
+  height: var(--button-size-default);
+  width: var(--button-size-default);
+  color: var(--color-fill-button-icon);
   cursor: pointer;
+}
+
+.te-bump-button:hover {
+  background-color: #464649;
+}
+
+.chat-line__message:hover .te-bump-button {
+  display: flex;
 }
 
 @keyframes bump {
