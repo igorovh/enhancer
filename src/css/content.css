@@ -170,11 +170,6 @@
   font-weight: bold;
   animation: bump .5s;
   user-select: none;
-  cursor: pointer;
-}
-
-.te-bumps:hover {
-  background-color: rgb(105, 20, 233);
 }
 
 .te-bump-button-wrapper {

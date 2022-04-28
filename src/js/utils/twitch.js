@@ -92,6 +92,12 @@ export function getChatMessages() {
     return lines;
 }
 
+export function getChatMessagesById(ids) {
+    const messages = getChatMessages();
+    messages.filter(({ component }) => ids.includes(component.props?.message?.id));
+    return messages;
+}
+
 export function sendMessage(message) {
     const controller = getChatController();
     
