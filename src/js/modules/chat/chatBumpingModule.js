@@ -2,12 +2,19 @@ import { Module } from '../module.js';
 import { logger } from '../../utils/logger.js';
 import { getChatMessage, getChatService, getChat, getChatMessagesById } from '../../utils/twitch.js';
 import { tooltip } from '../../utils/tooltip.js';
+import { honors } from '../../data/honors.js';
 
 
 export const chatBumpingModule = new Module('chatMessages', callback);
 
-function callback(element) {
+async function callback(element) {
     element.setAttribute('twitch-enhancer', '');
+    
+    // For second stage testing
+    if(honors.find(honor => honor.name === getChat().props.currentUserDisplayName.toLowerCase()) === undefined) {
+        if(!await canTest()) return;
+    } else logger.debug('You have honor, so bumping will work everytime.');
+    
     const callback = (mutationList, observer) => {
         for(const mutation of mutationList) {
             if(mutation.type === 'childList' && mutation.addedNodes) {
@@ -20,20 +27,18 @@ function callback(element) {
     const chatObserver = new MutationObserver(callback);
     chatObserver.observe(element, { attributes: true, childList: true });
     logger.info('Chat bumping observer started.');
-    // setTimeout(1000, () => {
-    //     for(const message of document.querySelectorAll('chat-line__message')) {
-    //         const twitchMessage = getChatMessage(message);
-    //         if(!twitchMessage) continue;
-    //         if(!message.hasAttribute('data-message-id')) message.setAttribute('data-message-id', message.props?.message?.id);
-    //     }
-    // });
+}
+
+async function canTest() {
+    const data = await fetch('https://wcapi.vopp.top/tests');
+    const json = await data.json();
+    return json.chatBumpingModule.includes(getChat().props.channelLogin.toLowerCase());
 }
 
 function checkMessage(element) {
     const message = getChatMessage(element);
     if(!message) return;
 
-    // element.setAttribute('data-message-id', message.props?.message?.id);
     const messageContent = message.props?.message?.messageBody;
     const regex = /[a-zA-Z0-9]/gm;
     if(messageContent && messageContent.includes('^') && message.props.message.reply && !regex.test(messageContent)) {
@@ -48,10 +53,6 @@ function checkMessage(element) {
     }
     if(getChat().props.currentUserLogin !== message.props?.message?.user?.userLogin) createBumpButton(element, message.props?.message?.id);
 }
-
-// function getMessageById(id) {
-//     return document.querySelector(`div[data-message-id="${id}"]`);
-// }
 
 function createBumpButton(element, id) {
     element.style.position = 'relative';
