@@ -33,7 +33,6 @@ function checkMessage(element) {
     const message = getChatMessage(element);
     if(!message) return;
 
-    
     // element.setAttribute('data-message-id', message.props?.message?.id);
     const messageContent = message.props?.message?.messageBody;
     const regex = /[a-zA-Z0-9]/gm;
@@ -45,16 +44,16 @@ function checkMessage(element) {
             return;
         } 
         const bumps = addBump(bumpElement);
-        showBumps(bumps, bumpElement);
+        showBumps(bumps, bumpElement, id);
     }
-    if(getChat().props.currentUserLogin !== message.props?.message?.user?.userLogin) createBumpButton(element);
+    if(getChat().props.currentUserLogin !== message.props?.message?.user?.userLogin) createBumpButton(element, message.props?.message?.id);
 }
 
 // function getMessageById(id) {
 //     return document.querySelector(`div[data-message-id="${id}"]`);
 // }
 
-function createBumpButton(element) {
+function createBumpButton(element, id) {
     element.style.position = 'relative';
     let canBump = true;
     const bumpButton = document.createElement('div');
@@ -62,14 +61,14 @@ function createBumpButton(element) {
     bumpButton.className = 'te-bump-button';
     const buttonWrapper = document.createElement("div");
     buttonWrapper.className = 'te-bump-button-wrapper';
-    tooltip(buttonWrapper, `te-bump-button-${element.dataset.messageId}`);
+    tooltip(buttonWrapper, `te-bump-button-${id}`);
     buttonWrapper.appendChild(bumpButton);
-    buttonWrapper.innerHTML += `<span class="te-tooltip te-bump-button-${element.dataset.messageId} te-tooltip-left" style="top: 0.25rem">Bump this message</span>`;
+    buttonWrapper.innerHTML += `<span class="te-tooltip te-bump-button-${id} te-tooltip-left" style="top: 0.25rem">Bump this message</span>`;
     buttonWrapper.addEventListener('click', () => {
-        if(canBump) sendBump(element.dataset.messageId, element);
+        if(canBump) sendBump(id, element);
         canBump = false;
         buttonWrapper.querySelector(`.te-bump-button`).style = 'cursor: no-drop; opacity: 0.5';
-        buttonWrapper.querySelector(`.te-bump-button-${element.dataset.messageId}`).textContent = "You've already bumped this message";
+        buttonWrapper.querySelector(`.te-bump-button-${id}`).textContent = "You've already bumped this message";
     });
     element.appendChild(buttonWrapper);
 }
@@ -83,16 +82,16 @@ function addBump(message) {
     return bumps;
 }
 
-function showBumps(amount, element) {
+function showBumps(amount, element, id) {
     if(element.querySelector('.te-bumps')) element.querySelector('.te-bumps').remove();
     const messageContent = element.querySelector('.message') || element.querySelector('.seventv-message-context') || element.querySelector('span[data-test-selector="chat-line-message-body"]');
     const bumpsElement = document.createElement('div');
     bumpsElement.className = 'te-bumps';
     messageContent.appendChild(bumpsElement);
     
-    bumpsElement.innerHTML = '+' + amount + `<span class="te-tooltip te-bump-${element.dataset.messageId} te-tooltip-top">Bumps</span>`;
+    bumpsElement.innerHTML = '+' + amount + `<span class="te-tooltip te-bump-${id} te-tooltip-top">Bumps</span>`;
 
-    tooltip(bumpsElement, `te-bump-${element.dataset.messageId}`);
+    tooltip(bumpsElement, `te-bump-${id}`);
 
     return bumpsElement;
 }
@@ -100,5 +99,5 @@ function showBumps(amount, element) {
 async function sendBump(messageId, message) {
     getChatService().client.connection.ws.send(`@reply-parent-msg-id=${messageId} PRIVMSG #${getChat().props.channelLogin} :^`);
 
-    if(message) showBumps(addBump(message), message);
+    if(message) showBumps(addBump(message), message, messageId);
 }
