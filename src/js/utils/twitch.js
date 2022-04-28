@@ -87,15 +87,21 @@ export function getChatMessages() {
     const lines = [];
     for(const message of Array.from(document.querySelectorAll('.chat-line__message'))) {
         const line = getChatMessage(message);
-        if(line) lines.push(line);
+        if(line) lines.push({
+            component: line,
+            element: message
+        });
     }
     return lines;
 }
 
 export function getChatMessagesById(ids) {
+    const byIds = [];
     const messages = getChatMessages();
-    messages.filter(({ component }) => ids.includes(component.props?.message?.id));
-    return messages;
+    for(const message of messages) {
+        if(ids.includes(message.component.props?.message?.id)) byIds.push(message);
+    }
+    return byIds;
 }
 
 export function sendMessage(message) {
