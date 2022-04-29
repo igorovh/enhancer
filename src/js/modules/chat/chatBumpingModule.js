@@ -97,8 +97,10 @@ function showBumps(amount, element, id) {
     return bumpsElement;
 }
 
+let spaces = 1;
 async function sendBump(messageId, message) {
-    getChatService().client.connection.ws.send(`@reply-parent-msg-id=${messageId} PRIVMSG #${getChat().props.channelLogin} :^`);
+    getChatService().client.connection.ws.send(`@reply-parent-msg-id=${messageId} PRIVMSG #${getChat().props.channelLogin} :^${' '.repeat(spaces)}`);
+    if(spaces++ > 3) spaces = 0;
 
     if(message) showBumps(addBump(message), message, messageId);
 }
