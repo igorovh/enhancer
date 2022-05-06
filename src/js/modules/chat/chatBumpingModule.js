@@ -40,8 +40,8 @@ function checkMessage(element) {
     if(!message) return;
 
     const messageContent = message.props?.message?.messageBody;
-    const regex = /[a-zA-Z0-9]/gm;
-    if(messageContent && messageContent.includes('^') && message.props.message.reply && !regex.test(messageContent)) {
+    console.log(messageContent);
+    if(messageContent && messageContent.trim() === '^' && message.props.message.reply) {
         element.style.display = 'none';
         const id = message.props.reply.parentMsgId;
         const bumpElement = getChatMessagesById(id)[0].element;
@@ -97,10 +97,10 @@ function showBumps(amount, element, id) {
     return bumpsElement;
 }
 
-let spaces = 1;
+let spaces = 0;
 async function sendBump(messageId, message) {
     getChatService().client.connection.ws.send(`@reply-parent-msg-id=${messageId} PRIVMSG #${getChat().props.channelLogin} :^${' '.repeat(spaces)}`);
-    if(spaces++ > 3) spaces = 0;
+    if(spaces++ === 1) spaces = 0;
 
     if(message) showBumps(addBump(message), message, messageId);
 }
