@@ -40,7 +40,7 @@ async function createWatchtime(username, cardWrapper) {
     watchtimeWrapper.innerHTML = '';
     if(json.error || json.watchtimes.length < 1) {
         watchtimeWrapper.innerHTML += `<div class="te-card-line">An error occurred, please try again later.</div>`;
-        watchtimeWrapper.innerHTML += `<div class="te-card-line">You still can check him manually on these pages:</div>`;
+        watchtimeWrapper.innerHTML += `<div class="te-card-line">You still can check them manually on these pages:</div>`;
         watchtimeWrapper.innerHTML += `<div class="te-card-line"><a target="_blank" href="https://vislaud.com/${username}" class="te-card-header">vislaud.com/${username}</a></div>`;
         watchtimeWrapper.innerHTML += `<div class="te-card-line"><a target="_blank" href="https://xayo.pl/${username}" class="te-card-header">xayo.pl/${username}</a></div>`;
     } else {
