@@ -18,14 +18,18 @@ function callback(element) {
 	player = element;
 	player.setAttribute('twitch-enhancer', '');
 	createTime(player);
+
+    window.createTime = createTime;
+
 }
 
 async function createTime(element) {
-	const controls = document.querySelector(
+	let controls = document.querySelectorAll(
 		'.player-controls__left-control-group'
 	);
-	if (!controls) return;
-	videoElement = element.querySelector('video');
+	if (controls.length < 1) return;
+    controls = controls[controls.length - 1];
+	videoElement = document.querySelector('video');
 	timeSpan = document.createElement('span');
 	timeSpan.id = 'te-vod-time';
 	timeSpan.className = 'te-video-button';
@@ -38,6 +42,10 @@ async function createTime(element) {
 	setTime();
 	timeInterval = setInterval(() => setTime(), 500);
 	idInterval = setInterval(() => checkId(), 1000);
+    console.log(controls);
+    console.log(document.querySelector(
+		'.player-controls__left-control-group'
+	));
 }
 
 function checkId() {
