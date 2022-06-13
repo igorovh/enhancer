@@ -40,7 +40,6 @@ function checkMessage(element) {
     if(!message) return;
 
     const messageContent = message.props?.message?.messageBody;
-    console.log(messageContent);
     if(messageContent && messageContent.trim() === '^' && message.props.message.reply) {
         element.style.display = 'none';
         const id = message.props.reply.parentMsgId;
