@@ -18,6 +18,8 @@ const layoutOptions = [
 ]
 
 function callback(chat) {
+    chat.setAttribute('twitch-enhancer', '');
+
     layoutOptions.forEach(layoutOption => {
         if(twitchEnhancer.settings[layoutOption.option]) layoutOption.call(chat);
     });
