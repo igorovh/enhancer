@@ -171,6 +171,7 @@ function appendListeners() {
     document.querySelector('#te-viewer-badges'),
     document.querySelector('#te-group-badges'),
     document.querySelector('#te-viewer-actions'),
+    document.querySelector('#te-hide-chat-events')
   ].forEach((item) => {
     item.addEventListener('change', () => {
       const format = document.querySelector('#te-xayo-format-full').checked ? 'full' : 'hour';
@@ -186,6 +187,7 @@ function appendListeners() {
         te_viewer_badges: document.querySelector('#te-viewer-badges').checked,
         te_group_badges: document.querySelector('#te-group-badges').checked,
         te_viewer_actions: document.querySelector('#te-viewer-actions').checked,
+        te_hide_chat_events: document.querySelector('#te-hide-chat-events').checked
       });
     });
   });
@@ -200,6 +202,7 @@ function loadSettings() {
       te_viewer_badges: true,
       te_group_badges: true,
       te_viewer_actions: true,
+      te_hide_chat_events: false
     },
     (options) => {
       document.querySelector(`#te-xayo-service-${options.te_xayo_service}`).checked = true;
@@ -208,6 +211,7 @@ function loadSettings() {
       document.querySelector('#te-viewer-badges').checked = options.te_viewer_badges;
       document.querySelector('#te-group-badges').checked = options.te_group_badges;
       document.querySelector('#te-viewer-actions').checked = options.te_viewer_actions;
+      document.querySelector('#te-hide-chat-events').checked = options.te_hide_chat_events;
     }
   );
 }
