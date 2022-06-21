@@ -6,4 +6,4 @@ import { videoListener } from './video/videoListener.js';
 import { clipListener } from './clip/clipListener.js';
 import { chatLayoutListener } from './chat/chatLayout.js';
 
-export const extensionListeners = [ chatButtonListener, chatMessagesListener, qalListener, usercardListener, videoListener, clipListener, chatLayoutListener ];
+export const extensionListeners = [ chatButtonListener, chatMessagesListener, qalListener, usercardListener, videoListener, clipListener ];
