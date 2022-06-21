@@ -15,11 +15,7 @@ export const chatMessagesModule = new Module('chatMessages', callback);
 async function callback(element) {
     element.setAttribute('twitch-enhancer', '');
     if(twitchEnhancer.settings.te_group_badges || twitchEnhancer.settings.te_viewer_badges) {
-        const display = await canDisplay();
-        if(!display) {
-            sendMessage('For now "Viewers Badges" works only on channels in which you are vip, moderator or subscriber.');
-            return;
-        }
+        sendMessage('"Viewers Badges" are disabled for now, sorry.');
         openDatabase();
         const callback = (mutationList, observer) => {
             for(const mutation of mutationList) {
@@ -37,42 +33,42 @@ async function callback(element) {
     }
 }
 
-function canDisplay() {
-    return new Promise((resolve) => {
-        let times = 0;
-        const badgesInterval = setInterval(() => {
-            if(getRoles()) {
-                clearInterval(badgesInterval);
-                resolve(checkRoles());
-                logger.info('Chat badges found!');
-            }
-            if(times > 60) {
-                if(typeof honors.find(honor => honor.name === getChat()?.props?.currentUserDisplayName?.toLowerCase()) !== undefined) {
-                    clearInterval(badgesInterval);
-                    resolve(true);
-                    return;
-                }
-                sendMessage('Could not find your chat roles. Try to restart this page to make "Viewer Badges" work.');
-                clearInterval(badgesInterval);
-                resolve(false);
-            }
-            times++;
-        }, 1000);
-    });
-}
+// function canDisplay() {
+//     return new Promise((resolve) => {
+//         let times = 0;
+//         const badgesInterval = setInterval(() => {
+//             if(getRoles()) {
+//                 clearInterval(badgesInterval);
+//                 resolve(checkRoles());
+//                 logger.info('Chat badges found!');
+//             }
+//             if(times > 60) {
+//                 if(typeof honors.find(honor => honor.name === getChat()?.props?.currentUserDisplayName?.toLowerCase()) !== undefined) {
+//                     clearInterval(badgesInterval);
+//                     resolve(true);
+//                     return;
+//                 }
+//                 sendMessage('Could not find your chat roles. Try to restart this page to make "Viewer Badges" work.');
+//                 clearInterval(badgesInterval);
+//                 resolve(false);
+//             }
+//             times++;
+//         }, 1000);
+//     });
+// }
 
-function checkRoles() {
-    const badges = getRoles();
-    if(!badges) return false;
-    logger.debug(`Your roles: ${Object.keys(badges).join(', ')} (${getChat().props.channelLogin})`);
-    return (typeof badges.broadcaster !== 'undefined' || typeof badges.moderator !== 'undefined' || 
-        typeof badges.vip !== 'undefined' || typeof badges.subscriber !== 'undefined' 
-        || typeof honors.find(honor => honor.name === getChat().props.currentUserDisplayName.toLowerCase()) !== undefined);
-}
+// function checkRoles() {
+//     const badges = getRoles();
+//     if(!badges) return false;
+//     logger.debug(`Your roles: ${Object.keys(badges).join(', ')} (${getChat().props.channelLogin})`);
+//     return (typeof badges.broadcaster !== 'undefined' || typeof badges.moderator !== 'undefined' || 
+//         typeof badges.vip !== 'undefined' || typeof badges.subscriber !== 'undefined' 
+//         || typeof honors.find(honor => honor.name === getChat().props.currentUserDisplayName.toLowerCase()) !== undefined);
+// }
 
-function getRoles() {
-    return getChatService().client?.session?.channelstate['#' + getChat().props.channelLogin]?.userState?.badges;
-}
+// function getRoles() {
+//     return getChatService().client?.session?.channelstate['#' + getChat().props.channelLogin]?.userState?.badges;
+// }
 
 async function prepareMessage(message) {
     const nameElement = message.querySelector('.chat-line__username');
@@ -89,7 +85,7 @@ async function prepareMessage(message) {
 
     if(honors.find(honor => honor.name.toLowerCase() === name.toLowerCase())) setHonor(nameElement);
 
-    let viewerBadge = await checkViewerBadges(name);
+    let viewerBadge = undefined; //await checkViewerBadges(name);
     if(viewerBadge?.streamer?.badge) viewerBadge = fixType(viewerBadge);
 
     if(viewerBadge) {
