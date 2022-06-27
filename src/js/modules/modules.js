@@ -8,4 +8,4 @@ import { clipModule } from './clip/clipModule.js';
 import { chatBumpingModule } from './chat/chatBumpingModule.js';
 import { chatLayoutModule } from './chat/chatLayoutModule.js';
 
-export const extensionModules = [ chatButtonModule, chatEmotesModule, chatMessagesModule, qalModule, usercardModule, videoModule, clipModule, chatBumpingModule ]; 
+export const extensionModules = [ chatButtonModule, chatEmotesModule, chatMessagesModule, qalModule, usercardModule, videoModule, clipModule ]; 
