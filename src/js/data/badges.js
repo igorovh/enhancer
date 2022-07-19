@@ -4,5 +4,11 @@ export const localBadges = [
         badge: 'https://vopp.top/img/favicon.svg',
         streamer: 'TwitchEnhancer',
         suffix: 'Team'
+    },
+    {
+        name: 'vopp_bot',
+        badge: 'https://vopp.top/img/favicon.svg',
+        streamer: 'vopp.top\'s',
+        suffix: 'bot'
     }
 ]
