@@ -3,6 +3,11 @@
 Click **[here](https://chrome.google.com/webstore/detail/xayopl/knaodoefkjbgmmilogebghadhmnphjih)** to install it on Chrome/Opera.  
 Click **[here](https://addons.mozilla.org/pl/firefox/addon/twitch-enhancer/)** to install it on Firefox.  
 
+# Important
+This branch is no longer supported.
+Currenlty I'm rewriting whole extesion for webpack support.
+Change this branch to `webpack`.
+
 # Features
 
 ## Enhanced user card
