@@ -1,0 +1,17 @@
+{
+    "name": "Twitch Enhancer",
+    "description": "Extension that adds what is missing on Twitch.",
+    "version": "4.0.0",
+    "manifest_version": 2,
+    "content_scripts": [
+		{
+			"matches": ["*://*.twitch.tv/*"],
+			"js": ["index.js"],
+			"all_frames": true
+		}
+	],
+    "permissions": [
+        "storage",
+        "*://*.twitch.tv/*"
+    ]
+}

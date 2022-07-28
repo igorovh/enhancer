@@ -1,0 +1,44 @@
+{
+  "name": "twitch-enhancer",
+  "version": "1.0.0",
+  "description": "Extension that adds what is missing on Twitch.",
+  "private": "true",
+  "scripts": {
+    "dev": "webpack --watch --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js",
+    "lint": "eslint --ext .jsx,.js --max-warnings=0 ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/animekkk/twitch-enhancer.git"
+  },
+  "keywords": [],
+  "author": "animekkk",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/animekkk/twitch-enhancer/issues"
+  },
+  "homepage": "https://github.com/animekkk/twitch-enhancer#readme",
+  "devDependencies": {
+    "@babel/core": "^7.18.9",
+    "@babel/plugin-transform-runtime": "^7.18.9",
+    "@babel/preset-env": "^7.18.9",
+    "babel-loader": "^8.2.5",
+    "babel-plugin-wildcard": "^7.0.0",
+    "copy-webpack-plugin": "^11.0.0",
+    "css-loader": "^6.7.1",
+    "eslint": "^8.20.0",
+    "eslint-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^2.6.1",
+    "sass": "^1.54.0",
+    "sass-loader": "^13.0.2",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-glob-loader": "^1.0.0",
+    "webpack-merge": "^5.8.0"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.18.9"
+  },
+  "browserslist": "> 0.25%, not dead"
+}
