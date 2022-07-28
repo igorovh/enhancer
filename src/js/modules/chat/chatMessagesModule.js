@@ -15,7 +15,7 @@ export const chatMessagesModule = new Module('chatMessages', callback);
 async function callback(element) {
     element.setAttribute('twitch-enhancer', '');
     if(twitchEnhancer.settings.te_group_badges || twitchEnhancer.settings.te_viewer_badges) {
-        sendMessage('"Viewers Badges" are disabled for now, sorry.');
+        //sendMessage('"Viewers Badges" are disabled for now, sorry.');
         openDatabase();
         const callback = (mutationList, observer) => {
             for(const mutation of mutationList) {
