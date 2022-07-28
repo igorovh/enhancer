@@ -6,7 +6,11 @@
     },
     "extends": "eslint:recommended",
     "parserOptions": {
+        "ecmaVersion": 13,
         "sourceType": "module",
         "allowImportExportEverywhere": true
-      }
+    },
+    "rules": {
+        "no-unused-vars":"warn"
+    }
 }
