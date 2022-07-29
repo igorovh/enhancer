@@ -1,0 +1,17 @@
+{
+    "name": "Twitch Enhancer - Developer",
+    "description": "Twitch Enhancer - Developer",
+    "version": "1.0.0",
+    "manifest_version": 2,
+    "content_scripts": [
+		{
+			"matches": ["*://*.twitch.tv/*"],
+			"js": ["index.js"],
+			"all_frames": true
+		}
+	],
+    "permissions": [
+        "storage",
+        "*://*.twitch.tv/*"
+    ]
+}

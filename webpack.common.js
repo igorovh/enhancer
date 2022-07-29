@@ -10,7 +10,9 @@ module.exports = {
     },
     resolve: {
         alias: {
-            modules: path.resolve(__dirname, 'src/modules')
+            Modules: path.resolve(__dirname, 'src/modules'),
+            Utils: path.resolve(__dirname, 'src/utils'),
+            Logger: path.resolve(__dirname, 'src/logger.js')
         },
         extensions: ['.js', '.jsx']
     },
