@@ -1,4 +1,5 @@
 const path = require('path');
+const { glob } = require('glob');
 
 const ESLintPlugin = require('eslint-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -6,7 +7,10 @@ const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry: {
-        index: './src/index.js'
+        index: './src/index.js',
+        bundle: [
+            ...glob.sync('./src/modules/**/index.css')
+        ]
     },
     resolve: {
         alias: {
