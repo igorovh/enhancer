@@ -1,17 +1,9 @@
-import Logger from 'Logger';
+import Logger from '$Logger';
+import * as Peeker from '$Peeker';
 
-let logger = new Logger();
+export const logger = new Logger();
 
-// testLogs();
+logger.info('Loading modules...');
+import './modules/**/index.js';
 
-logger = new Logger('testing-logger');
-
-testLogs();
-
-function testLogs() {
-    logger.log('TEST');
-    logger.debug('TEST');
-    logger.info({ test: 'test' });
-    logger.warn('TEST');
-    logger.error('TEST');
-}
+setInterval(() => Peeker.check(), 1000);

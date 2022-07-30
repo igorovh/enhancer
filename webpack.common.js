@@ -10,11 +10,12 @@ module.exports = {
     },
     resolve: {
         alias: {
-            Modules: path.resolve(__dirname, 'src/modules'),
-            Utils: path.resolve(__dirname, 'src/utils'),
-            Logger: path.resolve(__dirname, 'src/logger.js')
+            $Modules: path.resolve(__dirname, 'src/modules'),
+            $Utils: path.resolve(__dirname, 'src/utils'),
+            $Logger: path.resolve(__dirname, 'src/logger.js'),
+            $Peeker: path.resolve(__dirname, 'src/peeker.js')
         },
-        extensions: ['.js', '.jsx']
+        extensions: ['.js']
     },
     output: {
         filename: '[name].js',
@@ -42,7 +43,7 @@ module.exports = {
     },
     plugins: [
         new ESLintPlugin({
-            extensions: ['js', 'jsx'],
+            extensions: ['js'],
             overrideConfigFile: path.resolve(__dirname, '.eslintrc')
         }),
         new MiniCssExtractPlugin({

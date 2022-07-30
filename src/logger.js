@@ -35,13 +35,11 @@ export default class Logger {
     }
 
     #sendLog(type, ...data) {
-        //ansicolor.magentaBright('[TE]'), prefixes[type], (this.name ? ansicolor.cyan(` ${this.name}`) : '')
         const log = [
             ansicolor.lightMagenta('[TE]'), 
             prefixes[type], 
-            (this.name ? ansicolor.lightCyan(`[${this.name}]`) : ''),
-            ansicolor.white(' ')
-        ].join(' ');
+            (this.name ? ansicolor.lightCyan(`[${this.name}]`) : undefined)
+        ].filter(text => text).join(' ');
         console.info(...ansicolor.parse(log).asChromeConsoleLogArguments, ...data);
     }
 }
