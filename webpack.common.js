@@ -9,7 +9,8 @@ module.exports = {
     entry: {
         index: './src/index.js',
         bundle: [
-            ...glob.sync('./src/modules/**/index.css')
+            ...glob.sync('./src/modules/**/index.css'),
+            ...glob.sync('./src/utils/**/index.css'),
         ]
     },
     resolve: {

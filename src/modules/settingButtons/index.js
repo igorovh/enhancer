@@ -1,5 +1,6 @@
 import * as Peeker from '$Peeker';
 import Component from './component';
+import { tooltip } from '$Utils/tooltip/';
 
 Peeker.add(() => {
     const chatButtons = document.querySelector('.stream-chat-header');
@@ -9,5 +10,8 @@ Peeker.add(() => {
 }, callback);
 
 function callback(chatButtons) {
-    chatButtons.innerHTML += Component;
+    const component = Component();
+    chatButtons.appendChild(component);
+    console.log('[te]', component);
+    tooltip(component, 'te-settings');
 }

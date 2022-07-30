@@ -7,8 +7,7 @@
 		{
 			"matches": ["*://*.twitch.tv/*"],
 			"js": ["index.js"],
-			"all_frames": true,
-            "css": ["bundle.css"]
+			"all_frames": true
 		}
 	],
     "permissions": [

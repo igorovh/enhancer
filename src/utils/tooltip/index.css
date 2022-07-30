@@ -1,0 +1,52 @@
+.te-tooltip {
+	background-color: var(--color-text-base);
+	color: var(--color-text-tooltip);
+	text-align: center;
+	padding: 2px 3px;
+	border-radius: 4px;
+	font-weight: 600;
+	position: absolute;
+	white-space: nowrap;
+	z-index: 9999;
+	visibility: hidden;
+	opacity: 0;
+	transition: opacity 0.1s ease-in 0.2s;
+}
+
+.te-tooltip-left {
+	right: 3em;
+}
+
+.te-tooltip-top {
+	bottom: 2.5em;
+}
+
+.te-tooltip-left::after {
+	content: '';
+	position: absolute;
+	left: 100%;
+	border-width: 5px;
+	border-style: solid;
+	pointer-events: none;
+	top: 50%;
+	margin-top: -5px;
+	border-color: transparent transparent transparent var(--color-text-base);
+}
+
+.te-tooltip-top::after {
+	content: '';
+	position: absolute;
+	top: 100%;
+	border-width: 5px;
+	border-style: solid;
+	pointer-events: none;
+	left: 50%;
+	margin-left: -5px;
+	transform: rotate(90deg);
+	border-color: transparent transparent transparent var(--color-text-base);
+}
+
+.te-tooltip.te-tooltip-active {
+	visibility: visible;
+	opacity: 1;
+}
