@@ -1,4 +1,4 @@
-const component = () => {
+export default () => {
     const div = document.createElement('div');
     div.id = 'te-settings-button';
     div.innerHTML = `
@@ -10,5 +10,3 @@ const component = () => {
     `;
     return div;
 }
-
-export default component;
