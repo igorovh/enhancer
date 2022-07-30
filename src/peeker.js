@@ -1,10 +1,12 @@
 const peeks = [];
 
-export function add(condition, callback) {
-    peeks.push({
+export function add(condition, callback, setting, settingCallback) {
+    const peek = {
         condition,
         callback
-    });
+    }
+    if(setting && settingCallback) peek.setting = { id: setting, callback: settingCallback }; 
+    peeks.push(peek);
 }
 
 export function check() {
@@ -12,4 +14,10 @@ export function check() {
         const value = peek.condition();
         if (value) peek.callback(value);
     }
+}
+
+export function update(setting) {
+    peeks
+        .filter(peek => peek?.setting?.setting === setting)
+        .forEach(peek => peek?.setting?.callback());
 }
