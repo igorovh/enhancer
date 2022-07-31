@@ -1,4 +1,11 @@
+.te-settings-enabled {
+    #te-settings {
+        display: inline-block;
+    }
+}
+
 #te-settings {
+    display: none;
     position: absolute;
     width: 100% !important;
     height: 100% !important;
