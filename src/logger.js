@@ -1,10 +1,10 @@
 import ansicolor from 'ansicolor';
 
 const prefixes = {
-    log: ansicolor.yellow('LOG  '),
+    log: ansicolor.yellow('LOG'),
     debug: ansicolor.yellow('DEBUG'),
-    info: ansicolor.green('INFO '),
-    warn: ansicolor.lightYellow('WARN '),
+    info: ansicolor.green('INFO'),
+    warn: ansicolor.lightYellow('WARN'),
     error: ansicolor.red('ERROR'),
 };
 
