@@ -21,3 +21,13 @@ export function update(setting) {
         .filter(peek => peek?.setting?.setting === setting)
         .forEach(peek => peek?.setting?.callback());
 }
+
+const listeners = [];
+
+export function registerListener(id, callback) {
+    listeners.push({ id, callback });
+}
+
+export function getListenersById(id) {
+    return listeners.filter(listener => listener.id === id);
+}
