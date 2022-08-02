@@ -1,5 +1,4 @@
 // import { logger } from './';
-import * as Peeker from '$Peeker';
 
 const defaultSettings = {
     quickLinks: {
