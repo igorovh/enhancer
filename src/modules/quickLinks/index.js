@@ -1,5 +1,5 @@
 import * as Peeker from '$Peeker';
-import { get } from '../../settings';
+import { get } from '$Settings';
 import { getName } from '$Utils/url';
 import Component from './component';
 

@@ -18,7 +18,8 @@ module.exports = {
             $Modules: path.resolve(__dirname, 'src/modules'),
             $Utils: path.resolve(__dirname, 'src/utils'),
             $Logger: path.resolve(__dirname, 'src/logger.js'),
-            $Peeker: path.resolve(__dirname, 'src/peeker.js')
+            $Peeker: path.resolve(__dirname, 'src/peeker.js'),
+            $Settings: path.resolve(__dirname, 'src/settings.js')
         },
         extensions: ['.js']
     },

@@ -36,7 +36,7 @@ export function save() {
 
 export function change(id, value) {
     settings[id] = value;
-    Peeker.update(id);
+    update(id, value);
 }
 
 export function show() {
@@ -45,4 +45,16 @@ export function show() {
 
 export function hide() {
     document.body.classList.remove('te-settings-enabled');
+}
+
+const updates = [];
+
+export function registerUpdate(id, callback) {
+    updates.push({ id, callback });
+}
+
+function update(id, value) {
+    updates
+        .filter(update => update.id === id)
+        .forEach(update => update.callback(value));
 }
