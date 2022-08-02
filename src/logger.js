@@ -8,38 +8,28 @@ const prefixes = {
     error: ansicolor.red('ERROR'),
 };
 
-export default class Logger {
-
-    constructor(name) {
-        if(name) this.name = name.toUpperCase();
-    }
-
-    log(...data) {
-        this.#sendLog('log', ...data);
-    }
-    
-    debug(...data) {
-        this.#sendLog('debug', ...data);
-    }
-
-    info(...data) {
-        this.#sendLog('info', ...data);
-    }
-
-    warn(...data) {
-        this.#sendLog('warn', ...data);
-    }
-
-    error(...data) {
-        this.#sendLog('error', ...data);
-    }
-
-    #sendLog(type, ...data) {
-        const log = [
-            ansicolor.lightMagenta('[TE]'), 
-            prefixes[type], 
-            (this.name ? ansicolor.lightCyan(`[${this.name}]`) : undefined)
-        ].filter(text => text).join(' ');
-        console.info(...ansicolor.parse(log).asChromeConsoleLogArguments, ...data);
-    }
+function log(...data) {
+    sendLog('log', ...data);
 }
+
+function debug(...data) {
+    sendLog('debug', ...data);
+}
+
+function info(...data) {
+    sendLog('info', ...data);
+}
+
+function warn(...data) {
+    sendLog('warn', ...data);
+}
+
+function error(...data) {
+    sendLog('error', ...data);
+}
+
+function sendLog(type, ...data) {
+    console.info(...ansicolor.parse(`${ansicolor.lightMagenta('[TE]')} ${prefixes[type]}`).asChromeConsoleLogArguments, ...data);
+}
+
+export { log, debug, info, warn, error };
