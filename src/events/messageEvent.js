@@ -1,4 +1,5 @@
 import * as Peeker from '$Peeker';
+import { getChatMessage } from '$Utils/twitch';
 
 Peeker.add(() => {
     const chat = document.querySelector('.chat-scrollable-area__message-container');
@@ -12,7 +13,9 @@ function callback(chat) {
         for(const mutation of mutationList) {
             if(mutation.type === 'childList' && mutation.addedNodes) {
                 for(const message of mutation.addedNodes) {
-                    Peeker.getListenersById('messageEvent').forEach(listener => listener.callback(message));
+                    const data = getChatMessage(message);
+                    if(!data) continue;
+                    Peeker.getListenersById('messageEvent').forEach(listener => listener.callback(message, data));
                 }
             }
         }

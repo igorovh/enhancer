@@ -1,4 +1,4 @@
-import { getChatInput, getAutoCompleteHandler } from './twitch';
+import { getChatInput, getAutoCompleteHandler, getChat } from './twitch';
 
 export function setText(text, focus) {
     const chatInput = getChatInput();
@@ -13,4 +13,8 @@ export function addText(text, focus) {
 function format(text, value) {
     if(!value.endsWith(' ') && value.length > 0) text = ' ' + text;
     return value + text;
+}
+
+export function getUsername() {
+    return getChat()?.props?.currentUserDisplayName?.toLowerCase();
 }
