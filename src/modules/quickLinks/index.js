@@ -9,7 +9,7 @@ Peeker.add(() => {
     const panel = document.querySelector('.about-section__panel--content');
     if(!panel || panel?.hasAttribute('twitch-enhancer')) return;
     panel.setAttribute('twitch-enhancer', '');
-    return panel.querySelector('p')?.parentElement;
+    return panel.querySelector('.fiNwnS') || panel;
 }, callback);
 
 function callback(panel) {
