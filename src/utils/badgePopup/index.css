@@ -14,7 +14,10 @@
 }
 
 #te-badge-popup img {
-    width: 100px;
+    width: 75px;
     margin-top: 5px;
 }
 
+#te-badge-popup span {
+    margin: 10px;
+}

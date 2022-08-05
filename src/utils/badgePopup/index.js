@@ -4,7 +4,7 @@ export function createPopup(event) {
     removePopup();
     const popup = document.createElement('div');
     popup.id = 'te-badge-popup';
-    const title = event.srcElement.getAttribute('title');
+    const title = event.srcElement.getAttribute('enhancedTitle');
     popup.innerHTML = Component(title, event.srcElement.src);
 
     const y = event.pageY - 50;
