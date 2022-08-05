@@ -43,6 +43,5 @@ export function addBadgeCondition(condition) {
 export function findBadges(username) {
     const badges = [];
     badgeConditions.forEach(condition => badges.push(...condition(username)));
-    console.log(badges);
     return badges;
 }
