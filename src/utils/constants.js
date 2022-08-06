@@ -7,4 +7,24 @@ const LOCAL_BADGES = [
     }
 ]
 
-export { LOCAL_BADGES };
+const DEFAULT_SETTINGS = {
+    quickLinks: {
+        links: [
+            {
+                name: 'TwitchTracker',
+                url: 'https://twitchtracker.com/%name%'
+            },
+            {
+                name: 'SullyGnome',
+                url: 'https://sullygnome.com/channel/%name%'
+            },
+            {
+                name: 'Emotes',
+                url: 'https://emotes.vopp.top/?name=%name%'
+            }
+        ]
+    },
+    pingSound: true
+};
+
+export { LOCAL_BADGES, DEFAULT_SETTINGS };
