@@ -24,7 +24,7 @@ const DEFAULT_SETTINGS = {
             }
         ]
     },
-    pingSound: true
+    pingSound: false
 };
 
 export { LOCAL_BADGES, DEFAULT_SETTINGS };
