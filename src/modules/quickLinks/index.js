@@ -7,7 +7,7 @@ const links = get('quickLinks').links;
 
 Peeker.add(() => {
     const panel = document.querySelector('.about-section__panel--content');
-    if(!panel || panel?.hasAttribute('twitch-enhancer')) return;
+    if(!panel || Peeker.canCreate('quickLinks', panel)) return;
     panel.setAttribute('twitch-enhancer', '');
     return panel.querySelector('.fiNwnS') || panel;
 }, callback);

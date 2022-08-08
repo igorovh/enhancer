@@ -3,7 +3,7 @@ import { getChatMessage } from '$Utils/twitch';
 
 Peeker.add(() => {
     const chat = document.querySelector('.chat-scrollable-area__message-container');
-    if(!chat || chat?.hasAttribute('twitch-enhancer')) return;
+    if(!chat || Peeker.canCreate('messageEvent', chat)) return;
     chat.setAttribute('twitch-enhancer', '');
     return chat;
 }, callback);

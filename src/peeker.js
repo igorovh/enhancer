@@ -24,3 +24,17 @@ export function registerListener(id, callback) {
 export function getListenersById(id) {
     return listeners.filter(listener => listener.id === id);
 }
+
+export function canCreate(id, element) {
+    if(!element) return false;
+    let value = element.getAttribute('twitch-enhancer');
+    if(!value) {
+        element.setAttribute('twitch-enhancer', id);
+        return true;
+    }
+    const ids = value.split(';');
+    if(ids.includes(id)) return false;
+    ids.push(id);
+    element.setAttribute('twitch-enhancer', ids.join(';'));
+    return true;
+}

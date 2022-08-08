@@ -4,7 +4,7 @@ import { tooltip } from '$Utils/tooltip/';
 
 Peeker.add(() => {
     const video = document.querySelector('.video-player__overlay');
-    if(!video || video?.hasAttribute('twitch-enhancer')) return;
+    if(!video || Peeker.canCreate('clipDownloadButton', video)) return;
     video.setAttribute('twitch-enhancer', '');
     return video.querySelector('.player-controls__left-control-group');
 }, callback);
