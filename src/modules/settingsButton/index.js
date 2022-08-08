@@ -5,8 +5,7 @@ import { show } from '../../settings';
 
 Peeker.add(() => {
     const chatButtons = document.querySelector('.stream-chat-header');
-    if(!chatButtons || Peeker.canCreate('settingsButton', chatButtons)) return;
-    chatButtons.setAttribute('twitch-enhancer', '');
+    if(!chatButtons || !Peeker.canCreate('settingsButton', chatButtons)) return;
     return chatButtons;
 }, callback);
 
