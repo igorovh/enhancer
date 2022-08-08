@@ -4,16 +4,19 @@ import { getUsername } from '$Utils/chat';
 
 let sound = Settings.get('pingSound');
 
-Settings.registerUpdate('pingSound', value => sound = value);
+let audio = new Audio(sound.src);
+
+Settings.registerUpdate('pingSound', value => {
+    sound = value;
+    audio = new Audio(sound.src);
+});
 
 Peeker.registerListener('messageEvent', callback);
 
 let username = getUsername();
 
-const audio = new Audio('http://localhost:2565/sounds/notification.ogg'); //TODO Change
-
 function callback(message, data) {
-    if(!sound) return;
+    if(!sound.enable) return;
     if(!data.props.message) return;
     if(!data.props.message.message) return;
     if(!username) {

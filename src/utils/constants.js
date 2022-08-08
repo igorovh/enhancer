@@ -24,7 +24,10 @@ const DEFAULT_SETTINGS = {
             }
         ]
     },
-    pingSound: false
+    pingSound: {
+        enable: false,
+        src: 'http://localhost:2565/sounds/notification.ogg' //TODO DEV ONLY
+    }
 };
 
 export { LOCAL_BADGES, DEFAULT_SETTINGS };
