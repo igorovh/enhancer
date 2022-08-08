@@ -22,7 +22,10 @@ Peeker.registerListener('messageEvent', callback);
 function callback(message, data) {
     const content = data.props?.message?.message;
     if(!content) return;
-    message.addEventListener('click', () => {
-        if(copyMessage) setText(content, true);
+    message.addEventListener('click', event => {
+        if(copyMessage) {
+            event.preventDefault();
+            setText(content, true);
+        }
     });
 }
