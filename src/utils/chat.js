@@ -1,8 +1,8 @@
-import {getChatInput, getAutoCompleteHandler, getChat} from './twitch';
+import { getChatInput, getAutoCompleteHandler, getChat } from './twitch';
 
 export function setText(text, focus) {
     const chatInput = getChatInput();
-    chatInput.props.onChange({target: {value: text}});
+    chatInput.props.onChange({ target: { value: text } });
     if (focus) chatInput.focus();
 }
 

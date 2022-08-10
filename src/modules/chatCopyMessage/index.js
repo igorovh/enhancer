@@ -1,5 +1,5 @@
 import * as Peeker from '$Peeker';
-import {setText} from '$Utils/chat';
+import { setText } from '$Utils/chat';
 
 let copyMessage = false;
 

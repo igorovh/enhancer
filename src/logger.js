@@ -35,4 +35,4 @@ function sendLog(type, ...data) {
     );
 }
 
-export {log, debug, info, warn, error};
+export { log, debug, info, warn, error };

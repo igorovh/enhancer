@@ -1,6 +1,6 @@
 import * as Peeker from '$Peeker';
 import Component from './component';
-import {getViewerCard} from '$Utils/twitch';
+import { getViewerCard } from '$Utils/twitch';
 
 Peeker.add(() => {
     const usercard = document.querySelector('.viewer-card');

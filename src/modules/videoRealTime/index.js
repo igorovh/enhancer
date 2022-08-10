@@ -1,5 +1,5 @@
 import * as Peeker from '$Peeker';
-import {getVideo} from '$Utils/twitch';
+import { getVideo } from '$Utils/twitch';
 
 Peeker.add(() => {
     const video = document.querySelector('.video-player__overlay');

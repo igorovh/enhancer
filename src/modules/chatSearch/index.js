@@ -1,6 +1,6 @@
 // import * as Peeker from '$Peeker';
 // import Component from './component';
-import {getChatMessages} from '$Utils/twitch';
+import { getChatMessages } from '$Utils/twitch';
 
 // Peeker.add(() => {
 //     return !document.querySelector('#te-settings');
@@ -47,7 +47,7 @@ function parse(messages) {
         const author = message.component?.props?.message?.user?.displayName;
         const content = message.component?.props?.message?.message;
         if (!author || !content) return;
-        parsed.push({element: message.element, author, content});
+        parsed.push({ element: message.element, author, content });
     }
     return parsed;
 }

@@ -1,5 +1,5 @@
 import * as Peeker from '$Peeker';
-import {findHonor} from '$Utils/honor';
+import { findHonor } from '$Utils/honor';
 
 Peeker.registerListener('messageEvent', callback);
 

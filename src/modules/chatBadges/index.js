@@ -1,5 +1,5 @@
 import * as Peeker from '$Peeker';
-import {addBadge, findBadges} from '$Utils/badge';
+import { addBadge, findBadges } from '$Utils/badge';
 
 Peeker.registerListener('messageEvent', callback);
 

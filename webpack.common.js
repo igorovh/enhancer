@@ -1,5 +1,5 @@
 const path = require('path');
-const {glob} = require('glob');
+const { glob } = require('glob');
 
 const ESLintPlugin = require('eslint-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -53,7 +53,7 @@ module.exports = {
             filename: '[name].css',
         }),
         new CopyPlugin({
-            patterns: [{from: 'public'}],
+            patterns: [{ from: 'public' }],
         }),
     ],
 };

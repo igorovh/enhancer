@@ -1,5 +1,5 @@
 import * as Settings from '$Settings';
-import {formatTime} from '$Utils/time';
+import { formatTime } from '$Utils/time';
 
 const settings = Settings.get('usercard');
 

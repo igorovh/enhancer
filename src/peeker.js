@@ -18,7 +18,7 @@ export function check() {
 const listeners = [];
 
 export function registerListener(id, callback) {
-    listeners.push({id, callback});
+    listeners.push({ id, callback });
 }
 
 export function getListenersById(id) {

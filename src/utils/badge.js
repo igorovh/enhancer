@@ -1,6 +1,6 @@
-import {addText} from '$Utils/chat';
-import {createPopup, removePopup} from '$Utils/badgePopup';
-import {LOCAL_BADGES} from '$Utils/constants';
+import { addText } from '$Utils/chat';
+import { createPopup, removePopup } from '$Utils/badgePopup';
+import { LOCAL_BADGES } from '$Utils/constants';
 
 export function addBadge(badge, message) {
     const badges =

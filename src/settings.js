@@ -1,5 +1,5 @@
 // import { logger } from './';
-import {DEFAULT_SETTINGS} from '$Utils/constants';
+import { DEFAULT_SETTINGS } from '$Utils/constants';
 
 let settings = DEFAULT_SETTINGS;
 
@@ -31,7 +31,7 @@ export function hide() {
 const updates = [];
 
 export function registerUpdate(id, callback) {
-    updates.push({id, callback});
+    updates.push({ id, callback });
 }
 
 function update(id, value) {

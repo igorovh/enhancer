@@ -1,6 +1,6 @@
 import * as Peeker from '$Peeker';
 import Component from './component';
-import {tooltip} from '$Utils/tooltip/';
+import { tooltip } from '$Utils/tooltip/';
 
 Peeker.add(() => {
     const video = document.querySelector('.video-player__overlay');

@@ -1,5 +1,5 @@
 import * as Peeker from '$Peeker';
-import {addText} from '$Utils/chat';
+import { addText } from '$Utils/chat';
 
 Peeker.registerListener('messageEvent', callback);
 

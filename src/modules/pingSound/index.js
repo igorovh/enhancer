@@ -1,6 +1,6 @@
 import * as Peeker from '$Peeker';
 import * as Settings from '$Settings';
-import {getUsername} from '$Utils/chat';
+import { getUsername } from '$Utils/chat';
 
 let sound = Settings.get('pingSound');
 

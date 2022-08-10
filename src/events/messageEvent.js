@@ -1,5 +1,5 @@
 import * as Peeker from '$Peeker';
-import {getChatMessage} from '$Utils/twitch';
+import { getChatMessage } from '$Utils/twitch';
 
 Peeker.add(() => {
     const chat = document.querySelector('.chat-scrollable-area__message-container');
@@ -20,5 +20,5 @@ function callback(chat) {
         }
     };
     const observer = new MutationObserver(observerCallback);
-    observer.observe(chat, {attributes: true, childList: true});
+    observer.observe(chat, { attributes: true, childList: true });
 }

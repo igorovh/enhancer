@@ -10,7 +10,7 @@ function findReactParents(node, predicate, maxDepth = 15, depth = 0) {
     if (success) return node;
     if (!node || depth > maxDepth) return null;
 
-    const {return: parent} = node;
+    const { return: parent } = node;
     if (parent) {
         return findReactParents(parent, predicate, maxDepth, depth + 1);
     }
@@ -26,7 +26,7 @@ function findReactChildren(node, predicate, maxDepth = 15, depth = 0) {
     if (success) return node;
     if (!node || depth > maxDepth) return null;
 
-    const {child, sibling} = node;
+    const { child, sibling } = node;
     if (child || sibling) {
         return (
             findReactChildren(child, predicate, maxDepth, depth + 1) ||
