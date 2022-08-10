@@ -1,13 +1,13 @@
 import * as Settings from '$Settings';
-import { formatTime } from '$Utils/time';
+import {formatTime} from '$Utils/time';
 
 const settings = Settings.get('usercard');
 
 const formatter = {
-    hour: seconds => {
+    hour: (seconds) => {
         return `${(seconds / 60 / 60).toFixed(2)} hours`;
     },
-    full: seconds => formatTime(seconds)
+    full: (seconds) => formatTime(seconds),
 };
 
 export const elements = [
@@ -15,7 +15,7 @@ export const elements = [
         const div = document.createElement('div');
         div.id = 'te-usercard-watchtime';
         const watchtime = await downloadWatchTime(username);
-        if(!watchtime) {
+        if (!watchtime) {
             div.innerHTML += `
                 <span>An error occurred, please try again later.</span>
                 <span>You still can check them manually on these pages:</span>
@@ -27,17 +27,14 @@ export const elements = [
         }
         return div;
     },
-
 ];
 
 export default async (username) => {
     const usercard = document.createElement('div');
     usercard.id = 'te-usercard';
-    for(const callback of elements) usercard.appendChild(await callback(username));
+    for (const callback of elements) usercard.appendChild(await callback(username));
     return usercard;
-}
-
-
+};
 
 const services = {
     xayo: async (username) => {
@@ -71,43 +68,44 @@ const services = {
     },
     vislaud: async (username) => {
         let data = await fetch(`https://vislaud.com/api/chatters?logins=${username}`);
-        if(data.status != 200) return;
+        if (data.status != 200) return;
         data = await data.json();
-        if(data.length < 1) return;
+        if (data.length < 1) return;
         data = data[0];
         let totalTime = 0;
         data.watchtimes.sort((a, b) => {
             return b.watchtime - a.watchtime;
         });
-        data.watchtimes.forEach(streamer => totalTime += streamer.watchtime * 60);
+        data.watchtimes.forEach((streamer) => (totalTime += streamer.watchtime * 60));
         const watchtimes = [];
-        for(let i = 0; i < 5; i++) {
+        for (let i = 0; i < 5; i++) {
             const watchtime = data.watchtimes[i];
-            if(watchtime) watchtimes.push({
-                position: i + 1,
-                streamer: watchtime.streamer.displayName,
-                time: watchtime.watchtime * 60
-            });
+            if (watchtime)
+                watchtimes.push({
+                    position: i + 1,
+                    streamer: watchtime.streamer.displayName,
+                    time: watchtime.watchtime * 60,
+                });
         }
         return {
             service: 'vislaud.com/{name}',
             username,
             watchtimes,
-            totalTime
-        }
+            totalTime,
+        };
     },
     auto: async (username) => {
         const xayo = services.xayo(username);
         const vislaud = services.vislaud(username);
-        
-        if(xayo && vislaud) {
-            if(xayo.totalTime > vislaud.totalTime) return xayo;
+
+        if (xayo && vislaud) {
+            if (xayo.totalTime > vislaud.totalTime) return xayo;
             return vislaud;
         }
-        if(!xayo) return vislaud;
+        if (!xayo) return vislaud;
         return xayo;
-    }
-}
+    },
+};
 
 async function downloadWatchTime(username) {
     return await services[settings.service];

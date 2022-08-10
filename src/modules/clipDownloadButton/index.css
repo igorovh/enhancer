@@ -1,16 +1,16 @@
 #te-clip-download {
-	color: #fff;
-	margin: 0 0.25rem;
-	width: 30px;
-	height: 30px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	border-radius: var(--border-radius-medium);
-	cursor: pointer;
-	position: relative;
+    color: #fff;
+    margin: 0 0.25rem;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--border-radius-medium);
+    cursor: pointer;
+    position: relative;
 }
 
 #te-clip-download:hover {
-	background-color: var(--color-background-button-icon-overlay-hover);
+    background-color: var(--color-background-button-icon-overlay-hover);
 }

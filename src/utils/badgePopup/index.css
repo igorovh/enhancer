@@ -1,16 +1,16 @@
 #te-badge-popup {
-	z-index: 9999;
-	position: absolute;
-	left: 0;
-	right: 0;
-	width: max-content;
-	height: max-content;
-	border-radius: 5px;
-	background: white;
-	color: black;
-	text-align: center;
-	font-weight: bold;
-	word-wrap: break-word;
+    z-index: 9999;
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: max-content;
+    height: max-content;
+    border-radius: 5px;
+    background: white;
+    color: black;
+    text-align: center;
+    font-weight: bold;
+    word-wrap: break-word;
 }
 
 #te-badge-popup img {

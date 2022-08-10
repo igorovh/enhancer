@@ -4,16 +4,13 @@
         "es2021": true,
         "node": true
     },
-    "extends": [
-        "eslint:recommended",
-        "prettier"
-    ],
+    "extends": ["eslint:recommended", "prettier"],
     "parserOptions": {
         "ecmaVersion": 13,
         "sourceType": "module",
         "allowImportExportEverywhere": true
     },
     "rules": {
-        "no-unused-vars":"warn"
+        "no-unused-vars": "warn"
     }
 }

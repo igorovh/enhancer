@@ -9,4 +9,4 @@ export default () => {
         <span class="te-tooltip te-settings te-tooltip-left">Twitch Enhancer Settings</span>
     `;
     return div;
-}
+};

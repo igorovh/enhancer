@@ -9,4 +9,4 @@ export default () => {
     </svg>
     <span class="te-tooltip te-download-clip te-tooltip-top" style="bottom: 3em">Download this clip</span>`;
     return button;
-}
+};

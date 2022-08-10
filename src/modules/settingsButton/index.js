@@ -1,11 +1,11 @@
 import * as Peeker from '$Peeker';
 import Component from './component';
-import { tooltip } from '$Utils/tooltip/';
-import { show } from '../../settings';
+import {tooltip} from '$Utils/tooltip/';
+import {show} from '../../settings';
 
 Peeker.add(() => {
     const chatButtons = document.querySelector('.stream-chat-header');
-    if(!chatButtons || !Peeker.canCreate('settingsButton', chatButtons)) return;
+    if (!chatButtons || !Peeker.canCreate('settingsButton', chatButtons)) return;
     return chatButtons;
 }, callback);
 

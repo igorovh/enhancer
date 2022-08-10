@@ -1,15 +1,15 @@
 #te-settings-button {
-	position: absolute;
-	right: 4.25rem;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	border-radius: var(--border-radius-medium);
-	width: 30px;
-	height: 30px;
-	cursor: pointer;
+    position: absolute;
+    right: 4.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--border-radius-medium);
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
 }
 
 #te-settings-button:hover {
-	background: var(--color-background-button-text-hover);
+    background: var(--color-background-button-text-hover);
 }

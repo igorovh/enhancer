@@ -29,7 +29,10 @@ function error(...data) {
 }
 
 function sendLog(type, ...data) {
-    console.info(...ansicolor.parse(`${ansicolor.lightMagenta('[TE]')} ${prefixes[type]}`).asChromeConsoleLogArguments, ...data);
+    console.info(
+        ...ansicolor.parse(`${ansicolor.lightMagenta('[TE]')} ${prefixes[type]}`).asChromeConsoleLogArguments,
+        ...data
+    );
 }
 
-export { log, debug, info, warn, error };
+export {log, debug, info, warn, error};

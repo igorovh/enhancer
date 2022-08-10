@@ -3,8 +3,8 @@ const peeks = [];
 export function add(condition, callback) {
     const peek = {
         condition,
-        callback
-    }
+        callback,
+    };
     peeks.push(peek);
 }
 
@@ -18,22 +18,22 @@ export function check() {
 const listeners = [];
 
 export function registerListener(id, callback) {
-    listeners.push({ id, callback });
+    listeners.push({id, callback});
 }
 
 export function getListenersById(id) {
-    return listeners.filter(listener => listener.id === id);
+    return listeners.filter((listener) => listener.id === id);
 }
 
 export function canCreate(id, element) {
-    if(!element) return false;
+    if (!element) return false;
     let value = element.getAttribute('twitch-enhancer');
-    if(!value) {
+    if (!value) {
         element.setAttribute('twitch-enhancer', id);
         return true;
     }
     const ids = value.split(';');
-    if(ids.includes(id)) return false;
+    if (ids.includes(id)) return false;
     ids.push(id);
     element.setAttribute('twitch-enhancer', ids.join(';'));
     return true;

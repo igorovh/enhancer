@@ -1,10 +1,10 @@
 // import { logger } from './';
-import { DEFAULT_SETTINGS } from '$Utils/constants';
+import {DEFAULT_SETTINGS} from '$Utils/constants';
 
 let settings = DEFAULT_SETTINGS;
 
 let savedSettings = localStorage.getItem('_enhancer_settings');
-if(savedSettings) settings = JSON.parse(savedSettings);
+if (savedSettings) settings = JSON.parse(savedSettings);
 // else logger.info('Settings are not saved. Using defaults.');
 
 export function get(id) {
@@ -31,13 +31,11 @@ export function hide() {
 const updates = [];
 
 export function registerUpdate(id, callback) {
-    updates.push({ id, callback });
+    updates.push({id, callback});
 }
 
 function update(id, value) {
-    updates
-        .filter(update => update.id === id)
-        .forEach(update => update.callback(value));
+    updates.filter((update) => update.id === id).forEach((update) => update.callback(value));
 }
 
 // Debug

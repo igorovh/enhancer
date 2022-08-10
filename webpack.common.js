@@ -1,5 +1,5 @@
 const path = require('path');
-const { glob } = require('glob');
+const {glob} = require('glob');
 
 const ESLintPlugin = require('eslint-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -8,10 +8,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 module.exports = {
     entry: {
         index: './src/index.js',
-        bundle: [
-            ...glob.sync('./src/modules/**/index.@(css|scss)'),
-            ...glob.sync('./src/utils/**/index.@(css|scss)'),
-        ]
+        bundle: [...glob.sync('./src/modules/**/index.@(css|scss)'), ...glob.sync('./src/utils/**/index.@(css|scss)')],
     },
     resolve: {
         alias: {
@@ -19,14 +16,14 @@ module.exports = {
             $Utils: path.resolve(__dirname, 'src/utils'),
             $Logger: path.resolve(__dirname, 'src/logger.js'),
             $Peeker: path.resolve(__dirname, 'src/peeker.js'),
-            $Settings: path.resolve(__dirname, 'src/settings.js')
+            $Settings: path.resolve(__dirname, 'src/settings.js'),
         },
-        extensions: ['.js']
+        extensions: ['.js', '.jsx'],
     },
     output: {
         filename: '[name].js',
         path: path.resolve(__dirname, 'build'),
-        clean: true
+        clean: true,
     },
     module: {
         rules: [
@@ -34,10 +31,10 @@ module.exports = {
                 test: /\.(js|jsx)$/,
                 loader: 'webpack-glob-loader',
                 exclude: /node_modules/,
-                enforce: 'pre'
+                enforce: 'pre',
             },
             {
-                test: /\.(js|jsx)x?$/,
+                test: /\.(js|jsx)?$/,
                 use: ['babel-loader'],
                 exclude: /node_modules/,
             },
@@ -45,18 +42,18 @@ module.exports = {
                 test: /\.(scss|css)$/,
                 use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
             },
-        ]
+        ],
     },
     plugins: [
         new ESLintPlugin({
-            extensions: ['js'],
-            overrideConfigFile: path.resolve(__dirname, '.eslintrc')
+            extensions: ['js', 'jsx'],
+            overrideConfigFile: path.resolve(__dirname, '.eslintrc'),
         }),
         new MiniCssExtractPlugin({
-            filename: '[name].css'
+            filename: '[name].css',
         }),
         new CopyPlugin({
-            patterns: [{ from: 'public' }],
+            patterns: [{from: 'public'}],
         }),
-    ]
-}
+    ],
+};

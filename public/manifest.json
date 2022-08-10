@@ -4,15 +4,12 @@
     "version": "4.0.0",
     "manifest_version": 2,
     "content_scripts": [
-		{
-			"matches": ["*://*.twitch.tv/*"],
-			"js": ["index.js"],
-			"all_frames": true,
+        {
+            "matches": ["*://*.twitch.tv/*"],
+            "js": ["index.js"],
+            "all_frames": true,
             "css": ["bundle.css"]
-		}
-	],
-    "permissions": [
-        "storage",
-        "*://*.twitch.tv/*"
-    ]
+        }
+    ],
+    "permissions": ["storage", "*://*.twitch.tv/*"]
 }

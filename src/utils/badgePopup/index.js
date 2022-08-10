@@ -9,12 +9,12 @@ export function createPopup(event) {
 
     const y = event.pageY - 50;
     popup.style.top = (y < 0 ? 0 : y) + 'px';
-    popup.style.left = (event.pageX + 25) + 'px';
+    popup.style.left = event.pageX + 25 + 'px';
 
     document.getElementById('root').children[0].appendChild(popup);
 }
 
 export function removePopup() {
     const popup = document.querySelector('#te-badge-popup');
-    if(popup) popup.remove();
+    if (popup) popup.remove();
 }
