@@ -1,3 +1,2 @@
-{
-    "singleQuote": true
-}
+dist
+node_modules
