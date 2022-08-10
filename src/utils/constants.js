@@ -27,6 +27,10 @@ const DEFAULT_SETTINGS = {
     pingSound: {
         enable: false,
         src: 'http://localhost:2565/sounds/notification.ogg' //TODO DEV ONLY
+    },
+    usercard: {
+        service: 'auto',
+        format: 'hour'
     }
 };
 

@@ -106,6 +106,26 @@ export function getChatMessagesById(ids) {
     return byIds;
 }
 
+export function getViewerCard() {
+    const node = findReactParents(
+        getReactInstance(document.querySelectorAll('.viewer-card')[0]),
+        n => n.stateNode?.props && n.stateNode?.props.channelLogin && n.stateNode?.props.targetLogin,
+        50
+    );
+
+    return node?.stateNode;
+}
+
+export function getVideo() {
+    const node = findReactParents(
+        getReactInstance(document.querySelector('.channel-info-content')),
+        n => n.stateNode?.props && n.stateNode?.props.videoID && n.stateNode?.props.channelID
+    );
+
+    return node?.stateNode;
+}
+//THERE IS TIME
+
 export function sendMessage(message, prefix = true) {
     const controller = getChatController();
 
@@ -121,3 +141,5 @@ export function sendMessage(message, prefix = true) {
         });
     }
 }
+
+window.getVideo = getVideo;
