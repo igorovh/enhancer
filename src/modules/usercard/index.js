@@ -8,9 +8,7 @@ Peeker.add(() => {
     return usercard;
 }, callback);
 
-function callback(usercard) {
+async function callback(usercard) {
     const viewerCard = getViewerCard();
-    console.log(usercard.children[1], '[te]');
-    console.log(usercard.children, '[te]');
-    usercard.insertBefore(Component(viewerCard.props.targetLogin), usercard.children[1]);
+    usercard.insertBefore(await Component(viewerCard.props.targetLogin), usercard.children[1]);
 }
