@@ -125,14 +125,13 @@ export function getViewerCard() {
 }
 
 export function getVideo() {
-    const node = findReactParents(
+    const node = findReactChildren(
         getReactInstance(document.querySelector('.channel-info-content')),
-        (n) => n.stateNode?.props && n.stateNode?.props.videoID && n.stateNode?.props.channelID
+        (n) => n.stateNode?.props && n.stateNode?.props.videoID
     );
 
     return node?.stateNode;
 }
-//THERE IS TIME
 
 export function sendMessage(message, prefix = true) {
     const controller = getChatController();
@@ -149,5 +148,3 @@ export function sendMessage(message, prefix = true) {
         });
     }
 }
-
-window.getVideo = getVideo;

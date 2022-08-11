@@ -1,0 +1,8 @@
+.te-real-video-time {
+    margin: 0 0.5rem;
+}
+
+.te-real-video-time:hover {
+    opacity: 0.75;
+    cursor: pointer;
+}
