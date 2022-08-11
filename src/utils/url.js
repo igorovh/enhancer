@@ -11,6 +11,6 @@ export function getName() {
 export function getVideoId(link) {
     const params = link.split('/');
     let id = params[params.indexOf('videos') + 1];
-    if(id.includes('?')) id = id.substring(0, id.lastIndexOf('?'));
+    if (id.includes('?')) id = id.substring(0, id.lastIndexOf('?'));
     return id;
 }

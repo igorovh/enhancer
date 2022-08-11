@@ -68,20 +68,11 @@ function getCurrentTime() {
 
 async function setTimeByURL() {
     const url = new URL(
-        prompt(
-            'Paste here video link with timestamp: \n(e.g. https://www.twitch.tv/videos/123456789?t=00h42m51s)'
-        )
+        prompt('Paste here video link with timestamp: \n(e.g. https://www.twitch.tv/videos/123456789?t=00h42m51s)')
     );
     const id = getVideoId(url.href);
-    const timestamp = url.searchParams
-        .get('t')
-        .replace(/\D/g, ':')
-        .replace('s', '')
-        .split(':');
-    const seconds =
-        parseInt(timestamp[0]) * 60 * 60 +
-        parseInt(timestamp[1]) * 60 +
-        parseInt(timestamp[2]);
+    const timestamp = url.searchParams.get('t').replace(/\D/g, ':').replace('s', '').split(':');
+    const seconds = parseInt(timestamp[0]) * 60 * 60 + parseInt(timestamp[1]) * 60 + parseInt(timestamp[2]);
     const createDate = await getVideoData(id);
     let date = new Date(createDate.getTime() + seconds * 1000);
     videoElement.currentTime = (date.getTime() - videoData.getTime()) / 1000;

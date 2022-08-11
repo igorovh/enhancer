@@ -27,7 +27,7 @@ export const elements = [
             div.innerHTML += `
                 <a class="te-usercard-bold" href="https://${url}">${url}</a>
             `;
-            for(const streamer of watchtime.watchtimes) {
+            for (const streamer of watchtime.watchtimes) {
                 div.innerHTML += `
                     <span>
                         <span class="te-usercard-bold">${streamer.position}.</span>
@@ -54,26 +54,27 @@ export default async (username) => {
 const services = {
     xayo: async (username) => {
         let data = await fetch(`https://wcapi.vopp.top/user/xayo/${username}`);
-        if(data.status != 200) return;
+        if (data.status != 200) return;
         data = await data.json();
-        if(data.length < 1) return;
+        if (data.length < 1) return;
         let totalTime = 0;
-        data.forEach(streamer => totalTime += streamer.count * 5 * 60);
+        data.forEach((streamer) => (totalTime += streamer.count * 5 * 60));
         const watchtimes = [];
-        for(let i = 0; i < 5; i++) {
+        for (let i = 0; i < 5; i++) {
             const watchtime = data[i];
-            if(watchtime) watchtimes.push({
-                position: i + 1,
-                streamer: watchtime.streamer,
-                time: watchtime.count * 5 * 60
-            });
+            if (watchtime)
+                watchtimes.push({
+                    position: i + 1,
+                    streamer: watchtime.streamer,
+                    time: watchtime.count * 5 * 60,
+                });
         }
         return {
             service: 'xayo.pl/{name}',
             username,
             watchtimes,
-            totalTime
-        }
+            totalTime,
+        };
     },
     vislaud: async (username) => {
         let data = await fetch(`https://vislaud.com/api/chatters?logins=${username}`);
