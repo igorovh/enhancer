@@ -1,3 +1,4 @@
+import * as Logger from '$Logger';
 import * as Peeker from '$Peeker';
 import { getChatMessage } from '$Utils/twitch';
 
@@ -21,4 +22,5 @@ function callback(chat) {
     };
     const observer = new MutationObserver(observerCallback);
     observer.observe(chat, { attributes: true, childList: true });
+    Logger.info('Started listening for chat messages.');
 }

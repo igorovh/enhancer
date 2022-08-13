@@ -1,11 +1,12 @@
-// import { logger } from './';
+import * as Logger from '$Logger';
 import { DEFAULT_SETTINGS } from '$Utils/constants';
 
 let settings = DEFAULT_SETTINGS;
 
+Logger.info('Loading settings...');
 let savedSettings = localStorage.getItem('_enhancer_settings');
 if (savedSettings) settings = JSON.parse(savedSettings);
-// else logger.info('Settings are not saved. Using defaults.');
+else Logger.info('Settings are not saved - using defaults.');
 
 export function get(id) {
     return settings[id] || DEFAULT_SETTINGS[id];

@@ -7,6 +7,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry: {
+        inject: './src/inject.js',
         index: './src/index.js',
         bundle: [...glob.sync('./src/modules/**/index.@(css|scss)'), ...glob.sync('./src/utils/**/index.@(css|scss)')],
     },
