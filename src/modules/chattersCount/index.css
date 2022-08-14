@@ -3,3 +3,8 @@
     font-weight: var(--font-weight-semibold) !important;
     margin-left: 5px;
 }
+
+#te-chatters-count:hover {
+    cursor: pointer;
+    opacity: 0.75;
+}

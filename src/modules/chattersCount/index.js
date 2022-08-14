@@ -12,24 +12,23 @@ Peeker.add(() => {
 }, callback);
 
 let counter;
-// let updater;
+let updater;
 
 async function callback(viewersCount) {
     counter = Component();
+    counter.addEventListener('click', updateChatters);
     // tooltip(chatters, 'te-chatters-count'); // TODO FIX TOOLTIP
     viewersCount.appendChild(counter);
+    updateChatters();
+    startUpdater();
+}
+
+async function updateChatters() {
     const channel = getLive().props?.content?.channelLogin;
     if (!channel) return;
     const data = await getChatters(channel);
     setChatters(data);
 }
-
-// function startUpdater() {
-//     if (updater) clearInterval(updater);
-//     updater = setInterval(() => {
-
-//     }, 60000);
-// }
 
 function setChatters(amount) {
     counter.textContent = `[${amount}]`;
@@ -46,4 +45,9 @@ async function getChatters(channel) {
     }`;
     const data = await GQL.query(query, { name: channel }, false);
     return numberWithCommas(data?.data?.channel?.chatters?.count) || '???';
+}
+
+function startUpdater() {
+    if (updater) clearInterval(updater);
+    updater = setInterval(() => updateChatters(), 60000);
 }
