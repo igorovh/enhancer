@@ -1,8 +1,5 @@
 #te-chatters-count {
     color: var(--color-text-live) !important;
     font-weight: var(--font-weight-semibold) !important;
-}
-
-#te-chatters-count-icon {
     margin-left: 5px;
 }

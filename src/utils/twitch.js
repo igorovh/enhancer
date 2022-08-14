@@ -133,6 +133,15 @@ export function getVideo() {
     return node?.stateNode;
 }
 
+export function getLive() {
+    const node = findReactChildren(
+        getReactInstance(document.querySelector('.persistent-player')),
+        (n) => n.stateNode?.props && n.stateNode?.props.content.channelLogin
+    );
+
+    return node?.stateNode;
+}
+
 export function sendMessage(message, prefix = true) {
     const controller = getChatController();
 
