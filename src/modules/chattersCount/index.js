@@ -1,4 +1,5 @@
 import * as Peeker from '$Peeker';
+import * as Logger from '$Logger';
 import Component from './component';
 import GQL from '$Utils/twitchql';
 import { getLive } from '$Utils/twitch';
@@ -27,6 +28,7 @@ async function updateChatters() {
     const channel = getLive().props?.content?.channelLogin;
     if (!channel) return;
     const data = await getChatters(channel);
+    Logger.debug(`Updating chatters count on ${channel} channel to: ${data}.`);
     setChatters(data);
 }
 
