@@ -1,21 +1,18 @@
 import * as Peeker from '$Peeker';
 import { setText } from '$Utils/chat';
+import * as shift from '$Utils/shift';
 
 let copyMessage = false;
 
-window.addEventListener('keydown', (event) => {
-    if (event.shiftKey || event.key === 'Shift') {
-        copyMessage = true;
-        document.body.classList.add('te-copy-messages');
-    }
+shift.on('shift', () => {
+    copyMessage = true;
+    document.body.classList.add('te-copy-messages');
 });
 
-window.addEventListener('keyup', (event) => {
-    if (event.shiftKey || event.key === 'Shift') {
-        copyMessage = false;
-        document.body.classList.remove('te-copy-messages');
-    }
-});
+shift.on('unshift', () => {
+    copyMessage = false;
+    document.body.classList.remove('te-copy-messages');
+})
 
 Peeker.registerListener('messageEvent', callback);
 
