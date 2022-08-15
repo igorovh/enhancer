@@ -1,7 +1,7 @@
 import * as Peeker from '$Peeker';
 import Component from './component';
 import { tooltip } from '$Utils/tooltip/';
-import { show } from '../../settings';
+import { show } from '$Settings';
 
 Peeker.add(() => {
     const chatButtons = document.querySelector('.stream-chat-header');
