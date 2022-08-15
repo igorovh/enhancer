@@ -28,7 +28,7 @@ async function updateChatters() {
     const channel = getLive().props?.content?.channelLogin;
     if (!channel) return;
     const data = await getChatters(channel);
-    Logger.debug(`Updating chatters count on ${channel} channel to: ${data}.`);
+    Logger.debug(`Updating chatters count on ${channel} channel to: ${data} at`, new Date());
     setChatters(data);
 }
 
