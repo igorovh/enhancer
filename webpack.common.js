@@ -10,6 +10,9 @@ module.exports = {
         inject: './src/inject.js',
         index: './src/index.js',
         bundle: [...glob.sync('./src/modules/**/index.@(css|scss)'), ...glob.sync('./src/utils/**/index.@(css|scss)')],
+        content: [...glob.sync('./src/content/*.js')],
+        worker: [...glob.sync('./src/worker/*.js')],
+        
     },
     resolve: {
         alias: {

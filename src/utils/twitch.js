@@ -142,6 +142,15 @@ export function getLive() {
     return node?.stateNode;
 }
 
+export function getPlayer() {
+    const node = findReactParents(
+        getReactInstance(document.querySelector('div[data-a-target="player-overlay-click-handler"]')),
+        (n) => n.memoizedProps?.mediaPlayerInstance?.core
+    );
+
+    return node?.stateNode;
+}
+
 export function sendMessage(message, prefix = true) {
     const controller = getChatController();
 

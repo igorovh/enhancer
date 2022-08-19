@@ -6,11 +6,15 @@
     "content_scripts": [
         {
             "matches": ["*://*.twitch.tv/*"],
-            "js": ["inject.js"],
+            "js": ["inject.js", "content.js"],
             "all_frames": true,
             "css": ["bundle.css"]
         }
     ],
+    "background": {
+        "scripts": ["worker.js"],
+        "persistent": false
+    },
     "web_accessible_resources": ["index.js"],
-    "permissions": ["storage", "*://*.twitch.tv/*"]
+    "permissions": ["storage", "tabs", "*://*.twitch.tv/*"]
 }
