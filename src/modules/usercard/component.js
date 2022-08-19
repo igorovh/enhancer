@@ -39,7 +39,6 @@ export const elements = [
             div.innerHTML += `
             <span">~ ${formatter[settings.format](watchtime.totalTime)}</span>
             `;
-            console.log('[te]', watchtime);
         }
         return div;
     },
