@@ -6,7 +6,6 @@ Peeker.registerListener('messageEvent', callback);
 
 function callback(message) {
     const mentions = message.querySelectorAll('.chat-line__message-mention');
-    console.log(message);
     if (mentions.length < 1) return;
     for (const mention of mentions) {
         const username = mention.textContent.replace('@', '').toLowerCase();
