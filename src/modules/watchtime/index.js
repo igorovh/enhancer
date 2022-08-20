@@ -23,7 +23,7 @@ let watchtimeElement;
 
 function callback(panel) {
     watchtimeElement = document.createElement('div');
-    watchtimeElement.innerHTML = '<span class="te-watchtime-gray">Loading watchtime...</span> ';
+    watchtimeElement.innerHTML = '<span class="te-watchtime-gray">Loading watchtime...</span>';
     panel.appendChild(watchtimeElement);
 }
 
@@ -32,8 +32,12 @@ document.addEventListener('enhancer-watchtime-data', (event) => {
 });
 
 function createText(seconds, date) {
+    let formattedTime = formatTime(seconds);
+    console.log('[te]', formattedTime);
+    console.log('[te]', formattedTime.length);
+    if(formattedTime.length < 1) formattedTime = '> 1 min';
     return `
-        <span class="te-watchtime-bold">${formatTime(seconds)}</span> 
+        <span class="te-watchtime-bold">${formattedTime}</span> 
         <span class="te-watchtime-gray">watchtime since</span> 
         <span class="te-watchtime-bold">${new Date(date).toLocaleDateString()}</span> 
     `;
