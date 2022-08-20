@@ -2,18 +2,12 @@ let channels = [];
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.type.toLowerCase() !== 'watchtime') return;
-    switch (request.id) {
-        case 'watch': {
-            const channel = request.data.channel;
-            if (channels.includes(channel)) return;
-            channels.push(channel);
-            break;
-        }
-        case 'get': {
-            break;
-        }
-    }
-    //TODO Return total watchtime
+    if (request.id !== 'watch') return;
+    const channel = request.data.channel.toLowerCase();
+    if (channels.includes(channel)) return;
+    channels.push(channel);
+    getWatchtime(channel).then(sendResponse);
+    return true;
 });
 
 setInterval(async () => {
