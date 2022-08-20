@@ -19,8 +19,9 @@ function hoverMention(event) {
     const username = event.target.getAttribute('mention-user');
     Logger.debug(`Hovering "${username}" messages (mention-hover).`);
     const messages = getChatMessages();
-    messages.filter(message => message?.component?.props?.message?.user.displayName?.toLowerCase() === username)
-    .forEach(message => message.element.classList.add('te-mention-messages'));
+    messages
+        .filter((message) => message?.component?.props?.message?.user.displayName?.toLowerCase() === username)
+        .forEach((message) => message.element.classList.add('te-mention-messages'));
 }
 
 function unHoverMention() {

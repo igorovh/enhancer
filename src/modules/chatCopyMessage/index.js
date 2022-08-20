@@ -12,7 +12,7 @@ shift.on('shift', () => {
 shift.on('unshift', () => {
     copyMessage = false;
     document.body.classList.remove('te-copy-messages');
-})
+});
 
 Peeker.registerListener('messageEvent', callback);
 

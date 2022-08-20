@@ -2,20 +2,20 @@ let shift = false;
 
 const events = {
     shift: [],
-    unshift: []
-}
+    unshift: [],
+};
 
 window.addEventListener('keydown', (event) => {
     if (event.shiftKey || event.key === 'Shift') {
         shift = true;
-        events.shift.forEach(callback => callback(event));
+        events.shift.forEach((callback) => callback(event));
     }
 });
 
 window.addEventListener('keyup', (event) => {
     if (event.shiftKey || event.key === 'Shift') {
         shift = false;
-        events.unshift.forEach(callback => callback(event));
+        events.unshift.forEach((callback) => callback(event));
     }
 });
 
@@ -24,6 +24,6 @@ export function isShifting() {
 }
 
 export function on(event, callback) {
-    if(!events[event]) return;
+    if (!events[event]) return;
     events[event].push(callback);
 }
