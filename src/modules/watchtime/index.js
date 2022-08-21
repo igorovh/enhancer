@@ -3,10 +3,16 @@ import * as Peeker from '$Peeker';
 import * as Logger from '$Logger';
 import { formatTime } from '$Utils/time';
 
+let updated = false;
+
 setInterval(() => {
+    if (!updated) requestUpdate();
     const player = getPlayer();
-    if (!player) return;
+    const panel = getChannelInfo();
+    if (!player || !panel) return;
     if (window.location.href.endsWith('twitch.tv/')) return; // Main page
+    Logger.debug('Panel data', panel);
+    if (!panel.props.isLive) return;
     const paused = player.props.mediaPlayerInstance.core.paused;
     if (paused) return;
     document.dispatchEvent(
@@ -28,15 +34,20 @@ function callback(panel) {
     watchtimeElement = document.createElement('div');
     watchtimeElement.innerHTML = '<span class="te-watchtime-gray">Loading watchtime...</span>';
     panel.appendChild(watchtimeElement);
+    requestUpdate();
+}
 
-    const channel = getChannelInfo().props.channelLogin;
+function requestUpdate() {
+    const channel = getChannelInfo()?.props.channelLogin;
+    if (!channel) return;
     document.dispatchEvent(
         new CustomEvent('enhancer-watchtime', { detail: { type: 'watchtime', id: 'get', data: { channel } } })
     );
-    Logger.debug('Requesting watchtime data for', channel);
+    Logger.debug(`Trying to request watchtime data for ${channel}.`);
 }
 
 document.addEventListener('enhancer-watchtime-response', (event) => {
+    updated = true;
     watchtimeElement.innerHTML = createText(event.detail.time, event.detail.firstUpdate);
 });
 

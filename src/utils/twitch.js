@@ -153,7 +153,7 @@ export function getPlayer() {
 
 export function getChannelInfo() {
     const node = findReactChildren(
-        getReactInstance(document.querySelector('.channel-root__info--home')),
+        getReactInstance(document.querySelector('.channel-info-content')),
         (n) => n.stateNode?.props && n.stateNode?.props.channelLogin
     );
 
