@@ -1,12 +1,21 @@
 let channels = [];
 
+const requests = {
+    watch: (request, sendResponse) => {
+        const channel = request.data.channel.toLowerCase();
+        if (channels.includes(channel)) return;
+        channels.push(channel);
+        getWatchtime(channel).then(sendResponse);
+    },
+    get: (request, sendResponse) => {
+        const channel = request.data.channel.toLowerCase();
+        getWatchtime(channel).then(sendResponse);
+    },
+};
+
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.type.toLowerCase() !== 'watchtime') return;
-    if (request.id !== 'watch') return;
-    const channel = request.data.channel.toLowerCase();
-    if (channels.includes(channel)) return;
-    channels.push(channel);
-    getWatchtime(channel).then(sendResponse);
+    requests[request.id](request, sendResponse);
     return true;
 });
 

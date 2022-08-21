@@ -151,6 +151,15 @@ export function getPlayer() {
     return node?.stateNode;
 }
 
+export function getChannelInfo() {
+    const node = findReactChildren(
+        getReactInstance(document.querySelector('.channel-root__info--home')),
+        (n) => n.stateNode?.props && n.stateNode?.props.channelLogin
+    );
+
+    return node?.stateNode;
+}
+
 export function sendMessage(message, prefix = true) {
     const controller = getChatController();
 

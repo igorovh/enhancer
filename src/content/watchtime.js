@@ -1,5 +1,5 @@
-document.addEventListener('enhancer-watchtime-update', (event) => {
-    chrome.runtime.sendMessage({ type: 'watchtime', id: 'watch', data: event.detail }, (response) => {
-        if (response) document.dispatchEvent(new CustomEvent('enhancer-watchtime-data', { detail: response }));
+document.addEventListener('enhancer-watchtime', (event) => {
+    chrome.runtime.sendMessage(event.detail, (response) => {
+        if (response) document.dispatchEvent(new CustomEvent('enhancer-watchtime-response', { detail: response }));
     });
 });
