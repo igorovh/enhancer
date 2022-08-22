@@ -51,6 +51,7 @@ async function getWatchtime(username) {
     const request = index.get(username);
     return new Promise((resolve) => {
         request.onsuccess = () => resolve(request.result);
+        request.onerror = () => resolve();
     });
 }
 

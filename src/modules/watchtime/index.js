@@ -48,10 +48,11 @@ function requestUpdate() {
 
 document.addEventListener('enhancer-watchtime-response', (event) => {
     updated = true;
-    watchtimeElement.innerHTML = createText(event.detail.time, event.detail.firstUpdate);
+    watchtimeElement.innerHTML = createText(event.detail?.time, event.detail?.firstUpdate);
 });
 
 function createText(seconds, date) {
+    if (!seconds || !date) return `<span class="te-watchtime-gray">Currently there is no watchtime data.</span>`;
     let formattedTime = formatTime(seconds);
     if (formattedTime.length < 1) formattedTime = '> 1 min';
     return `
