@@ -13,7 +13,7 @@ function callback(message, data) {
         if (menu) menu.remove();
         menu = Component(getOptions(message, data), message, data);
         document.body.appendChild(menu);
-        menu.style.left = (event.pageX - 10) + 'px';
-        menu.style.top = (event.pageY - 10) + 'px';
+        menu.style.left = event.pageX - 10 + 'px';
+        menu.style.top = event.pageY - 10 + 'px';
     });
 }

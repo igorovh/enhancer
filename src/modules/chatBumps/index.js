@@ -9,13 +9,14 @@ import Component from './component';
 Peeker.registerListener('messageEvent', callback);
 
 addOption({
+    position: 0,
     text: 'Bump message',
     condition: (message, data) => {
         return getUsername().toLowerCase() !== data.props?.message?.user?.userLogin;
     },
     callback: () => {
         return true;
-    }
+    },
 });
 
 function callback(message, data) {
