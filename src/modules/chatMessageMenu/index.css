@@ -1,0 +1,19 @@
+#te-message-menu {
+    z-index: 1000;
+    background-color: white;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    color: black;
+    min-width: 250px;
+}
+
+.te-message-menu-option {
+    margin: 5px;
+    cursor: pointer;
+}
+
+.te-message-menu-option:hover {
+    background-color: darkgray;
+}

@@ -1,10 +1,22 @@
 import * as Peeker from '$Peeker';
 import * as Logger from '$Logger';
 import { getChatMessagesById } from '$Utils/twitch';
+import { getUsername } from '$Utils/chat';
 import { tooltip } from '$Utils/tooltip';
+import { addOption } from '$Utils/messageMenu';
 import Component from './component';
 
 Peeker.registerListener('messageEvent', callback);
+
+addOption({
+    text: 'Bump message',
+    condition: (message, data) => {
+        return getUsername().toLowerCase() !== data.props?.message?.user?.userLogin;
+    },
+    callback: () => {
+        return true;
+    }
+});
 
 function callback(message, data) {
     const content = data.props.message?.message;
