@@ -1,15 +1,16 @@
 import { addOption } from '$Utils/messageMenu';
-import { setText } from '$Utils/chat';
+import { addText } from '$Utils/chat';
 
 addOption({
-    text: 'Copy message to text area',
+    position: 3,
+    text: 'Copy username to text area',
     condition: () => {
         return !document.querySelector('p[data-test-selector="current-user-timed-out-text"]');
     },
     callback: (message, data) => {
-        const content = data.props?.message?.message;
-        if (!content) return true;
-        setText(content, true);
+        const username = data.props?.message?.user?.displayName;
+        if (!username) return true;
+        addText(`@${username}, `, true);
         return true;
     },
 });

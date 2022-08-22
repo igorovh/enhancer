@@ -12,9 +12,15 @@ addOption({
     position: 0,
     text: 'Bump message',
     condition: (message, data) => {
-        return getUsername().toLowerCase() !== data.props?.message?.user?.userLogin;
+        return (
+            getUsername().toLowerCase() !== data.props?.message?.user?.userLogin &&
+            !message.hasAttribute('te-bumped') &&
+            !document.querySelector('.chat-input-tray__open') &&
+            !document.querySelector('p[data-test-selector="current-user-timed-out-text"]')
+        );
     },
     callback: () => {
+        //TODO Send bump
         return true;
     },
 });

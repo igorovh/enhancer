@@ -7,7 +7,8 @@ Peeker.registerListener('messageEvent', callback);
 
 document.addEventListener('click', (event) => {
     if (event.target.offsetParent?.id !== 'te-message-menu') {
-        document.querySelector('#te-message-menu').remove();
+        const menu = document.querySelector('#te-message-menu');
+        if (menu) menu.remove();
     }
 });
 
