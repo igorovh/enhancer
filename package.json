@@ -6,7 +6,8 @@
     "scripts": {
         "dev": "webpack serve --config webpack.dev.js",
         "build": "webpack --config webpack.prod.js",
-        "lint": "eslint --ext .jsx,.js --max-warnings=0 . && npx prettier -c ."
+        "lint": "eslint --ext .jsx,.js --max-warnings=0 . && npx prettier -c .",
+        "configure-husky": "npx husky install && npx husky add .husky/pre-commit \"npx --no-install lint-staged\""
     },
     "repository": {
         "type": "git",
@@ -34,6 +35,8 @@
         "eslint-plugin-react": "^7.30.1",
         "eslint-webpack-plugin": "^3.2.0",
         "glob": "^8.0.3",
+        "husky": "^8.0.1",
+        "lint-staged": "^13.0.3",
         "mini-css-extract-plugin": "^2.6.1",
         "prettier": "2.7.1",
         "react": "^18.2.0",
@@ -49,5 +52,15 @@
     "dependencies": {
         "@babel/runtime": "^7.18.9"
     },
-    "browserslist": "> 0.25%, not dead"
+    "browserslist": "> 0.25%, not dead",
+    "lint-staged": {
+        "*.*": [
+            "npx prettier -w"
+        ]
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    }
 }
