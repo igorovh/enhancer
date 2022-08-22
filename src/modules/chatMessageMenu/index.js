@@ -5,6 +5,12 @@ import { getOptions } from '$Utils/messageMenu';
 
 Peeker.registerListener('messageEvent', callback);
 
+document.addEventListener('click', (event) => {
+    if (event.target.offsetParent?.id !== 'te-message-menu') {
+        document.querySelector('#te-message-menu').remove();
+    }
+});
+
 function callback(message, data) {
     message.addEventListener('contextmenu', (event) => {
         Logger.debug('Opening message context menu.');
