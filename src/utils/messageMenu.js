@@ -1,6 +1,5 @@
 let options = [];
 
-//TODO Fix RMB when clicking emote
 export function addOption(option) {
     options.push(option);
     options = options.sort((a, b) => {
