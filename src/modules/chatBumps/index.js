@@ -11,6 +11,7 @@ Peeker.registerListener('messageEvent', callback);
 addOption({
     position: 0,
     text: 'Bump message',
+    icon: 'fa-solid fa-thumbs-up',
     condition: (message, data) => {
         return (
             getUsername().toLowerCase() !== data.props?.message?.user?.userLogin &&

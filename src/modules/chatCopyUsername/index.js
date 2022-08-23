@@ -4,6 +4,7 @@ import { addText } from '$Utils/chat';
 addOption({
     position: 3,
     text: 'Copy username to text area',
+    icon: 'fa-solid fa-copy',
     condition: () => {
         return !document.querySelector('p[data-test-selector="current-user-timed-out-text"]');
     },
