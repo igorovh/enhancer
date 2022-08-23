@@ -1,0 +1,52 @@
+#te-message-menu {
+    z-index: 1000;
+    background-color: white;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    // min-width: 175px;
+    border-radius: 2px;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 4px;
+}
+
+.te-message-menu-option {
+    padding: 4px 8px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background-color 0.1s ease-in-out;
+    display: flex;
+    align-items: center;
+
+    &:nth-child(1) {
+        position: relative;
+        margin-bottom: 2px;
+
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            height: 2px;
+            background-color: rgb(128, 128, 128);
+            width: 100%;
+            opacity: 0.4;
+        }
+    }
+
+    & p {
+        color: black;
+        font-size: 12px;
+    }
+
+    & i {
+        color: #404040;
+        margin-right: 8px;
+        opacity: 1;
+    }
+}
+
+.te-message-menu-option:hover {
+    background-color: rgba(128, 128, 128, 0.5);
+}
