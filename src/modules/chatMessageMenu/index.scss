@@ -45,8 +45,8 @@
         margin-right: 8px;
         opacity: 1;
     }
-}
 
-.te-message-menu-option:hover {
-    background-color: rgba(128, 128, 128, 0.5);
+    &:hover {
+        background-color: #e9ebf0;
+    }
 }
