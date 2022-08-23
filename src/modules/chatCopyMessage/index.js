@@ -6,6 +6,9 @@ addOption({
     condition: () => {
         return !document.querySelector('p[data-test-selector="current-user-timed-out-text"]');
     },
+    available: () => {
+        return true;
+    },
     callback: (message, data) => {
         const content = data.props?.message?.message;
         if (!content) return true;

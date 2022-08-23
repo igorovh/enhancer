@@ -3,12 +3,14 @@ export default (options, message, data) => {
     div.id = 'te-message-menu';
     if (options?.length < 1) div.innerHTML = '<span>There is no options for this message :<</span>';
     for (const option of options) {
+        const available = option.available(message, data);
         const span = document.createElement('span');
-        span.className = 'te-message-menu-option';
-        span.textContent = option.text;
-        span.addEventListener('click', () => {
-            if (option.callback(message, data)) div.remove();
-        });
+        span.className = available === true ? 'te-message-menu-option' : 'te-message-option-disabled';
+        span.textContent = available === true ? option.text : available;
+        if (available === true)
+            span.addEventListener('click', () => {
+                if (option.callback(message, data)) div.remove();
+            });
         div.appendChild(span);
     }
     return div;
