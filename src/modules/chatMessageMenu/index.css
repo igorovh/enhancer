@@ -1,5 +1,5 @@
 #te-message-menu {
-    z-index: 1000;
+    z-index: 10000;
     background-color: white;
     position: absolute;
     display: flex;
