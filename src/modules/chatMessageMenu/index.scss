@@ -1,6 +1,6 @@
 #te-message-menu {
     z-index: 1000;
-    background-color: white;
+    background-color: #292a2d;
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -12,7 +12,7 @@
 }
 
 .te-message-menu-option {
-    padding: 4px 8px;
+    padding: 6px 12px;
     border-radius: 2px;
     cursor: pointer;
     transition: background-color 0.1s ease-in-out;
@@ -21,32 +21,30 @@
 
     &:nth-child(1) {
         position: relative;
-        margin-bottom: 2px;
+        margin-bottom: 1px;
 
         &::after {
             content: '';
             position: absolute;
-            bottom: -2px;
+            bottom: -1px;
             left: 0;
-            height: 2px;
-            background-color: rgb(128, 128, 128);
+            height: 1px;
+            background-color: #3c4043;
             width: 100%;
-            opacity: 0.4;
         }
     }
 
     & p {
-        color: black;
-        font-size: 12px;
+        color: white;
+        font-size: 11px;
     }
 
     & i {
-        color: #404040;
-        margin-right: 8px;
-        opacity: 1;
+        color: #9aa0a6;
+        margin-right: 6px;
     }
 
     &:hover {
-        background-color: #e9ebf0;
+        background-color: #3f4042;
     }
 }
