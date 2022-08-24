@@ -1,10 +1,5 @@
-const testHonors = [
-    {
-        username: 'czarny_animekkk1337',
-        type: 'other',
-    },
-];
+import { LOCAL_HONORS } from '$Utils/constants';
 
 export function findHonor(username) {
-    return testHonors.find((honor) => honor.username.toLowerCase() === username.toLowerCase());
+    return LOCAL_HONORS.find((honor) => honor.username.toLowerCase() === username.toLowerCase());
 }
