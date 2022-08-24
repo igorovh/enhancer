@@ -1,13 +1,14 @@
 import * as Peeker from '$Peeker';
 import * as Logger from '$Logger';
-import { getChatMessagesById } from '$Utils/twitch';
+import { getChatMessagesById, getChatService, getChat } from '$Utils/twitch';
 import { getUsername } from '$Utils/chat';
 import { tooltip } from '$Utils/tooltip';
 import { addOption } from '$Utils/messageMenu';
 import Component from './component';
-import NodeCache from 'node-cache';
 
 Peeker.registerListener('messageEvent', callback);
+
+let lastBump = 0;
 
 addOption({
     position: 0,
@@ -21,49 +22,65 @@ addOption({
         );
     },
     available: (message) => {
+        if (lastBump >= Date.now()) return `You can bump message every 30 seconds.`;
         if (!message.hasAttribute('te-bumped')) return true;
-        return `You've already bumped this message.`;
+        return `You've already bumped this message`;
     },
-    callback: () => {
-        //TODO Send bump
+    callback: (message, data) => {
+        if (lastBump >= Date.now()) return false;
+
+        const messageId = data.props?.message?.id;
+        const channel = getChat()?.props?.channelLogin;
+        if (!channel || !messageId) return;
+
+        Logger.debug(`Bumping message with id: ${messageId}`);
+
+        getChatService().client.connection.ws.send(
+            `@reply-parent-msg-id=${messageId} PRIVMSG #${getChat().props.channelLogin} :+1`
+        );
+        lastBump = Date.now() + 31000;
+
+        message.setAttribute('te-bumped', true);
+        refreshBumps(message, messageId, addBumps(message));
+
         return true;
     },
 });
 
-const cache = new NodeCache({ stdTTL: 60, maxKeys: 150, checkperiod: 60 });
-
 function callback(message, data) {
-    const messageId = data.props.message?.id;
+    if (!data.props.message) return;
+
     const content = data.props.message?.messageBody;
-    console.log('[te]', messageId, data.props.message?.id, data.props.message.id, data.props.message);
-    setTimeout(
-        () => console.log('[te]', messageId, data.props.message?.id, data.props.message.id, data.props.message),
-        1000
-    );
     if (content && content.trim() === '+1' && data.props.message.reply) {
         const replyId = data.props.message.reply.parentMsgId;
         const bumped = getChatMessagesById(replyId)[0];
         if (!bumped) return;
-        Logger.debug(`New message with id: ${messageId}`);
-        if (cache.get(messageId)) {
-            Logger.debug(`Message again: ${messageId}`);
-            // message.classList.add('te-bumped');
+        if (data.props.message?._enhancer_bumps?.hide) {
+            message.classList.add('te-bump-message');
             return;
         }
-        cache.set(messageId, 0, 60);
-        Logger.debug(`Adding to cache: ${messageId}`);
-        // message.classList.add('te-bumped'); //TODO Settings - Hide +1 messages
-        //TODO When replying to the same message twice it shows up, idk why
-        const bumps = addBumps(bumped);
+        if (data.props.message?._enhancer_bumps?.bumped) return;
+
+        const bumpInfo = {
+            bumpMessage: {
+                id: replyId,
+            },
+            bumped: true,
+        };
+        bumpInfo.hide = true; //TODO Settings - Hide +1 messages
+        data.props.message._enhancer_bumps = bumpInfo;
+
+        message.classList.add('te-bump-message');
+
+        const bumps = addBumps(bumped.element);
         refreshBumps(bumped.element, replyId, bumps);
     }
 }
 
 function addBumps(bumped, amount = 1) {
-    const element = bumped.element;
     let bumps = amount;
-    if (element.hasAttribute('te-bumps')) bumps += parseInt(element.getAttribute('te-bumps'));
-    element.setAttribute('te-bumps', bumps);
+    if (bumped.hasAttribute('te-bumps')) bumps += parseInt(bumped.getAttribute('te-bumps'));
+    bumped.setAttribute('te-bumps', bumps);
     return bumps;
 }
 
