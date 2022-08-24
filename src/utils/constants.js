@@ -53,11 +53,11 @@ export const LOCAL_HONORS = [
     },
     {
         username: 'd33zor',
-        type: 'tester',
+        type: 'tescontibutorter',
     },
     {
         username: 'kawre',
-        type: 'tester',
+        type: 'contibutor',
     },
     {
         username: 'lewus',
@@ -117,6 +117,10 @@ export const LOCAL_HONORS = [
     },
     {
         username: 'plyta__',
+        type: 'tester',
+    },
+    {
+        username: 'mrsono1212',
         type: 'tester',
     },
 ];
