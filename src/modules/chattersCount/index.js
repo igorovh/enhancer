@@ -12,14 +12,23 @@ Peeker.add(() => {
     return viewersCount;
 }, callback);
 
-let counter;
+Peeker.add(() => {
+    const theatreViewersCount = document.querySelector(
+        'p[data-test-selector="stream-info-card-component__description"]'
+    );
+    if (!theatreViewersCount || !Peeker.canCreate('chattersCount', theatreViewersCount)) return;
+    return theatreViewersCount;
+}, callback);
+
+let counters = [];
 let updater;
 
-async function callback(viewersCount) {
-    counter = Component();
+async function callback(parent) {
+    const counter = Component();
+    counters.push(counter);
     counter.addEventListener('click', updateChatters);
     // tooltip(chatters, 'te-chatters-count'); // TODO FIX TOOLTIP
-    viewersCount.appendChild(counter);
+    parent.appendChild(counter);
     updateChatters();
     startUpdater();
 }
@@ -32,8 +41,8 @@ async function updateChatters() {
     setChatters(data);
 }
 
-function setChatters(amount) {
-    counter.textContent = `[${amount}]`;
+function setChatters(amount, theatre = true) {
+    counters.forEach((counter) => (counter.textContent = `[${amount}]`));
 }
 
 async function getChatters(channel) {
