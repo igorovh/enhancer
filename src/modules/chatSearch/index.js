@@ -1,6 +1,6 @@
-// import * as Peeker from '$Peeker';
+import * as Peeker from '$Peeker';
 // import Component from './component';
-import { getChatMessages } from '$Utils/twitch';
+import { getChatMessages, sendMessage } from '$Utils/twitch';
 
 // Peeker.add(() => {
 //     return !document.querySelector('#te-settings');
@@ -10,35 +10,65 @@ import { getChatMessages } from '$Utils/twitch';
 
 // }
 
+const options = {
+    enabled: false,
+    username: '',
+    content: '',
+};
+
+Peeker.registerListener('messageEvent', callback);
+
+function callback(message, data) {
+    if (!options.enabled) return;
+    const parsed = parse([{ element: message, component: data }]);
+    if (parsed.length < 1) return;
+    if (checkMessage(parsed[0], options.username, options.content)) parsed[0].element.classList.add('te-search-hide');
+}
+
 window.addEventListener('keydown', (event) => {
     if (event.ctrlKey && event.shiftKey && event.key === 'F') {
         resetMessages();
-        serachMessages('vopp_bot', 'test');
+        if (options.enabled) {
+            sendMessage('You have left search mode.', false);
+            options.enabled = false;
+            return;
+        }
+        // serachMessages('vopp_bot', 'test');
     }
 });
 
-//TODO When is in the serach mode then dont show new messages
-//TODO Update: OR NOT? - Upadte new messages if they should be highlighted
-
 function serachMessages(username, content) {
+    if (options.enabled) resetMessages();
+    options.enabled = true;
+    options.username = username;
+    options.content = content;
     const messages = parse(getChatMessages());
-    const highlighted = [];
+    const toHide = [];
     for (const message of messages) {
-        let highlight = true;
-
-        if (username && username.length > 1 && !message.author.toLowerCase().startsWith(username.toLowerCase()))
-            highlight = false;
-        if (content && content.length > 1 && !message.content.includes(content)) highlight = false;
-
-        if (highlight) highlighted.push(message);
+        if (checkMessage(message, username, content)) toHide.push(message);
     }
-    highlighted.forEach((message) => message.element.classList.add('te-search-messages'));
+    toHide.forEach((message) => message.element.classList.add('te-search-hide'));
+    sendMessage('You have entered search mode, to exit press CTRL + SHIFT + F.', false);
+}
+
+function checkMessage(message, username = '', content = '') {
+    const serachByUsername = username.length > 1 && username;
+    const serachByContent = content.length > 1 && content;
+    const foundUsername = message.author.toLowerCase().startsWith(username.toLowerCase());
+    const foundContent = message.content.includes(content);
+
+    if (serachByUsername && serachByContent) {
+        if (foundUsername && foundContent) return false;
+        return true;
+    }
+
+    if (serachByUsername && foundUsername) return false;
+    if (serachByContent && foundContent) return false;
+    return true;
 }
 
 function resetMessages() {
-    document
-        .querySelectorAll('.te-search-messages')
-        .forEach((message) => message.classList.remove('te-search-messages'));
+    document.querySelectorAll('.te-search-hide').forEach((message) => message.classList.remove('te-search-hide'));
 }
 
 function parse(messages) {
