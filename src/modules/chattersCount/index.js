@@ -41,7 +41,7 @@ async function updateChatters() {
     setChatters(data);
 }
 
-function setChatters(amount, theatre = true) {
+function setChatters(amount) {
     counters.forEach((counter) => (counter.textContent = `[${amount}]`));
 }
 
