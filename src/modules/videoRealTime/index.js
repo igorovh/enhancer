@@ -19,6 +19,7 @@ async function callback(controls) {
     await setupVideo();
     if (timeElement) timeElement.remove();
     timeElement = document.createElement('span');
+    timeElement.id = 'te-real-video-time';
     timeElement.classList.add('te-real-video-time');
     timeElement.textContent = 'Loading...';
     controls.appendChild(timeElement);
@@ -77,3 +78,11 @@ async function setTimeByURL() {
     let date = new Date(createDate.getTime() + seconds * 1000);
     videoElement.currentTime = (date.getTime() - videoData.getTime()) / 1000;
 }
+
+Peeker.addSafer(() => {
+    const button = document.querySelector('#te-real-video-time');
+    if (!window.location.href.includes('/videos/') && button) {
+        button.remove();
+        if (timeTimer) clearInterval(timeTimer);
+    }
+});

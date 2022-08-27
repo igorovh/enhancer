@@ -15,6 +15,8 @@ export function check() {
     }
 }
 
+setInterval(() => check(), 1000);
+
 const listeners = [];
 
 export function registerListener(id, callback) {
@@ -38,3 +40,11 @@ export function canCreate(id, element) {
     element.setAttribute('twitch-enhancer', ids.join(';'));
     return true;
 }
+
+const safer = [];
+
+export function addSafer(callback) {
+    safer.push(callback);
+}
+
+setInterval(() => safer.forEach((callback) => callback()), 1000);

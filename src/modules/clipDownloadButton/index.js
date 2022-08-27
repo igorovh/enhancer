@@ -3,6 +3,7 @@ import Component from './component';
 import { tooltip } from '$Utils/tooltip/';
 
 Peeker.add(() => {
+    if (!window.location.href.includes('clips.twitch.tv') && !window.location.href.includes('/clip/')) return;
     const video = document.querySelector('.video-player__overlay');
     if (!video || !Peeker.canCreate('clipDownloadButton', video)) return;
     return video.querySelector('.player-controls__left-control-group');
@@ -18,3 +19,10 @@ function callback(controls) {
 function download() {
     window.open(document.querySelector('video').src);
 }
+
+Peeker.addSafer(() => {
+    const button = document.querySelector('#te-clip-download');
+    if (!window.location.href.includes('clips.twitch.tv') && !window.location.href.includes('/clip/') && button) {
+        button.remove();
+    }
+});
