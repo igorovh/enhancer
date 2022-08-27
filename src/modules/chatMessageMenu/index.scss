@@ -1,0 +1,50 @@
+#te-message-menu {
+    z-index: 10000;
+    background-color: #292a2d;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    // min-width: 175px;
+    border-radius: 2px;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 4px;
+}
+
+.te-message-menu-option {
+    padding: 6px 12px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background-color 0.1s ease-in-out;
+    display: flex;
+    align-items: center;
+
+    &:nth-child(1) {
+        position: relative;
+        margin-bottom: 1px;
+
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            height: 1px;
+            background-color: #3c4043;
+            width: 100%;
+        }
+    }
+
+    & p {
+        color: white;
+        font-size: 11px;
+    }
+
+    & i {
+        color: #9aa0a6;
+        margin-right: 6px;
+    }
+
+    &:hover {
+        background-color: #3f4042;
+    }
+}

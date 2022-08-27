@@ -1,0 +1,8 @@
+.te-watchtime-bold {
+    font-size: var(--font-size-5) !important;
+    font-weight: var(--font-weight-semibold) !important;
+}
+
+.te-watchtime-gray {
+    color: var(--color-text-alt-2) !important;
+}

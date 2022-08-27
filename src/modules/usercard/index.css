@@ -1,0 +1,10 @@
+.te-usercard {
+    width: 330px;
+    display: flex !important;
+    flex-direction: column !important;
+    margin: 10px 10px 5px 10px;
+}
+
+.te-usercard-bold {
+    font-weight: bold;
+}

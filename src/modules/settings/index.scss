@@ -1,0 +1,19 @@
+.te-settings-enabled {
+    #te-settings {
+        display: inline-block;
+    }
+}
+
+#te-settings {
+    display: none;
+    position: absolute;
+    width: 100% !important;
+    height: 100% !important;
+    z-index: 1000;
+}
+
+#te-settings div {
+    background-color: green;
+    width: 250px;
+    height: 250px;
+}
