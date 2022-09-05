@@ -6,7 +6,7 @@
     "content_scripts": [
         {
             "matches": ["*://*.twitch.tv/*"],
-            "js": ["inject.js", "content.js"],
+            "js": ["inject.js", "content.js", "react.js"],
             "all_frames": true,
             "css": ["bundle.css"]
         }

@@ -9,7 +9,11 @@ module.exports = {
     entry: {
         inject: './src/inject.js',
         index: './src/index.js',
-        bundle: [...glob.sync('./src/modules/**/index.@(css|scss)'), ...glob.sync('./src/utils/**/index.@(css|scss)')],
+        bundle: [
+            ...glob.sync('./src/modules/**/index.@(css|scss)').filter((path) => !path.includes('.module.')),
+            ...glob.sync('./src/utils/**/index.@(css|scss)').filter((path) => !path.includes('.module.')),
+        ],
+        react: [...glob.sync('./src/components/**/index.js')],
         content: [...glob.sync('./src/content/*.js')],
         worker: [...glob.sync('./src/worker/*.js')],
     },

@@ -1,3 +1,7 @@
+const settings = document.createElement('div');
+settings.id = 'te-settings';
+document.body.appendChild(settings);
+
 const head = document.head || document.getElementsByTagName('head')[0] || document.documentElement;
 
 const script = document.createElement('script');

@@ -1,0 +1,3 @@
+.close-button:hover .close-icon {
+    fill: rgba(255, 255, 255, 0.75) !important;
+}
