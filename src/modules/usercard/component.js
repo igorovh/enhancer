@@ -51,6 +51,38 @@ export default async (username) => {
 };
 
 const services = {
+    twitchtracker: async (username) => {
+        const data = await fetch(`https://twitchlogger.pl/Tracker/SerachUser/${username}`);
+        if (data.status != 200) return;
+        const json = await data.json();
+        if (json.userChannels < 1) return;
+
+        json.userChannels.sort((a, b) => {
+            return b.watchtime - a.watchtime;
+        });
+
+        const watchtimes = [];
+        let totalTime = 0;
+        json.userChannels.forEach((channel) => (totalTime += channel.count * 5 * 60));
+        for (let i = 0; i < 5; i++) {
+            const channel = json.userChannels[i];
+            if (channel)
+                channel.push({
+                    position: i + 1,
+                    streamer:
+                        json.channels.filter((broadcaster) => broadcaster.broadcasterId === channel.broadcasterId)[0]
+                            ?.broadcasterName || 'unknown',
+                    time: channel.count * 5 * 60,
+                });
+        }
+
+        return {
+            service: 'https://twitchlogger.pl/tracker/{name}',
+            username,
+            watchtimes,
+            totalTime,
+        };
+    },
     xayo: async (username) => {
         let data = await fetch(`https://wcapi.vopp.top/user/xayo/${username}`);
         if (data.status != 200) return;

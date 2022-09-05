@@ -10,5 +10,8 @@ Peeker.add(() => {
 
 async function callback(usercard) {
     const viewerCard = getViewerCard();
+    const loading = document.createElement('span');
+    usercard.insertBefore(loading, usercard.children[1]);
     usercard.insertBefore(await Component(viewerCard.props.targetLogin), usercard.children[1]);
+    loading.remove();
 }
