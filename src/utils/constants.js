@@ -68,6 +68,10 @@ export const LOCAL_HONORS = [
         type: 'other',
     },
     {
+        username: 'b3akers',
+        type: 'other',
+    },
+    {
         username: 'xyves',
         type: 'other',
     },
@@ -125,6 +129,10 @@ export const LOCAL_HONORS = [
     },
     {
         username: 'reqqun',
+        type: 'tester',
+    },
+    {
+        username: 'usermacieg',
         type: 'tester',
     },
 ];
