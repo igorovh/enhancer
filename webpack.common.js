@@ -13,7 +13,6 @@ module.exports = {
             ...glob.sync('./src/modules/**/index.@(css|scss)').filter((path) => !path.includes('.module.')),
             ...glob.sync('./src/utils/**/index.@(css|scss)').filter((path) => !path.includes('.module.')),
         ],
-        react: [...glob.sync('./src/components/**/index.js')],
         content: [...glob.sync('./src/content/*.js')],
         worker: [...glob.sync('./src/worker/*.js')],
     },
@@ -21,6 +20,7 @@ module.exports = {
         alias: {
             $Modules: path.resolve(__dirname, 'src/modules'),
             $Utils: path.resolve(__dirname, 'src/utils'),
+            $Components: path.resolve(__dirname, 'src/components'),
             $Logger: path.resolve(__dirname, 'src/common/logger.js'),
             $Peeker: path.resolve(__dirname, 'src/common/peeker.js'),
             $Settings: path.resolve(__dirname, 'src/common/settings.js'),
