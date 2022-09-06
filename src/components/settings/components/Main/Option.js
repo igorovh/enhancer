@@ -21,7 +21,7 @@ export default Option;
 const Wrapper = styled.div`
     display: flex;
     justify-content: space-between;
-    padding: 1rem;
+    padding: 1.2rem;
     color: white;
     background-color: var(--bg-color-dark);
 `;
@@ -33,11 +33,11 @@ const NameWrapper = styled.div`
 
 const Name = styled.div`
     color: var(--purple-color);
-    font-size: 1.2rem;
+    font-size: 1.75rem;
     font-weight: bold;
 `;
 
 const Description = styled.div`
     color: var(--gray-color-light);
-    font-size: 0.8rem;
+    font-size: 1.2rem;
 `;

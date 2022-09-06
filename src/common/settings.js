@@ -22,11 +22,11 @@ export function change(id, value) {
 }
 
 export function show() {
-    document.body.classList.add('te-settings-enabled');
+    document.querySelector('#te-settings').style.display = 'flex';
 }
 
 export function hide() {
-    document.body.classList.remove('te-settings-enabled');
+    document.querySelector('#te-settings').style.display = 'none';
 }
 
 const updates = [];
