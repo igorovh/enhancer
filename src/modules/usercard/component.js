@@ -1,4 +1,5 @@
 import * as Settings from '$Settings';
+import * as Logger from '$Logger';
 import { formatTime } from '$Utils/time';
 
 const settings = Settings.get('usercard');
@@ -21,6 +22,7 @@ export const elements = [
                 <span>You still can check them manually on these pages:</span>
                 <a class="te-usercard-bold" target="_blank" href="https://vislaud.com/${username}">vislaud.com/${username}</a>
                 <a class="te-usercard-bold" target="_blank" href="https://xayo.pl/${username}">xayo.pl/${username}</a>
+                <a class="te-usercard-bold" target="_blank" href="https://twitchlogger.pl/tracker/${username}">twitchlogger.pl/tracker/${username}</a>
             `;
         } else {
             const url = watchtime.service.replace('{name}', username);
@@ -51,14 +53,14 @@ export default async (username) => {
 };
 
 const services = {
-    twitchtracker: async (username) => {
+    twitchlogger: async (username) => {
         const data = await fetch(`https://twitchlogger.pl/Tracker/SerachUser/${username}`);
         if (data.status != 200) return;
         const json = await data.json();
         if (json.userChannels < 1) return;
 
         json.userChannels.sort((a, b) => {
-            return b.watchtime - a.watchtime;
+            return b.count - a.count;
         });
 
         const watchtimes = [];
@@ -67,7 +69,7 @@ const services = {
         for (let i = 0; i < 5; i++) {
             const channel = json.userChannels[i];
             if (channel)
-                channel.push({
+                watchtimes.push({
                     position: i + 1,
                     streamer:
                         json.channels.filter((broadcaster) => broadcaster.broadcasterId === channel.broadcasterId)[0]
@@ -77,7 +79,7 @@ const services = {
         }
 
         return {
-            service: 'https://twitchlogger.pl/tracker/{name}',
+            service: 'twitchlogger.pl/tracker/{name}',
             username,
             watchtimes,
             totalTime,
@@ -107,44 +109,62 @@ const services = {
             totalTime,
         };
     },
-    vislaud: async (username) => {
-        let data = await fetch(`https://vislaud.com/api/chatters?logins=${username}`);
-        if (data.status != 200) return;
-        data = await data.json();
-        if (data.length < 1) return;
-        data = data[0];
-        let totalTime = 0;
-        data.watchtimes.sort((a, b) => {
-            return b.watchtime - a.watchtime;
-        });
-        data.watchtimes.forEach((streamer) => (totalTime += streamer.watchtime * 60));
-        const watchtimes = [];
-        for (let i = 0; i < 5; i++) {
-            const watchtime = data.watchtimes[i];
-            if (watchtime)
-                watchtimes.push({
-                    position: i + 1,
-                    streamer: watchtime.streamer.displayName,
-                    time: watchtime.watchtime * 60,
-                });
-        }
-        return {
-            service: 'vislaud.com/{name}',
-            username,
-            watchtimes,
-            totalTime,
-        };
-    },
+    // vislaud: async (username) => {
+    //     let data = await fetch(`https://vislaud.com/api/chatters?logins=${username}`);
+    //     if (data.status != 200) return;
+    //     data = await data.json();
+    //     if (data.length < 1) return;
+    //     data = data[0];
+    //     let totalTime = 0;
+    //     data.watchtimes.sort((a, b) => {
+    //         return b.watchtime - a.watchtime;
+    //     });
+    //     data.watchtimes.forEach((streamer) => (totalTime += streamer.watchtime * 60));
+    //     const watchtimes = [];
+    //     for (let i = 0; i < 5; i++) {
+    //         const watchtime = data.watchtimes[i];
+    //         if (watchtime)
+    //             watchtimes.push({
+    //                 position: i + 1,
+    //                 streamer: watchtime.streamer.displayName,
+    //                 time: watchtime.watchtime * 60,
+    //             });
+    //     }
+    //     return {
+    //         service: 'vislaud.com/{name}',
+    //         username,
+    //         watchtimes,
+    //         totalTime,
+    //     };
+    // },
     auto: async (username) => {
-        const xayo = await services.xayo(username);
-        const vislaud = await services.vislaud(username);
+        const watchtimes = [];
 
-        if (xayo && vislaud) {
-            if (xayo.totalTime > vislaud.totalTime) return xayo;
-            return vislaud;
+        const allServices = Object.keys(services).filter((service) => service !== 'auto');
+
+        for (const service of allServices) {
+            try {
+                Logger.debug(`Trying to download watchtime data from ${service}.`);
+                watchtimes.push(await services[service](username));
+            } catch (error) {
+                Logger.error(`Cannot download data from ${service}. Error: `, error);
+            }
         }
-        if (!xayo) return vislaud;
-        return xayo;
+
+        watchtimes.sort((a, b) => {
+            return b.totalTime - a.totalTime;
+        });
+
+        return watchtimes[0];
+        // const xayo = await services.xayo(username);
+        // const vislaud = await services.vislaud(username);
+
+        // if (xayo && vislaud) {
+        //     if (xayo.totalTime > vislaud.totalTime) return xayo;
+        //     return vislaud;
+        // }
+        // if (!xayo) return vislaud;
+        // return xayo;
     },
 };
 

@@ -41,7 +41,7 @@ export const DEFAULT_SETTINGS = {
         src: 'http://localhost:2565/sounds/notification.ogg', //TODO DEV ONLY
     },
     usercard: {
-        service: 'twitchtracker',
+        service: 'auto',
         format: 'hour',
     },
 };
