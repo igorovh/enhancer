@@ -2,15 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 // import Search from './Search';
 import { RiCloseFill } from 'react-icons/ri';
-import './index.module.css';
+import { hide } from '../../../../common/settings';
 
 const TopBar = () => {
     return (
         <Wrapper>
             {/* <Search /> */}
-            <CloseButton className="close-button">
+            <CloseButton onClick={hide} className="te-close-button">
                 <RiCloseFill
-                    className="close-icon"
+                    className="te-close-button-icon"
                     style={{
                         width: '25px',
                         height: '25px',

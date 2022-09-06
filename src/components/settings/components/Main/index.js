@@ -44,8 +44,8 @@ const Wrapper = styled.div`
 const MainContent = styled.main`
     display: flex;
     flex-direction: column;
-    padding: 1rem;
-    gap: 1rem;
+    padding: 1.2rem;
+    gap: 1.2rem;
     overflow-y: auto;
     ::-webkit-scrollbar {
         width: 10px;

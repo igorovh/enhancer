@@ -24,6 +24,7 @@ export default Radio;
 const Wrapper = styled.div`
     display: flex;
     align-items: center;
+    font-weight: bold;
 `;
 const Input = styled.input`
     display: none;

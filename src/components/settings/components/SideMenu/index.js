@@ -13,7 +13,6 @@ import {
     RiInformationLine,
 } from 'react-icons/ri';
 import Button from './Button';
-import './index.module.css';
 
 const SideMenu = () => {
     const { selected, setSelected } = useContext(TabContext);
