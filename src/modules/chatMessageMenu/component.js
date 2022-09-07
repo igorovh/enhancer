@@ -6,7 +6,7 @@ export default (options, message, data) => {
         const available = option.available(message, data);
         const span = document.createElement('span');
         span.className = 'te-message-menu-option';
-        const text = `<i class="${option.icon} fa-sm"></i><p>${available === true ? option.text : available}</p>`;
+        const text = `${option.icon}<span>${available === true ? option.text : available}</span>`;
         span.innerHTML = text;
         if (available === true)
             span.addEventListener('click', () => {

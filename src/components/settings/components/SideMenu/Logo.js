@@ -9,7 +9,7 @@ const LogoIcon = () => {
                 width="30"
                 height="30"
                 viewBox="0 0 20 20"
-                fill="var(--purple-color)">
+                fill="var(--te-purple-color)">
                 <path
                     fillRule="evenodd"
                     clipRule="evenodd"

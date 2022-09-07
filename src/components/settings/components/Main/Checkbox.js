@@ -5,7 +5,7 @@ const Checkbox = ({ id }) => {
     return (
         <Wrapper>
             <Input type="checkbox" id={id} />
-            <Label htmlFor={id}>Toggle</Label>
+            <Label htmlFor={id}></Label>
         </Wrapper>
     );
 };
@@ -27,7 +27,7 @@ const Label = styled.label`
     text-indent: -9999px;
     width: 50px;
     height: 25px;
-    background: grey;
+    background: var(--te-gray-color-light);
     display: block;
     border-radius: 100px;
     position: relative;
@@ -45,10 +45,9 @@ const Label = styled.label`
     }
 
     ${Input}:checked + & {
-        background: var(--purple-color);
+        background: var(--te-purple-color);
         &::after {
-            left: calc(100%);
-            transform: translateX(calc(-100% - 2px));
+            left: calc(100% - 23px);
         }
     }
 `;

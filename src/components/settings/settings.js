@@ -9,7 +9,6 @@ export const settings = {
         {
             id: 'hide-bump-messages',
             name: 'Hide "+1" bump messages',
-            description: 'Hide bumping "+1" messages',
             type: 'checkbox',
         },
         {

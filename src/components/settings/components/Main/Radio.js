@@ -24,14 +24,13 @@ export default Radio;
 const Wrapper = styled.div`
     display: flex;
     align-items: center;
-    font-weight: bold;
 `;
 const Input = styled.input`
     display: none;
 `;
 
 const Label = styled.label`
-    background: var(--bg-color-light);
+    background: var(--te-bg-color-light);
     height: 100%;
     width: 100%;
     display: flex;
@@ -40,8 +39,9 @@ const Label = styled.label`
     padding: 0.25rem 1rem;
     cursor: pointer;
     transition: all 0.2s ease;
+    font-size: 1.4rem;
     ${Input}:checked + & {
-        color: var(--bg-color-light);
-        background: var(--purple-color);
+        color: var(--te-bg-color-light);
+        background: var(--te-purple-color);
     }
 `;

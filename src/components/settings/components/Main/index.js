@@ -49,9 +49,9 @@ const MainContent = styled.main`
     overflow-y: auto;
     ::-webkit-scrollbar {
         width: 10px;
-        background-color: var(--bg-color-light);
+        background-color: var(--te-bg-color-light);
     }
     ::-webkit-scrollbar-thumb {
-        background-color: var(--bg-color-dark);
+        background-color: var(--te-bg-color-dark);
     }
 `;

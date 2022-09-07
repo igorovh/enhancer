@@ -16,7 +16,7 @@ const Wrapper = styled.div`
     position: relative;
 `;
 const Input = styled.input`
-    background-color: var(--bg-color-light);
+    background-color: var(--te-bg-color-light);
     border: none;
     color: white;
     padding: 10px;
@@ -31,7 +31,7 @@ const Border = styled.span`
     position: absolute;
     bottom: 0;
     height: 2px;
-    background-color: var(--purple-color);
+    background-color: var(--te-purple-color);
     transition: 0.3s;
     left: 50%;
     ${Input}:focus + &, ${Input}:not(:placeholder-shown) + & {

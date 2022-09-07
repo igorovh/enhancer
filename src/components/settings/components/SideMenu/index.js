@@ -62,7 +62,7 @@ const Wrapper = styled.nav`
     justify-content: space-between;
     align-items: center;
     flex-basis: 60px;
-    background-color: var(--bg-color-dark);
+    background-color: var(--te-bg-color-dark);
     gap: 3rem;
 `;
 const Tabs = styled.div`
