@@ -20,7 +20,6 @@ export const elements = [
             div.innerHTML += `
                 <span>An error occurred, please try again later.</span>
                 <span>You still can check them manually on these pages:</span>
-                <a class="te-usercard-bold" target="_blank" href="https://vislaud.com/${username}">vislaud.com/${username}</a>
                 <a class="te-usercard-bold" target="_blank" href="https://xayo.pl/${username}">xayo.pl/${username}</a>
                 <a class="te-usercard-bold" target="_blank" href="https://twitchlogger.pl/tracker/${username}">twitchlogger.pl/tracker/${username}</a>
             `;
