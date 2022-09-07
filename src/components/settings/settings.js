@@ -36,7 +36,7 @@ export const settings = {
             type: 'radio',
             options: [
                 { id: 'xayo-pl', name: 'xayo.pl' },
-                { id: 'vislaud-com', name: 'vislaud.com' },
+                { id: 'twitchlogger-pl', name: 'twitchlogger.pl' },
                 { id: 'both', name: 'Both' },
             ],
         },

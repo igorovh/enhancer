@@ -1,17 +1,3 @@
-#te-settings {
-    display: none;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    z-index: 1001;
-
-    --te-bg-color-dark: #141414;
-    --te-bg-color-light: #1c1c1c;
-    --te-purple-color: #a970e1;
-    --te-gray-color-light: #f2f2f280;
-}
 #te-settings-button {
     position: absolute;
     right: 4.25rem;
@@ -26,16 +12,4 @@
 
 #te-settings-button:hover {
     background: var(--color-background-button-text-hover);
-}
-.tab-icon {
-    width: 20px;
-    height: 20px;
-    fill: var(--te-gray-color-light);
-}
-
-.tab-icon--active {
-    fill: var(--te-purple-color);
-}
-.te-close-button:hover .te-close-button-icon {
-    fill: rgba(255, 255, 255, 0.75) !important;
 }
