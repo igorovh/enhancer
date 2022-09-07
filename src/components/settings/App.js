@@ -27,11 +27,9 @@ const Wrapper = styled.div`
     display: flex;
     width: 800px;
     height: 500px;
-    background-color: var(--bg-color-light);
+    background-color: var(--te-bg-color-light);
     overflow: hidden;
     position: absolute;
-    inset: 0;
-    margin: auto;
 `;
 const Backdrop = styled.div`
     position: absolute;

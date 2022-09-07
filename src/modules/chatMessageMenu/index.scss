@@ -12,12 +12,13 @@
 }
 
 .te-message-menu-option {
-    padding: 6px 12px;
+    padding: 8px;
     border-radius: 2px;
     cursor: pointer;
     transition: background-color 0.1s ease-in-out;
     display: flex;
     align-items: center;
+    gap: 8px;
 
     &:nth-child(1) {
         position: relative;
@@ -34,17 +35,17 @@
         }
     }
 
-    & p {
+    & span {
         color: white;
-        font-size: 11px;
-    }
-
-    & i {
-        color: #9aa0a6;
-        margin-right: 6px;
+        font-size: 12px;
     }
 
     &:hover {
         background-color: #3f4042;
     }
+}
+.te-message-menu-icon {
+    fill: #9aa0a6;
+    width: 16px;
+    height: 16px;
 }

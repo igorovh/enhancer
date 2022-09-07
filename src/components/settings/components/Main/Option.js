@@ -23,7 +23,7 @@ const Wrapper = styled.div`
     justify-content: space-between;
     padding: 1.2rem;
     color: white;
-    background-color: var(--bg-color-dark);
+    background-color: var(--te-bg-color-dark);
 `;
 
 const NameWrapper = styled.div`
@@ -32,12 +32,12 @@ const NameWrapper = styled.div`
 `;
 
 const Name = styled.div`
-    color: var(--purple-color);
+    color: var(--te-purple-color);
     font-size: 1.75rem;
     font-weight: bold;
 `;
 
 const Description = styled.div`
-    color: var(--gray-color-light);
+    color: var(--te-gray-color-light);
     font-size: 1.2rem;
 `;

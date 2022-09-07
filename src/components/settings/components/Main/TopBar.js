@@ -14,7 +14,7 @@ const TopBar = () => {
                     style={{
                         width: '25px',
                         height: '25px',
-                        fill: 'var(--gray-color-light)',
+                        fill: 'var(--te-gray-color-light)',
                         transition: '0.2s',
                     }}
                 />
@@ -29,13 +29,14 @@ const Wrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    background-color: var(--bg-color-dark);
+    background-color: var(--te-bg-color-dark);
     min-height: 60px;
-    padding: 0 1rem 0 1rem;
+    padding: 0 2rem;
     gap: 0.5rem;
 `;
 
 const CloseButton = styled.button`
+    height: 25px;
     background: none;
     border: none;
     cursor: pointer;
