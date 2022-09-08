@@ -1,3 +1,5 @@
+import { getFile } from '$Utils/files';
+
 export const LOCAL_BADGES = [
     {
         title: 'Twitch Enhancer Contributor',
@@ -38,7 +40,7 @@ export const DEFAULT_SETTINGS = {
     },
     pingSound: {
         enable: false,
-        src: 'http://localhost:2565/sounds/notification.ogg', //TODO DEV ONLY
+        src: getFile('sounds/notification.ogg'),
     },
     usercard: {
         service: 'auto',
