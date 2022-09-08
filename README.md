@@ -19,6 +19,6 @@ Click **[here](https://addons.mozilla.org/pl/firefox/addon/twitch-enhancer/)** t
 
 1. `npm install`
 2. `npm run dev`
-3. Add `development` directory as extension in your browser.
+3. Add `build` directory as extension in your browser.
 
 ---

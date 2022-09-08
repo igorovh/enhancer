@@ -5,6 +5,9 @@
         "node": true,
         "webextensions": true
     },
+    "globals": {
+        "__development__": true
+    },
     "extends": ["eslint:recommended", "prettier", "plugin:react/recommended"],
     "parserOptions": {
         "ecmaVersion": 13,
