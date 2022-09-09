@@ -15,6 +15,7 @@ document.addEventListener('click', (event) => {
 function callback(message, data) {
     message.addEventListener('contextmenu', (event) => {
         if (event.target.classList.contains('chat-line__message--emote')) return;
+        if (document.getSelection().type === 'Range') return;
         Logger.debug('Opening message context menu.');
         event.preventDefault();
         let menu = document.querySelector('#te-message-menu');
