@@ -1,7 +1,12 @@
 import { getPlayer, getChannelInfo } from '$Utils/twitch';
 import * as Peeker from '$Peeker';
 import * as Logger from '$Logger';
+import * as Settings from '$Settings';
 import { formatTime } from '$Utils/time';
+
+let settings = Settings.get('watchtime');
+
+Settings.registerUpdate('watchtime', (value) => (settings = value));
 
 let updated = false;
 
@@ -9,6 +14,7 @@ setInterval(() => {
     if (!updated) requestUpdate();
     const player = getPlayer();
     const panel = getChannelInfo();
+    if (!settings) return;
     if (!player || !panel) return;
     if (window.location.href.endsWith('twitch.tv/')) return; // Main page
     Logger.debug('Panel data', panel);

@@ -2,7 +2,9 @@ import * as Settings from '$Settings';
 import * as Logger from '$Logger';
 import { formatTime } from '$Utils/time';
 
-const settings = Settings.get('usercard');
+let settings = Settings.get('usercard');
+
+Settings.registerUpdate('usercard', (value) => (settings = value));
 
 const formatter = {
     hour: (seconds) => {
