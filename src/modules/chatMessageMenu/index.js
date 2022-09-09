@@ -16,6 +16,7 @@ function callback(message, data) {
     message.addEventListener('contextmenu', (event) => {
         if (event.target.classList.contains('chat-line__message--emote')) return;
         if (document.getSelection().type === 'Range') return;
+        if (event.target.tagName === 'A') return;
         Logger.debug('Opening message context menu.');
         event.preventDefault();
         let menu = document.querySelector('#te-message-menu');
@@ -31,6 +32,7 @@ function callback(message, data) {
         if (y + menu.offsetHeight > window.innerHeight) {
             y = window.innerHeight - menu.offsetHeight;
         }
+
         menu.style.left = x + 'px';
         menu.style.top = y + 'px';
     });
