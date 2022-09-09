@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Main from './components/Main';
 import SideMenu from './components/SideMenu';
 import { TabContext } from './contexts/TabContext';
-import { hide } from '../../common/settings';
+import { hide } from '$Settings';
 
 function App() {
     const [selected, setSelected] = useState('chat');

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 // import Search from './Search';
 import { RiCloseFill } from 'react-icons/ri';
-import { hide } from '../../../../common/settings';
+import { hide } from '$Settings';
 
 const TopBar = () => {
     return (

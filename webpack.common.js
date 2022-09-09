@@ -20,7 +20,6 @@ module.exports = {
         alias: {
             $Modules: path.resolve(__dirname, 'src/modules'),
             $Utils: path.resolve(__dirname, 'src/utils'),
-            $Components: path.resolve(__dirname, 'src/components'),
             $Logger: path.resolve(__dirname, 'src/common/logger.js'),
             $Peeker: path.resolve(__dirname, 'src/common/peeker.js'),
             $Settings: path.resolve(__dirname, 'src/common/settings.js'),

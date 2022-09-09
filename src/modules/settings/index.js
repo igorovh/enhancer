@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import App from '$Components/settings/App';
+import App from './components/App';
 
 const settings = document.createElement('div');
 settings.id = 'te-settings';
