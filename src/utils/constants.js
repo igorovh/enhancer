@@ -39,7 +39,7 @@ export const DEFAULT_SETTINGS = {
         ],
     },
     bumps: {
-        enable: true,
+        enabled: true,
         hideMessages: true,
     },
     hideNoBadges: true,
