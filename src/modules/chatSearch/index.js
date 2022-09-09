@@ -1,14 +1,16 @@
 import * as Peeker from '$Peeker';
-// import Component from './component';
 import { getChatMessages, sendMessage } from '$Utils/twitch';
+import React from 'react';
+import { render } from 'react-dom';
+import Search from './components/Search';
 
-// Peeker.add(() => {
-//     return !document.querySelector('#te-settings');
-// }, callback);
+const element = document.createElement('div');
+element.id = 'te-serach';
+document.body.appendChild(element);
 
-// function callback() {
+render(<Search />, element);
 
-// }
+hide();
 
 const options = {
     enabled: false,
@@ -33,6 +35,7 @@ window.addEventListener('keydown', (event) => {
             options.enabled = false;
             return;
         }
+        show();
         // serachMessages('vopp_bot', 'test');
     }
 });
@@ -80,4 +83,12 @@ function parse(messages) {
         parsed.push({ element: message.element, author, content });
     }
     return parsed;
+}
+
+function show() {
+    element.style.display = 'flex';
+}
+
+function hide() {
+    element.style.display = 'hide';
 }
