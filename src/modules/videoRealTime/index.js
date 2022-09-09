@@ -1,8 +1,14 @@
 import * as Peeker from '$Peeker';
+import * as Settings from '$Settings';
 import { getVideo } from '$Utils/twitch';
 import { getVideoId } from '$Utils/url';
 
+let settings = Settings.get('realVideoTime');
+
+Settings.registerUpdate('realVideoTime', (value) => (settings = value));
+
 Peeker.add(() => {
+    if (!settings) return;
     if (!window.location.href.includes('/videos/')) return;
     const video = document.querySelector('.video-player__overlay');
     if (!video || !Peeker.canCreate('videoRealTime', video)) return;

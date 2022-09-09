@@ -38,14 +38,22 @@ export const DEFAULT_SETTINGS = {
             },
         ],
     },
+    bumps: {
+        enable: true,
+        hideMessages: true,
+    },
+    hideNoBadges: true,
     pingSound: {
         enable: false,
         src: getFile('sounds/notification.ogg'),
     },
+    highlightMentions: true,
     usercard: {
         service: 'auto',
         format: 'hour',
     },
+    realVideoTime: true,
+    watchtime: true,
 };
 
 export const LOCAL_HONORS = [
