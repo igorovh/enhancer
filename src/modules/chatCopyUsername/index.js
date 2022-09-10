@@ -12,7 +12,9 @@ addOption({
         return true;
     },
     callback: (message, data) => {
-        const username = data.props?.message?.user?.displayName;
+        const username =
+            data?.props?.message?.user.displayName?.toLowerCase() ||
+            data?.props?.message?.user.userDisplayName?.toLowerCase();
         if (!username) return true;
         addText(`@${username}, `, true);
         return true;

@@ -11,7 +11,7 @@ addOption({
         return true;
     },
     callback: (message, data) => {
-        const content = data.props?.message?.message;
+        const content = data.props?.message?.message || data.props?.message?.messageBody;
         if (!content) return true;
         setText(content, true);
         return true;
