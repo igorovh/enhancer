@@ -12,6 +12,11 @@
     user-select: none;
 }
 
+.te-bumps:not([te-bumped]):hover {
+    background-color: rgb(90, 33, 176);
+    cursor: pointer;
+}
+
 @keyframes bump {
     from {
         transform: scale(1.2);

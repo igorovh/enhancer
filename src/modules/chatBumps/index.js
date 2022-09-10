@@ -1,7 +1,7 @@
 import * as Peeker from '$Peeker';
 import * as Logger from '$Logger';
 import * as Settings from '$Settings';
-import { getChatMessagesById, getChatService, getChat } from '$Utils/twitch';
+import { getChatMessagesById, getChatMessage, getChatService, getChat } from '$Utils/twitch';
 import { getUsername } from '$Utils/chat';
 import { tooltip } from '$Utils/tooltip';
 import { addOption } from '$Utils/messageMenu';
@@ -33,25 +33,29 @@ addOption({
         return `You've already bumped this message`;
     },
     callback: (message, data) => {
-        if (lastBump >= Date.now()) return false;
-
-        const messageId = data.props?.message?.id;
-        const channel = getChat()?.props?.channelLogin;
-        if (!channel || !messageId) return;
-
-        Logger.debug(`Bumping message with id: ${messageId}`);
-
-        getChatService().client.connection.ws.send(
-            `@reply-parent-msg-id=${messageId} PRIVMSG #${getChat().props.channelLogin} :+1`
-        );
-        lastBump = Date.now() + 31000;
-
-        message.setAttribute('te-bumped', true);
-        refreshBumps(message, messageId, addBumps(message));
-
-        return true;
+        return bumpMessage(message, data);
     },
 });
+
+function bumpMessage(message, data) {
+    if (lastBump >= Date.now()) return false;
+
+    const messageId = data.props?.message?.id;
+    const channel = getChat()?.props?.channelLogin;
+    if (!channel || !messageId || message.hasAttribute('te-bumped')) return;
+
+    Logger.debug(`Bumping message with id: ${messageId}`);
+
+    getChatService().client.connection.ws.send(
+        `@reply-parent-msg-id=${messageId} PRIVMSG #${getChat().props.channelLogin} :+1`
+    );
+    lastBump = Date.now() + 31000;
+
+    message.setAttribute('te-bumped', true);
+    refreshBumps(message, messageId, addBumps(message), true);
+
+    return true;
+}
 
 function callback(message, data) {
     if (!settings.enabled) return;
@@ -94,7 +98,7 @@ function addBumps(bumped, amount = 1) {
     return bumps;
 }
 
-function refreshBumps(element, id, amount) {
+function refreshBumps(element, id, amount, alreadyBumped = false) {
     if (!amount) amount = parseInt(element.getAttribute('te-bumps'));
     let bumps = element.querySelector('.te-bumps');
     if (bumps) bumps.remove();
@@ -104,6 +108,12 @@ function refreshBumps(element, id, amount) {
         element.querySelector('span[data-test-selector="chat-line-message-body"]');
     if (!content) return;
     bumps = Component(id, amount);
+
+    const chatMessage = getChatMessage(element);
+    chatMessage.props.message._enhancer_already_bumped = true;
+    if (alreadyBumped || chatMessage.props.message?._enhancer_already_bumped) bumps.setAttribute('te-bumped', true);
+    bumps.addEventListener('click', () => bumpMessage(element, chatMessage));
+
     content.appendChild(bumps);
     tooltip(bumps, `te-bump-${id}`);
 }
