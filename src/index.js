@@ -1,6 +1,8 @@
 import * as Logger from '$Logger';
 import { isDev } from '$Utils/dev';
 
+window.__enhancer = true;
+
 Logger.info('Loading events...');
 import './events/*.js';
 
