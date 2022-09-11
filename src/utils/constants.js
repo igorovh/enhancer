@@ -5,19 +5,19 @@ export const LOCAL_BADGES = [
         title: 'Twitch Enhancer Contributor',
         type: 'other',
         username: 'czarny_animekkk1337',
-        src: 'https://coffee.vopp.top/img/favicon.png',
+        src: getFile('img/icon.png'),
     },
     {
         title: 'Twitch Enhancer Contributor',
         type: 'other',
         username: 'd33zor',
-        src: 'https://coffee.vopp.top/img/favicon.png',
+        src: getFile('img/icon.png'),
     },
     {
         title: 'Twitch Enhancer Contributor',
         type: 'other',
         username: 'kawre',
-        src: 'https://coffee.vopp.top/img/favicon.png',
+        src: getFile('img/icon.png'),
     },
 ];
 
