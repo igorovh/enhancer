@@ -16,5 +16,8 @@
         "persistent": false
     },
     "web_accessible_resources": ["index.js"],
-    "permissions": ["storage", "tabs", "*://*.twitch.tv/*"]
+    "permissions": ["storage", "tabs", "*://*.twitch.tv/*"],
+    "icons": {
+        "128": "icon.png"
+    }
 }
