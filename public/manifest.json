@@ -7,15 +7,14 @@
         {
             "matches": ["*://*.twitch.tv/*"],
             "js": ["inject.js", "content.js"],
-            "all_frames": true,
-            "css": ["bundle.css"]
+            "all_frames": true
         }
     ],
     "background": {
         "scripts": ["worker.js"],
         "persistent": false
     },
-    "web_accessible_resources": ["index.js"],
+    "web_accessible_resources": ["index.js", "bundle.css"],
     "permissions": ["storage", "tabs", "*://*.twitch.tv/*"],
     "icons": {
         "128": "icon.png"
