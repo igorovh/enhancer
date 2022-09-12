@@ -10,9 +10,9 @@ function App() {
 
     return (
         <>
-            <Backdrop onClick={hide} />
+            <Backdrop className="te-settings-backdrop" onClick={hide} />
             <TabContext.Provider value={{ selected, setSelected }}>
-                <Wrapper>
+                <Wrapper className="te-settings-wrapper">
                     <SideMenu />
                     <Main />
                 </Wrapper>
@@ -36,6 +36,4 @@ const Backdrop = styled.div`
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(3px);
 `;

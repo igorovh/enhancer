@@ -22,11 +22,21 @@ export function change(id, value) {
 }
 
 export function show() {
-    document.querySelector('#te-settings').style.display = 'flex';
+    const settings = document.querySelector('#te-settings');
+    settings.setAttribute('open', '');
 }
 
 export function hide() {
-    document.querySelector('#te-settings').style.display = 'none';
+    const settings = document.querySelector('#te-settings');
+    settings.setAttribute('closing', '');
+    settings.addEventListener(
+        'animationend',
+        () => {
+            settings.removeAttribute('closing');
+            settings.removeAttribute('open');
+        },
+        { once: true }
+    );
 }
 
 const updates = [];
