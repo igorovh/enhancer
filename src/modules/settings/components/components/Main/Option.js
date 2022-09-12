@@ -24,6 +24,7 @@ const Wrapper = styled.div`
     padding: 1.2rem;
     color: white;
     background-color: var(--te-bg-color-dark);
+    border-radius: 0.4rem;
 `;
 
 const NameWrapper = styled.div`
@@ -32,12 +33,12 @@ const NameWrapper = styled.div`
 `;
 
 const Name = styled.div`
-    color: var(--te-purple-color);
+    color: var(--te-gray-color-light);
     font-size: 1.75rem;
     font-weight: bold;
 `;
 
 const Description = styled.div`
-    color: var(--te-gray-color-light);
+    color: var(--te-gray-color-dark);
     font-size: 1.2rem;
 `;
