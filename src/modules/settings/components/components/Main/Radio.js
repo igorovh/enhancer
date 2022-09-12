@@ -9,7 +9,7 @@ const Radio = ({ id, options }) => {
                     return (
                         <>
                             <Input key={i} type="radio" name={id} id={`${id}-${option.id}`} />
-                            <Label for={`${id}-${option.id}`}>
+                            <Label key={i} htmlFor={`${id}-${option.id}`}>
                                 <span>{option.name}</span>
                             </Label>
                         </>
