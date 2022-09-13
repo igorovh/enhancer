@@ -19,6 +19,12 @@ export const LOCAL_BADGES = [
         username: 'kawre',
         src: getFile('img/icon.png'),
     },
+    {
+        title: 'Twitch Enhancer Contributor',
+        type: 'other',
+        username: 'usermacieg',
+        src: getFile('img/icon.png'),
+    },
 ];
 
 export const DEFAULT_SETTINGS = {
@@ -67,6 +73,10 @@ export const LOCAL_HONORS = [
     },
     {
         username: 'kawre',
+        type: 'contibutor',
+    },
+    {
+        username: 'usermacieg',
         type: 'contibutor',
     },
     {
@@ -139,10 +149,6 @@ export const LOCAL_HONORS = [
     },
     {
         username: 'reqqun',
-        type: 'tester',
-    },
-    {
-        username: 'usermacieg',
         type: 'tester',
     },
 ];
