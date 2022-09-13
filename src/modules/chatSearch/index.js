@@ -1,16 +1,10 @@
 import * as Peeker from '$Peeker';
 import { getChatMessages, sendMessage } from '$Utils/twitch';
-import React from 'react';
-import { render } from 'react-dom';
-import Search from './components/Search';
+import Component from './component';
 
-const element = document.createElement('div');
-element.id = 'te-serach';
+const element = Component();
 document.body.appendChild(element);
-
-render(<Search />, element);
-
-hide();
+// hide();
 
 const options = {
     enabled: false,
