@@ -5,12 +5,15 @@
     height: 100%;
     width: 100%;
     position: absolute;
-    z-index: 1001;
+    z-index: 3000;
 
-    --te-bg-color-dark: #141414;
-    --te-bg-color-light: #1c1c1c;
-    --te-purple-color: #a970e1;
-    --te-gray-color-light: #f2f2f280;
+    --te-purple-color: #9147ff;
+    --te-purple-color-light: #a970ff;
+    --te-bg-color-light: #0e0e10;
+    --te-bg-color-dark: #18181b;
+    --te-gray-color-light: #efeff1;
+    --te-gray-color-dark: #adadb8;
+    --te-black: #000;
 }
 
 #te-settings[open] {

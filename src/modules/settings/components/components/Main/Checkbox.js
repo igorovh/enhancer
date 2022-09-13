@@ -25,29 +25,32 @@ const Input = styled.input``;
 const Label = styled.label`
     cursor: pointer;
     text-indent: -9999px;
-    width: 50px;
+    width: 40px;
     height: 25px;
-    background: var(--te-gray-color-light);
+    background: var(--te-black);
+    border: 2px solid var(--te-purple-color-light);
     display: block;
     border-radius: 100px;
     position: relative;
+    transition: 0.3s;
 
     &::after {
         content: '';
         position: absolute;
-        top: 2px;
-        left: 2px;
-        width: 21px;
-        height: 21px;
-        background: #fff;
+        top: 3px;
+        left: 3px;
+        width: 15px;
+        height: 15px;
+        background: var(--te-purple-color-light);
         border-radius: 90px;
         transition: 0.3s;
     }
 
     ${Input}:checked + & {
-        background: var(--te-purple-color);
+        border-color: var(--te-gray-color-light);
         &::after {
-            left: calc(100% - 23px);
+            left: calc(100% - 18px);
+            background: var(--te-gray-color-light);
         }
     }
 `;
