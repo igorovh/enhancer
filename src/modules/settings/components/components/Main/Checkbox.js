@@ -1,28 +1,22 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
+import * as Settings from '$Settings';
 
 const Checkbox = ({ id, name }) => {
     const input = useRef();
 
-    let settings = JSON.parse(localStorage.getItem('_enhancer_settings'));
-
     const handleChange = () => {
-        settings = JSON.parse(localStorage.getItem('_enhancer_settings'));
-        localStorage.setItem(
-            '_enhancer_settings',
-            JSON.stringify({ ...settings, [name]: { enabled: input.current.checked } })
-        );
+        Settings.set(name, input.current.checked);
+        // settings = JSON.parse(localStorage.getItem('_enhancer_settings'));
+        // localStorage.setItem(
+        //     '_enhancer_settings',
+        //     JSON.stringify({ ...settings, [name]: { enabled: input.current.checked } })
+        // );
     };
 
     return (
         <Wrapper>
-            <Input
-                onChange={handleChange}
-                ref={input}
-                type="checkbox"
-                id={id}
-                defaultChecked={settings[name].enabled}
-            />
+            <Input onChange={handleChange} ref={input} type="checkbox" id={id} defaultChecked={Settings.get(name)} />
             <Label htmlFor={id}></Label>
         </Wrapper>
     );

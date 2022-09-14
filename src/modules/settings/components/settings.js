@@ -3,14 +3,14 @@ export const settings = {
         {
             id: 'te-enable-bumps',
             title: 'Enable bumps',
-            name: 'bumps',
+            name: 'bumps.enabled',
             description: 'Enable bumping messages in the chat',
             type: 'checkbox',
         },
         {
             id: 'te-hide-bump-messages',
-            title: 'Hide "+1" bump messages',
-            name: 'hideBumpMessages',
+            title: 'Hide "+1" bump messages (your messages will always be hidden)',
+            name: 'bumps.hideMessages',
             type: 'checkbox',
         },
         {
@@ -21,7 +21,7 @@ export const settings = {
         },
         {
             id: 'te-mentioned-sound',
-            name: 'pingSound',
+            name: 'pingSound.enabled',
             title: 'Play sound when got mentioned',
             type: 'checkbox',
         },
