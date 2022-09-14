@@ -7,12 +7,12 @@ const Radio = ({ id, options }) => {
             {options &&
                 options.map((option, i) => {
                     return (
-                        <>
-                            <Input key={i} type="radio" name={id} id={`${id}-${option.id}`} />
-                            <Label key={i} htmlFor={`${id}-${option.id}`}>
-                                <span>{option.name}</span>
+                        <React.Fragment key={i}>
+                            <Input type="radio" name={id} id={`${id}-${option.id}`} />
+                            <Label htmlFor={`${id}-${option.id}`}>
+                                <span>{option.title}</span>
                             </Label>
-                        </>
+                        </React.Fragment>
                     );
                 })}
         </Wrapper>

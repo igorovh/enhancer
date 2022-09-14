@@ -3,14 +3,14 @@ import styled from 'styled-components';
 import Checkbox from './Checkbox';
 import Radio from './Radio';
 
-const Option = ({ name, description, id, type, options }) => {
+const Option = ({ title, name, description, id, type, options }) => {
     return (
         <Wrapper>
             <NameWrapper>
-                <Name>{name}</Name>
+                <Name>{title}</Name>
                 {description && <Description>{description}</Description>}
             </NameWrapper>
-            {type === 'checkbox' && <Checkbox id={id} />}
+            {type === 'checkbox' && <Checkbox id={id} name={name} />}
             {type === 'radio' && <Radio id={id} options={options} />}
         </Wrapper>
     );
@@ -35,7 +35,6 @@ const NameWrapper = styled.div`
 const Name = styled.div`
     color: var(--te-gray-color-light);
     font-size: 1.75rem;
-    font-weight: bold;
 `;
 
 const Description = styled.div`

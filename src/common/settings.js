@@ -4,9 +4,13 @@ import { DEFAULT_SETTINGS } from '$Utils/constants';
 let settings = DEFAULT_SETTINGS;
 
 Logger.info('Loading settings...');
-let savedSettings = localStorage.getItem('_enhancer_settings');
-if (savedSettings) settings = JSON.parse(savedSettings);
-else Logger.info('Settings are not saved - using defaults.');
+
+if (!localStorage.getItem('_enhancer_settings')) {
+    Logger.info('Settings are not saved - using defaults.');
+    localStorage.setItem('_enhancer_settings', JSON.stringify(DEFAULT_SETTINGS));
+} else {
+    Logger.info('Settings loaded.');
+}
 
 export function get(id) {
     return settings[id] || DEFAULT_SETTINGS[id];
