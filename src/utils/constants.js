@@ -45,7 +45,7 @@ export const DEFAULT_SETTINGS = {
     'bumps.enabled': true,
     'bumps.hideMessages': true,
     hideNoBadges: true,
-    'pingSound.enabled': true,
+    'pingSound.enabled': false,
     'pingSound.src': getFile('sounds/notification.ogg'),
     highlightMentions: true,
     'usercard.service': 'auto',
