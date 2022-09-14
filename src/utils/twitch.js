@@ -160,6 +160,16 @@ export function getChannelInfo() {
     return node?.stateNode;
 }
 
+export function getRaidInfo() {
+    const node = findReactChildren(
+        getReactInstance(document.querySelector('div[data-test-selector="raid-banner"]')),
+        (n) => n.stateNode?.props && n.stateNode?.props.onLeaveRaid,
+    1000
+    );
+
+    return node?.stateNode;
+}
+
 export function sendMessage(message, prefix = true) {
     const controller = getChatController();
 
