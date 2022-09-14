@@ -12,7 +12,7 @@
     --te-bg-color-light: #0e0e10;
     --te-bg-color-dark: #18181b;
     --te-gray-color-light: #efeff1;
-    --te-gray-color-dark: #adadb8;
+    --te-gray-color-dark: #8d8d8d;
     --te-black: #000;
 }
 
@@ -76,7 +76,7 @@
 .tab-icon {
     width: 20px;
     height: 20px;
-    fill: var(--te-gray-color-light);
+    fill: var(--te-gray-color-dark);
 }
 
 .tab-icon--active {

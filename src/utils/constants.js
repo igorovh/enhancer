@@ -46,20 +46,20 @@ export const DEFAULT_SETTINGS = {
     },
     bumps: {
         enabled: true,
-        hideMessages: true,
     },
-    hideNoBadges: true,
+    hideBumpMessages: { enabled: false },
+    hideNoBadges: { enabled: true },
     pingSound: {
-        enable: false,
+        enabled: false,
         src: getFile('sounds/notification.ogg'),
     },
-    highlightMentions: true,
+    highlightMentions: { enabled: true },
     usercard: {
         service: 'auto',
         format: 'hour',
     },
-    realVideoTime: true,
-    watchtime: true,
+    realVideoTime: { enabled: true },
+    watchtime: { enabled: true },
 };
 
 export const LOCAL_HONORS = [
