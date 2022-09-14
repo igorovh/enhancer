@@ -9,7 +9,8 @@ export const settings = {
         },
         {
             id: 'te-hide-bump-messages',
-            title: 'Hide "+1" bump messages (your messages will always be hidden)',
+            title: 'Hide "+1" bump messages',
+            description: '*Your bump messages will always be hidden',
             name: 'bumps.hideMessages',
             type: 'checkbox',
         },
