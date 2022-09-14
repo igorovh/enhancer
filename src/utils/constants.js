@@ -148,6 +148,10 @@ export const LOCAL_HONORS = [
         type: 'tester',
     },
     {
+        username: 'polonez777',
+        type: 'tester',
+    },
+    {
         username: 'reqqun',
         type: 'tester',
     },
