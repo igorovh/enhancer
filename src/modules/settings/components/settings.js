@@ -37,23 +37,25 @@ export const settings = {
     usercard: [
         {
             id: 'te-choose-service',
+            name: 'usercard.service',
             title: 'Choose service',
             description: 'Choose service for watchtime data',
             type: 'radio',
             options: [
-                { id: 'xayo-pl', title: 'xayo.pl' },
-                { id: 'twitchlogger-pl', title: 'twitchlogger.pl' },
-                { id: 'both', title: 'Both' },
+                { id: 'xayo', title: 'xayo.pl' },
+                { id: 'twitchlogger', title: 'twitchlogger.pl' },
+                { id: 'auto', title: 'Auto' },
             ],
         },
         {
             id: 'te-choose-time-format',
+            name: 'usercard.format',
             title: 'Choose time format',
             description: 'Choose format in which watchtime data is displayed',
             type: 'radio',
             options: [
                 { id: 'full', title: 'Full' },
-                { id: 'hours', title: 'Hours' },
+                { id: 'hour', title: 'Hours' },
             ],
         },
     ],

@@ -1,14 +1,33 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
+import * as Settings from '$Settings';
 
-const Radio = ({ id, options }) => {
+const Radio = ({ id, name, options }) => {
+    const inputs = useRef([]);
+
+    let currentOption = Settings.get(name);
+
+    const handleChange = () => {
+        const input = inputs.current.filter((input) => input.checked)[0];
+        if (!input) return;
+        currentOption = input.id.substring(input.id.lastIndexOf('-') + 1, input.id.length);
+        Settings.set(name, currentOption);
+    };
+
     return (
         <Wrapper>
             {options &&
                 options.map((option, i) => {
                     return (
                         <React.Fragment key={i}>
-                            <Input type="radio" name={id} id={`${id}-${option.id}`} />
+                            <Input
+                                checked={currentOption === option.id}
+                                onChange={handleChange}
+                                ref={(element) => (inputs.current[i] = element)}
+                                type="radio"
+                                name={id}
+                                id={`${id}-${option.id}`}
+                            />
                             <Label htmlFor={`${id}-${option.id}`}>
                                 <span>{option.title}</span>
                             </Label>

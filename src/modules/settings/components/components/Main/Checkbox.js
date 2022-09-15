@@ -7,11 +7,6 @@ const Checkbox = ({ id, name }) => {
 
     const handleChange = () => {
         Settings.set(name, input.current.checked);
-        // settings = JSON.parse(localStorage.getItem('_enhancer_settings'));
-        // localStorage.setItem(
-        //     '_enhancer_settings',
-        //     JSON.stringify({ ...settings, [name]: { enabled: input.current.checked } })
-        // );
     };
 
     return (
