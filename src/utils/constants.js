@@ -80,6 +80,10 @@ export const LOCAL_HONORS = [
         type: 'contibutor',
     },
     {
+        username: 'polonez777',
+        type: 'other',
+    },
+    {
         username: 'lewus',
         type: 'other',
     },
