@@ -4,7 +4,7 @@ import Component from './component';
 
 const element = Component();
 document.body.appendChild(element);
-// hide();
+hide();
 
 const options = {
     enabled: false,
@@ -24,6 +24,10 @@ function callback(message, data) {
 window.addEventListener('keydown', (event) => {
     if (event.ctrlKey && event.shiftKey && event.key === 'F') {
         resetMessages();
+        if (element.style.display === 'flex') {
+            hide();
+            return;
+        }
         if (options.enabled) {
             sendMessage('You have left search mode.', false);
             options.enabled = false;
@@ -84,5 +88,5 @@ function show() {
 }
 
 function hide() {
-    element.style.display = 'hide';
+    element.style.display = 'none';
 }

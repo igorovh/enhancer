@@ -1,8 +1,8 @@
 export default () => {
     const div = document.createElement('div');
-    div.id = 'te-serach';
+    div.id = 'te-search';
     div.innerHTML = `
-    <div class="te-chatSearch-bg"></div>
+    <div class="te-chatSearch-bg" onclick="document.querySelector('#te-search').style.display = 'none'"></div>
     <div class="te-chatSearch-container">
       <div class="te-chatSearch-header">
         <div class="te-chatSearch-header-logo">
@@ -35,6 +35,7 @@ export default () => {
           height="1em"
           width="1em"
           xmlns="http://www.w3.org/2000/svg"
+          onclick="document.querySelector('#te-search').style.display = 'none'"
           style="
             width: 25px;
             height: 25px;
