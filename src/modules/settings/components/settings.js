@@ -61,7 +61,7 @@ export const settings = {
     ],
     video: [
         {
-            id: 'te-real-video-time',
+            id: 'te-real-vod-time',
             title: 'Enable Real Video Time in VODs',
             name: 'realVideoTime',
             description: 'Show the real time in which the VOD was streamed',
