@@ -11,7 +11,7 @@ const Option = ({ title, name, description, id, type, options }) => {
                 {description && <Description>{description}</Description>}
             </NameWrapper>
             {type === 'checkbox' && <Checkbox id={id} name={name} />}
-            {type === 'radio' && <Radio id={id} options={options} />}
+            {type === 'radio' && <Radio id={id} name={name} options={options} />}
         </Wrapper>
     );
 };

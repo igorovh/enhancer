@@ -1,29 +1,51 @@
 import * as Logger from '$Logger';
 import { DEFAULT_SETTINGS } from '$Utils/constants';
 
-let settings = DEFAULT_SETTINGS;
+export let settings = DEFAULT_SETTINGS;
 
 Logger.info('Loading settings...');
 
-if (!localStorage.getItem('_enhancer_settings')) {
-    Logger.info('Settings are not saved - using defaults.');
-    localStorage.setItem('_enhancer_settings', JSON.stringify(DEFAULT_SETTINGS));
-} else {
-    Logger.info('Settings loaded.');
+let savedSettings = localStorage.getItem('_enhancer_settings');
+if (savedSettings) {
+    settings = JSON.parse(savedSettings);
+    Logger.info('Settings loaded!');
+} else Logger.info('Settings are not saved - using defaults.');
+
+export function set(id, value) {
+    settings[id] = value;
+    update(id, value);
+    save();
 }
 
 export function get(id) {
-    return settings[id] || DEFAULT_SETTINGS[id];
+    let setting = settings[id];
+    if (setting !== undefined) return setting;
+    else return DEFAULT_SETTINGS[id];
+}
+
+export function getMultiple(...ids) {
+    const multiple = {};
+    ids.forEach((id) => (multiple[id] = get(id)));
+    return multiple;
 }
 
 export function save() {
-    localStorage.setItem(settings);
+    Logger.info('Saving settings...');
+    localStorage.setItem('_enhancer_settings', JSON.stringify(settings));
 }
 
-export function change(id, value) {
-    settings[id] = value;
-    update(id, value);
+const updates = [];
+
+export function registerUpdate(id, callback) {
+    updates.push({ id, callback });
 }
+
+function update(id, value) {
+    updates.filter((update) => update.id === id).forEach((update) => update.callback(value));
+    Logger.debug(`Settings updated: [${id}] ->`, value);
+}
+
+// CSS
 
 export function show() {
     const settings = document.querySelector('#te-settings');
@@ -42,16 +64,3 @@ export function hide() {
         { once: true }
     );
 }
-
-const updates = [];
-
-export function registerUpdate(id, callback) {
-    updates.push({ id, callback });
-}
-
-function update(id, value) {
-    updates.filter((update) => update.id === id).forEach((update) => update.callback(value));
-}
-
-// Debug
-window.enhancerUpdate = update;

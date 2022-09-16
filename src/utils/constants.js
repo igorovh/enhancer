@@ -28,38 +28,30 @@ export const LOCAL_BADGES = [
 ];
 
 export const DEFAULT_SETTINGS = {
-    quickLinks: {
-        links: [
-            {
-                name: 'TwitchTracker',
-                url: 'https://twitchtracker.com/%name%',
-            },
-            {
-                name: 'SullyGnome',
-                url: 'https://sullygnome.com/channel/%name%',
-            },
-            {
-                name: 'Emotes',
-                url: 'https://emotes.vopp.top/?name=%name%',
-            },
-        ],
-    },
-    bumps: {
-        enabled: true,
-    },
-    hideBumpMessages: { enabled: false },
-    hideNoBadges: { enabled: true },
-    pingSound: {
-        enabled: false,
-        src: getFile('sounds/notification.ogg'),
-    },
-    highlightMentions: { enabled: true },
-    usercard: {
-        service: 'auto',
-        format: 'hour',
-    },
-    realVideoTime: { enabled: true },
-    watchtime: { enabled: true },
+    quickLinks: [
+        {
+            name: 'TwitchTracker',
+            url: 'https://twitchtracker.com/%name%',
+        },
+        {
+            name: 'SullyGnome',
+            url: 'https://sullygnome.com/channel/%name%',
+        },
+        {
+            name: 'Emotes',
+            url: 'https://emotes.vopp.top/?name=%name%',
+        },
+    ],
+    'bumps.enabled': true,
+    'bumps.hideMessages': true,
+    hideNoBadges: true,
+    'pingSound.enabled': false,
+    'pingSound.src': getFile('sounds/notification.ogg'),
+    highlightMentions: true,
+    'usercard.service': 'auto',
+    'usercard.format': 'hour',
+    realVideoTime: true,
+    watchtime: true,
 };
 
 export const LOCAL_HONORS = [

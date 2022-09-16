@@ -15,7 +15,6 @@ const Main = () => {
                 {selected === 'info'
                     ? 'In development'
                     : settings[selected].map(({ id, name, title, description, type, options }) => {
-                          console.log(id, name, title, description, type, options);
                           return (
                               <Option
                                   title={title}

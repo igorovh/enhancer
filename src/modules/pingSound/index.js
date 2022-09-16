@@ -2,13 +2,17 @@ import * as Peeker from '$Peeker';
 import * as Settings from '$Settings';
 import { getUsername } from '$Utils/chat';
 
-let sound = Settings.get('pingSound');
+let settings = Settings.getMultiple('pingSound.enabled', 'pingSound.src');
+let enabled = settings['pingSound.enabled'];
 
-let audio = new Audio(sound.src);
+let audio = new Audio(settings['pingSound.src']);
 
-Settings.registerUpdate('pingSound', (value) => {
-    sound = value;
-    audio = new Audio(sound.src);
+Settings.registerUpdate('pingSound.enabled', (value) => {
+    enabled = value;
+});
+
+Settings.registerUpdate('pingSound.src', (value) => {
+    audio = new Audio(value);
 });
 
 Peeker.registerListener('messageEvent', callback);
@@ -16,7 +20,7 @@ Peeker.registerListener('messageEvent', callback);
 let username = getUsername();
 
 function callback(message, data) {
-    if (!sound.enable) return;
+    if (!enabled) return;
     if (!data.props.message) return;
     if (!data.props.message.message) return;
     if (!username) {
