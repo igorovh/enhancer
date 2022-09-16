@@ -115,8 +115,10 @@ function refreshBumps(element, id, amount, alreadyBumped = false) {
     bumps = Component(id, amount);
 
     const chatMessage = getChatMessage(element);
-    chatMessage.props.message._enhancer_already_bumped = true;
-    if (alreadyBumped || chatMessage.props.message?._enhancer_already_bumped) bumps.setAttribute('te-bumped', true);
+    if (alreadyBumped || chatMessage.props.message?._enhancer_already_bumped) {
+        chatMessage.props.message._enhancer_already_bumped = true;
+        bumps.setAttribute('te-bumped', true);
+    }
     bumps.addEventListener('click', () => bumpMessage(element, chatMessage));
 
     content.appendChild(bumps);
