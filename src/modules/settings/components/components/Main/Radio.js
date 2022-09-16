@@ -1,17 +1,15 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import * as Settings from '$Settings';
 
 const Radio = ({ id, name, options }) => {
     const inputs = useRef([]);
 
-    let currentOption = Settings.get(name);
+    const [currentOption, setCurrentOption] = useState(Settings.get(name));
 
-    const handleChange = () => {
-        const input = inputs.current.filter((input) => input.checked)[0];
-        if (!input) return;
-        currentOption = input.id.substring(input.id.lastIndexOf('-') + 1, input.id.length);
-        Settings.set(name, currentOption);
+    const handleChange = (optionId) => {
+        setCurrentOption(optionId);
+        Settings.set(name, optionId);
     };
 
     return (
@@ -22,7 +20,7 @@ const Radio = ({ id, name, options }) => {
                         <React.Fragment key={i}>
                             <Input
                                 checked={currentOption === option.id}
-                                onChange={handleChange}
+                                onChange={() => handleChange(option.id)}
                                 ref={(element) => (inputs.current[i] = element)}
                                 type="radio"
                                 name={id}
