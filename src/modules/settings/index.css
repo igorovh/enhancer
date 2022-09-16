@@ -5,18 +5,78 @@
     height: 100%;
     width: 100%;
     position: absolute;
-    z-index: 1001;
+    z-index: 3000;
 
-    --te-bg-color-dark: #141414;
-    --te-bg-color-light: #1c1c1c;
-    --te-purple-color: #a970e1;
-    --te-gray-color-light: #f2f2f280;
+    --te-purple-color: #9147ff;
+    --te-purple-color-light: #a970ff;
+    --te-bg-color-light: #0e0e10;
+    --te-bg-color-dark: #18181b;
+    --te-gray-color-light: #efeff1;
+    --te-gray-color-dark: #8d8d8d;
+    --te-black: #000;
 }
 
+#te-settings[open] {
+    display: flex;
+}
+
+#te-settings[open] .te-settings-wrapper {
+    animation: te-jump-in 250ms forwards;
+}
+#te-settings[open] .te-settings-backdrop {
+    animation: te-blur-in 250ms forwards;
+}
+#te-settings[closing] .te-settings-wrapper {
+    animation: te-fade-out 250ms forwards;
+}
+#te-settings[closing] .te-settings-backdrop {
+    animation: te-blur-out 250ms forwards;
+}
+
+@keyframes te-blur-in {
+    0% {
+        backdrop-filter: blur(0px);
+        background-color: rgba(0, 0, 0, 0);
+    }
+    100% {
+        backdrop-filter: blur(3px);
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+}
+@keyframes te-blur-out {
+    0% {
+        backdrop-filter: blur(3px);
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+    100% {
+        backdrop-filter: blur(0px);
+        background-color: rgba(0, 0, 0, 0);
+    }
+}
+@keyframes te-jump-in {
+    0% {
+        opacity: 0;
+        transform: scale(1.1);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+@keyframes te-fade-out {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+}
 .tab-icon {
     width: 20px;
     height: 20px;
-    fill: var(--te-gray-color-light);
+    fill: var(--te-gray-color-dark);
 }
 
 .tab-icon--active {

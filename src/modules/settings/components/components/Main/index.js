@@ -14,11 +14,12 @@ const Main = () => {
             <MainContent>
                 {selected === 'info'
                     ? 'In development'
-                    : settings[selected].map(({ id, name, description, type, options }) => {
+                    : settings[selected].map(({ id, name, title, description, type, options }) => {
                           return (
                               <Option
-                                  name={name}
+                                  title={title}
                                   description={description}
+                                  name={name}
                                   id={id}
                                   type={type}
                                   options={options}

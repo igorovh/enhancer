@@ -1,32 +1,35 @@
 import * as Logger from '$Logger';
 import { DEFAULT_SETTINGS } from '$Utils/constants';
 
-let settings = DEFAULT_SETTINGS;
+export let settings = DEFAULT_SETTINGS;
 
 Logger.info('Loading settings...');
+
 let savedSettings = localStorage.getItem('_enhancer_settings');
-if (savedSettings) settings = JSON.parse(savedSettings);
-else Logger.info('Settings are not saved - using defaults.');
+if (savedSettings) {
+    settings = JSON.parse(savedSettings);
+    Logger.info('Settings loaded!');
+} else Logger.info('Settings are not saved - using defaults.');
+
+export function set(id, value) {
+    settings[id] = value;
+    update(id, value);
+    save();
+}
 
 export function get(id) {
-    return settings[id] || DEFAULT_SETTINGS[id];
+    return settings[id] ?? DEFAULT_SETTINGS[id];
+}
+
+export function getMultiple(...ids) {
+    const multiple = {};
+    ids.forEach((id) => (multiple[id] = get(id)));
+    return multiple;
 }
 
 export function save() {
-    localStorage.setItem(settings);
-}
-
-export function change(id, value) {
-    settings[id] = value;
-    update(id, value);
-}
-
-export function show() {
-    document.querySelector('#te-settings').style.display = 'flex';
-}
-
-export function hide() {
-    document.querySelector('#te-settings').style.display = 'none';
+    Logger.info('Saving settings...');
+    localStorage.setItem('_enhancer_settings', JSON.stringify(settings));
 }
 
 const updates = [];
@@ -37,7 +40,25 @@ export function registerUpdate(id, callback) {
 
 function update(id, value) {
     updates.filter((update) => update.id === id).forEach((update) => update.callback(value));
+    Logger.debug(`Settings updated: [${id}] ->`, value);
 }
 
-// Debug
-window.enhancerUpdate = update;
+// CSS
+
+export function show() {
+    const settings = document.querySelector('#te-settings');
+    settings.setAttribute('open', '');
+}
+
+export function hide() {
+    const settings = document.querySelector('#te-settings');
+    settings.setAttribute('closing', '');
+    settings.addEventListener(
+        'animationend',
+        () => {
+            settings.removeAttribute('closing');
+            settings.removeAttribute('open');
+        },
+        { once: true }
+    );
+}

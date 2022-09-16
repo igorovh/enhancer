@@ -7,12 +7,14 @@ import { numberWithCommas } from '$Utils/number';
 // import { tooltip } from '$Utils/tooltip';
 
 Peeker.add(() => {
+    if (window.location.href.includes('clips.twitch.tv')) return;
     const viewersCount = document.querySelector('p[data-a-target="animated-channel-viewers-count"]')?.parentElement;
     if (!viewersCount || !Peeker.canCreate('chattersCount', viewersCount)) return;
     return viewersCount;
 }, callback);
 
 Peeker.add(() => {
+    if (window.location.href.includes('clips.twitch.tv')) return;
     const theatreViewersCount = document.querySelector(
         'p[data-test-selector="stream-info-card-component__description"]'
     );

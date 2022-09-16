@@ -4,7 +4,9 @@ import { addBadge, findBadges } from '$Utils/badge';
 Peeker.registerListener('messageEvent', callback);
 
 function callback(message, data) {
-    const username = data?.props?.message?.user.displayName?.toLowerCase();
+    const username =
+        data?.props?.message?.user.displayName?.toLowerCase() ||
+        data?.props?.message?.user.userDisplayName?.toLowerCase();
     if (!username) return;
     const badges = findBadges(username);
     badges.forEach((badge) => addBadge(badge, message));

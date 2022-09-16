@@ -5,53 +5,51 @@ export const LOCAL_BADGES = [
         title: 'Twitch Enhancer Contributor',
         type: 'other',
         username: 'czarny_animekkk1337',
-        src: 'https://coffee.vopp.top/img/favicon.png',
+        src: getFile('img/icon.png'),
     },
     {
         title: 'Twitch Enhancer Contributor',
         type: 'other',
         username: 'd33zor',
-        src: 'https://coffee.vopp.top/img/favicon.png',
+        src: getFile('img/icon.png'),
     },
     {
         title: 'Twitch Enhancer Contributor',
         type: 'other',
         username: 'kawre',
-        src: 'https://coffee.vopp.top/img/favicon.png',
+        src: getFile('img/icon.png'),
+    },
+    {
+        title: 'Twitch Enhancer Contributor',
+        type: 'other',
+        username: 'usermacieg',
+        src: getFile('img/icon.png'),
     },
 ];
 
 export const DEFAULT_SETTINGS = {
-    quickLinks: {
-        links: [
-            {
-                name: 'TwitchTracker',
-                url: 'https://twitchtracker.com/%name%',
-            },
-            {
-                name: 'SullyGnome',
-                url: 'https://sullygnome.com/channel/%name%',
-            },
-            {
-                name: 'Emotes',
-                url: 'https://emotes.vopp.top/?name=%name%',
-            },
-        ],
-    },
-    bumps: {
-        enabled: true,
-        hideMessages: true,
-    },
+    quickLinks: [
+        {
+            name: 'TwitchTracker',
+            url: 'https://twitchtracker.com/%name%',
+        },
+        {
+            name: 'SullyGnome',
+            url: 'https://sullygnome.com/channel/%name%',
+        },
+        {
+            name: 'Emotes',
+            url: 'https://emotes.vopp.top/?name=%name%',
+        },
+    ],
+    'bumps.enabled': true,
+    'bumps.hideMessages': true,
     hideNoBadges: true,
-    pingSound: {
-        enable: false,
-        src: getFile('sounds/notification.ogg'),
-    },
+    'pingSound.enabled': false,
+    'pingSound.src': getFile('sounds/notification.ogg'),
     highlightMentions: true,
-    usercard: {
-        service: 'auto',
-        format: 'hour',
-    },
+    'usercard.service': 'auto',
+    'usercard.format': 'hour',
     realVideoTime: true,
     watchtime: true,
 };
@@ -67,6 +65,10 @@ export const LOCAL_HONORS = [
     },
     {
         username: 'kawre',
+        type: 'contibutor',
+    },
+    {
+        username: 'usermacieg',
         type: 'contibutor',
     },
     {
@@ -139,10 +141,6 @@ export const LOCAL_HONORS = [
     },
     {
         username: 'reqqun',
-        type: 'tester',
-    },
-    {
-        username: 'usermacieg',
         type: 'tester',
     },
 ];

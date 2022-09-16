@@ -1,7 +1,13 @@
 import * as Peeker from '$Peeker';
 import { addText } from '$Utils/chat';
+import { isFFZ } from '$Utils/extensions';
 
-Peeker.registerListener('messageEvent', callback);
+Peeker.registerListener('messageEvent', fix);
+
+function fix(message) {
+    if (isFFZ()) callback(message);
+    else setTimeout(() => callback(message), 10); // Thanks 7TV :)
+}
 
 function callback(message) {
     const emotes = message.querySelectorAll('.chat-line__message--emote');

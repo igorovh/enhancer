@@ -15,6 +15,17 @@
         "scripts": ["worker.js"],
         "persistent": false
     },
-    "web_accessible_resources": ["index.js"],
-    "permissions": ["storage", "tabs", "*://*.twitch.tv/*"]
+    "web_accessible_resources": [
+        "index.js",
+        "bundle.css",
+        "img/*.png",
+        "img/*.svg",
+        "img/*.jpg",
+        "sounds/*.ogg",
+        "sounds/*.mp3"
+    ],
+    "permissions": ["storage", "tabs", "*://*.twitch.tv/*"],
+    "icons": {
+        "128": "img/icon.png"
+    }
 }

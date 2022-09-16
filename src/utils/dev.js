@@ -1,3 +1,1 @@
-const dev = __development__;
-
-export const isDev = () => dev;
+export const isDev = __development__;

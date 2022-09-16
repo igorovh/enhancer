@@ -1,15 +1,20 @@
 import * as Peeker from '$Peeker';
 import * as Logger from '$Logger';
 import * as Settings from '$Settings';
-import { getChatMessagesById, getChatService, getChat } from '$Utils/twitch';
+import { getChatMessagesById, getChatMessage, getChatService, getChat } from '$Utils/twitch';
 import { getUsername } from '$Utils/chat';
 import { tooltip } from '$Utils/tooltip';
 import { addOption } from '$Utils/messageMenu';
 import Component from './component';
 
-let settings = Settings.get('bumps');
+let enabled = Settings.get('bumps.enabled');
+let hideMessages = Settings.get('bumps.hideMessages');
 
-Settings.registerUpdate('bumps', (value) => (settings = value));
+Settings.registerUpdate('bumps.enabled', (value) => (enabled = value));
+Settings.registerUpdate('bumps.hideMessages', (value) => {
+    Logger.debug('Hiding bump messages', value);
+    hideMessages = value;
+});
 
 Peeker.registerListener('messageEvent', callback);
 
@@ -21,7 +26,7 @@ addOption({
     icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="te-message-menu-icon"><path d="M313.4 32.9c26 5.2 42.9 30.5 37.7 56.5l-2.3 11.4c-5.3 26.7-15.1 52.1-28.8 75.2H464c26.5 0 48 21.5 48 48c0 25.3-19.5 46-44.3 47.9c7.7 8.5 12.3 19.8 12.3 32.1c0 23.4-16.8 42.9-38.9 47.1c4.4 7.2 6.9 15.8 6.9 24.9c0 21.3-13.9 39.4-33.1 45.6c.7 3.3 1.1 6.8 1.1 10.4c0 26.5-21.5 48-48 48H294.5c-19 0-37.5-5.6-53.3-16.1l-38.5-25.7C176 420.4 160 390.4 160 358.3V320 272 247.1c0-29.2 13.3-56.7 36-75l7.4-5.9c26.5-21.2 44.6-51 51.2-84.2l2.3-11.4c5.2-26 30.5-42.9 56.5-37.7zM32 192H96c17.7 0 32 14.3 32 32V448c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32V224c0-17.7 14.3-32 32-32z"/></svg>`,
     condition: (message, data) => {
         return (
-            settings.enabled &&
+            enabled &&
             getUsername().toLowerCase() !== data.props?.message?.user?.userLogin &&
             !document.querySelector('.chat-input-tray__open') &&
             !document.querySelector('p[data-test-selector="current-user-timed-out-text"]')
@@ -33,28 +38,32 @@ addOption({
         return `You've already bumped this message`;
     },
     callback: (message, data) => {
-        if (lastBump >= Date.now()) return false;
-
-        const messageId = data.props?.message?.id;
-        const channel = getChat()?.props?.channelLogin;
-        if (!channel || !messageId) return;
-
-        Logger.debug(`Bumping message with id: ${messageId}`);
-
-        getChatService().client.connection.ws.send(
-            `@reply-parent-msg-id=${messageId} PRIVMSG #${getChat().props.channelLogin} :+1`
-        );
-        lastBump = Date.now() + 31000;
-
-        message.setAttribute('te-bumped', true);
-        refreshBumps(message, messageId, addBumps(message));
-
-        return true;
+        return bumpMessage(message, data);
     },
 });
 
+function bumpMessage(message, data) {
+    if (lastBump >= Date.now()) return false;
+
+    const messageId = data.props?.message?.id;
+    const channel = getChat()?.props?.channelLogin;
+    if (!channel || !messageId || message.hasAttribute('te-bumped')) return;
+
+    Logger.debug(`Bumping message with id: ${messageId}`);
+
+    getChatService().client.connection.ws.send(
+        `@reply-parent-msg-id=${messageId} PRIVMSG #${getChat().props.channelLogin} :+1`
+    );
+    lastBump = Date.now() + 31000;
+
+    message.setAttribute('te-bumped', true);
+    refreshBumps(message, messageId, addBumps(message), true);
+
+    return true;
+}
+
 function callback(message, data) {
-    if (!settings.enabled) return;
+    if (!enabled) return;
     if (!data.props.message) return;
 
     const content = data.props.message?.messageBody;
@@ -75,7 +84,7 @@ function callback(message, data) {
             bumped: true,
         };
 
-        if (settings.hideMessages) {
+        if (hideMessages) {
             bumpInfo.hide = true;
             message.classList.add('te-bump-message');
         }
@@ -94,7 +103,7 @@ function addBumps(bumped, amount = 1) {
     return bumps;
 }
 
-function refreshBumps(element, id, amount) {
+function refreshBumps(element, id, amount, alreadyBumped = false) {
     if (!amount) amount = parseInt(element.getAttribute('te-bumps'));
     let bumps = element.querySelector('.te-bumps');
     if (bumps) bumps.remove();
@@ -104,6 +113,14 @@ function refreshBumps(element, id, amount) {
         element.querySelector('span[data-test-selector="chat-line-message-body"]');
     if (!content) return;
     bumps = Component(id, amount);
+
+    const chatMessage = getChatMessage(element);
+    if (alreadyBumped || chatMessage.props.message?._enhancer_already_bumped) {
+        chatMessage.props.message._enhancer_already_bumped = true;
+        bumps.setAttribute('te-bumped', true);
+    }
+    bumps.addEventListener('click', () => bumpMessage(element, chatMessage));
+
     content.appendChild(bumps);
     tooltip(bumps, `te-bump-${id}`);
 }
