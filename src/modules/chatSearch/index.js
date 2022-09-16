@@ -12,6 +12,8 @@ const options = {
     content: '',
 };
 
+let reminder;
+
 Peeker.registerListener('messageEvent', callback);
 
 function callback(message, data) {
@@ -29,6 +31,8 @@ window.addEventListener('keydown', (event) => {
             return;
         }
         if (options.enabled) {
+            changeTitle();
+            clearInterval(reminder);
             sendMessage('You have left search mode.', false);
             options.enabled = false;
             return;
@@ -40,6 +44,7 @@ window.addEventListener('keydown', (event) => {
 
 function serachMessages(username, content) {
     if (options.enabled) resetMessages();
+    changeTitle('YOU ARE IN SEARCH MODE', 'yellow !important');
     options.enabled = true;
     options.username = username;
     options.content = content;
@@ -50,6 +55,11 @@ function serachMessages(username, content) {
     }
     toHide.forEach((message) => message.element.classList.add('te-search-hide'));
     sendMessage('You have entered search mode, to exit press CTRL + SHIFT + F.', false);
+
+    reminder = setInterval(() => {
+        if (!options.enabled) return;
+        sendMessage('You are still in serach mode, to exit press CTRL + SHIFT + F.', false);
+    }, 30000);
 }
 
 function checkMessage(message, username = '', content = '') {
@@ -90,3 +100,14 @@ function show() {
 function hide() {
     element.style.display = 'none';
 }
+
+function changeTitle(title = 'Stream Chat') {
+    const header = document.querySelector('#chat-room-header-label');
+    header.textContent = title;
+}
+
+window.__enhancer_search_menu = (type) => {
+    if (type === 'username') serachMessages(document.querySelector('#te-chat-search-username-input').value, '');
+    else if (type === 'message') serachMessages('', document.querySelector('#te-chat-search-message-input').value);
+    hide();
+};
