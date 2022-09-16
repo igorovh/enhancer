@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import * as Settings from '$Settings';
 
 const Radio = ({ id, name, options }) => {
-    const inputs = useRef([]);
-
     const [currentOption, setCurrentOption] = useState(Settings.get(name));
 
     const handleChange = (optionId) => {
@@ -21,7 +19,6 @@ const Radio = ({ id, name, options }) => {
                             <Input
                                 checked={currentOption === option.id}
                                 onChange={() => handleChange(option.id)}
-                                ref={(element) => (inputs.current[i] = element)}
                                 type="radio"
                                 name={id}
                                 id={`${id}-${option.id}`}
