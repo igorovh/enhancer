@@ -18,9 +18,7 @@ export function set(id, value) {
 }
 
 export function get(id) {
-    let setting = settings[id];
-    if (setting !== undefined) return setting;
-    else return DEFAULT_SETTINGS[id];
+    return settings[id] ?? DEFAULT_SETTINGS[id];
 }
 
 export function getMultiple(...ids) {
