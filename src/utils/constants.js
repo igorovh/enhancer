@@ -132,10 +132,6 @@ export const LOCAL_HONORS = [
         type: 'tester',
     },
     {
-        username: 'plyta__',
-        type: 'tester',
-    },
-    {
         username: 'mrsono1212',
         type: 'tester',
     },
