@@ -26,6 +26,7 @@ function callback(message, data) {
 window.addEventListener('keydown', (event) => {
     if (event.ctrlKey && event.shiftKey && event.key === 'F') {
         resetMessages();
+        if (!document.querySelector('.stream-chat')) return;
         if (element.style.display === 'flex') {
             hide();
             return;
@@ -43,8 +44,9 @@ window.addEventListener('keydown', (event) => {
 });
 
 function serachMessages(username, content) {
+    if (username.length < 1 && content.length < 1) return;
     if (options.enabled) resetMessages();
-    changeTitle('YOU ARE IN SEARCH MODE', 'yellow !important');
+    changeTitle('YOU ARE IN SEARCH MODE');
     options.enabled = true;
     options.username = username;
     options.content = content;
@@ -106,8 +108,15 @@ function changeTitle(title = 'Stream Chat') {
     header.textContent = title;
 }
 
+// To fix later
+
 window.__enhancer_search_menu = (type) => {
     if (type === 'username') serachMessages(document.querySelector('#te-chat-search-username-input').value, '');
     else if (type === 'message') serachMessages('', document.querySelector('#te-chat-search-message-input').value);
     hide();
+};
+
+window.__enhancer_serach_menu_enter = (event, element, type) => {
+    if (element.value < 1) return;
+    if (event.keyCode === 13) window.__enhancer_search_menu(type);
 };

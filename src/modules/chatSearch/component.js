@@ -24,8 +24,8 @@ export default () => {
               d="M12.386 11.4317C12.2943 11.4581 12.1974 11.4722 12.0972 11.4722C11.5219 11.4722 11.0556 11.0059 11.0556 10.4306C11.0556 10.3303 11.0697 10.2334 11.0961 10.1417C10.9501 10.1036 10.7969 10.0833 10.6389 10.0833C9.6417 10.0833 8.83333 10.8917 8.83333 11.8889C8.83333 12.8861 9.6417 13.6944 10.6389 13.6944C11.6361 13.6944 12.4444 12.8861 12.4444 11.8889C12.4444 11.7309 12.4242 11.5777 12.386 11.4317Z"
             ></path>
           </svg>
-          <p>Search Mode</p>
         </div>
+        <div class="te-chatSearch-header-title">Search Mode</div>
         <svg
           stroke="currentColor"
           fill="currentColor"
@@ -58,7 +58,7 @@ export default () => {
             class="te-chatSearch-input"
             placeholder="Username starts with"
             id="te-chat-search-username-input"
-            onsubmit="window.__enhancer_search_menu('message')"
+            onkeydown="window.__enhancer_serach_menu_enter(event, this, 'username')"
           />
           <div class="te-chatSearch-input-btn" onclick="window.__enhancer_search_menu('username')">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -74,7 +74,7 @@ export default () => {
             class="te-chatSearch-input"
             placeholder="Message includes"
             id="te-chat-search-message-input"
-            onsubmit="window.__enhancer_search_menu('message')"
+            onkeydown="window.__enhancer_serach_menu_enter(event, this, 'message')"
           />
           <div class="te-chatSearch-input-btn" onclick="window.__enhancer_search_menu('message')">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">

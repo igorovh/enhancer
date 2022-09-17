@@ -38,7 +38,7 @@
 }
 
 .te-chatSearch-header {
-    height: 60px;
+    height: 45px;
     background-color: var(--te-bg-color-dark);
     display: flex;
     justify-content: space-between;
@@ -108,9 +108,18 @@
     align-items: center;
     font-weight: 600;
 
-    p {
-        margin-left: 1rem;
-        color: white;
-        font-size: 1.25rem;
+    svg {
+        width: 30px;
+        height: 30px;
     }
+}
+
+.te-chatSearch-header-title {
+    height: 100%;
+    margin-left: 1rem;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
 }
