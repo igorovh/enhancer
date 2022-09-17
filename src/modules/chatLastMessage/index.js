@@ -10,17 +10,20 @@ let settings = Settings.get('highlightMentions');
 Settings.registerUpdate('highlightMentions', (value) => (settings = value));
 
 function callback(message) {
-    const mentions = [
-        ...message.querySelectorAll('.chat-line__message-mention'),
-        ...message.querySelectorAll('.mention-fragment'),
-    ];
-    if (mentions.length < 1) return;
-    for (const mention of mentions) {
-        const username = mention.textContent.replace('@', '').toLowerCase();
-        mention.setAttribute('mention-user', username);
-        mention.addEventListener('mouseover', hoverMention);
-        mention.addEventListener('mouseout', unHoverMention);
-    }
+    setTimeout(() => {
+        const mentions = [
+            ...message.querySelectorAll('.chat-line__message-mention'),
+            ...message.querySelectorAll('.mention-fragment'),
+            ...message.querySelectorAll('.seventv-mention'),
+        ];
+        if (mentions.length < 1) return;
+        for (const mention of mentions) {
+            const username = mention.textContent.replace('@', '').toLowerCase();
+            mention.setAttribute('mention-user', username);
+            mention.addEventListener('mouseover', hoverMention);
+            mention.addEventListener('mouseout', unHoverMention);
+        }
+    }, 25); //Thanks 7TV :)
 }
 
 function hoverMention(event) {
