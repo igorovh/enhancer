@@ -29,6 +29,11 @@ const About = () => {
                     </li>
                 </ul>
             </div>
+            <Copyrights>
+                <span>
+                    Ping sound is from <a href="https://notificationsounds.com/">Notification Sounds</a>.
+                </span>
+            </Copyrights>
             <Socials>
                 <a href="https://chrome.google.com/webstore/detail/twitch-enhancer/knaodoefkjbgmmilogebghadhmnphjih">
                     Chrome
@@ -44,10 +49,8 @@ const About = () => {
 export default About;
 
 const Wrapper = styled.div`
-    height: 100% !important;
     display: flex;
     flex-direction: column;
-    justify-content: center;
 
     ul {
         list-style-type: disc;
@@ -74,6 +77,12 @@ const Version = styled.div`
 
 const Users = styled.span`
     color: var(--color-text-link);
+`;
+
+const Copyrights = styled.div`
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
 `;
 
 const Socials = styled.div`
