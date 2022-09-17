@@ -71,7 +71,7 @@ export const settings = {
             id: 'te-count-watchtime',
             title: 'Count watchtime',
             name: 'watchtime',
-            description: 'Count the time spent watching streams',
+            description: 'Count the time spent watching streams (data is not shared with anyone)',
             type: 'checkbox',
         },
     ],
