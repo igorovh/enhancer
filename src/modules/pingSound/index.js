@@ -22,13 +22,14 @@ let username = getUsername();
 function callback(message, data) {
     if (!enabled) return;
     if (!data.props.message) return;
-    if (!data.props.message.message) return;
-    if (!username) {
-        username = getUsername();
-        return;
-    }
-    if (data.props.message.message.includes(username)) {
-        if (!audio.paused) audio.currentTime = 0;
-        else audio.play();
+    if (data.props.message.message || data.props.message.messageBody) {
+        if (!username) {
+            username = getUsername();
+            return;
+        }
+        if (data.props.message.message?.includes(username) || data.props.message.messageBody?.includes(username)) {
+            if (!audio.paused) audio.currentTime = 0;
+            else audio.play();
+        }
     }
 }

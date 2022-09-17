@@ -47,6 +47,10 @@ function serachMessages(username, content) {
     if (username.length < 1 && content.length < 1) return;
     if (options.enabled) resetMessages();
     changeTitle('YOU ARE IN SEARCH MODE');
+
+    if (username) username = username.toLowerCase();
+    if (content) content = content.toLowerCase();
+
     options.enabled = true;
     options.username = username;
     options.content = content;
@@ -68,7 +72,7 @@ function checkMessage(message, username = '', content = '') {
     const serachByUsername = username.length > 1 && username;
     const serachByContent = content.length > 1 && content;
     const foundUsername = message.author.toLowerCase().startsWith(username.toLowerCase());
-    const foundContent = message.content.includes(content);
+    const foundContent = message.content.includes(content.toLowerCase());
 
     if (serachByUsername && serachByContent) {
         if (foundUsername && foundContent) return false;
@@ -87,8 +91,10 @@ function resetMessages() {
 function parse(messages) {
     const parsed = [];
     for (const message of messages) {
-        const author = message.component?.props?.message?.user?.displayName;
-        const content = message.component?.props?.message?.message;
+        const author =
+            message.component?.props?.message?.user?.displayName?.toLowerCase() ??
+            message.component?.props?.message?.user?.userDisplayName?.toLowerCase();
+        const content = message.component?.props?.message?.message ?? message.component?.props?.message?.messageBody;
         if (!author || !content) return;
         parsed.push({ element: message.element, author, content });
     }
