@@ -1,4 +1,5 @@
 import * as Peeker from '$Peeker';
+import * as Logger from '$Logger';
 import { getChatMessages, sendMessage } from '$Utils/twitch';
 import Component from './component';
 
@@ -15,11 +16,18 @@ const options = {
 let reminder;
 
 Peeker.registerListener('messageEvent', callback);
+Peeker.registerListener('chatInitialize', () => {
+    Logger.debug('Reseting all serach settings, because new chat has been loaded.');
+    resetMessages();
+    changeTitle();
+    if (reminder) clearInterval(reminder);
+    options.enabled = false;
+});
 
 function callback(message, data) {
     if (!options.enabled) return;
     const parsed = parse([{ element: message, component: data }]);
-    if (parsed.length < 1) return;
+    if (!parsed || parsed.length < 1) return;
     if (checkMessage(parsed[0], options.username, options.content)) parsed[0].element.classList.add('te-search-hide');
 }
 
@@ -33,7 +41,7 @@ window.addEventListener('keydown', (event) => {
         }
         if (options.enabled) {
             changeTitle();
-            clearInterval(reminder);
+            if (reminder) clearInterval(reminder);
             sendMessage('You have left search mode.', false);
             options.enabled = false;
             return;

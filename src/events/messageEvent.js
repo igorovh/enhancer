@@ -9,6 +9,7 @@ Peeker.add(() => {
 }, callback);
 
 function callback(chat) {
+    Peeker.getListenersById('chatInitialize').forEach((listener) => listener.callback());
     const observerCallback = (mutationList) => {
         for (const mutation of mutationList) {
             if (mutation.type === 'childList' && mutation.addedNodes) {
