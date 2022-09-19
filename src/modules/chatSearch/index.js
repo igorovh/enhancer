@@ -111,6 +111,13 @@ function parse(messages) {
 
 function show() {
     element.style.display = 'flex';
+    const usernameInput = document.querySelector('#te-chat-search-username-input');
+    const messageInput = document.querySelector('#te-chat-search-message-input');
+
+    usernameInput.value = '';
+    messageInput.value = '';
+
+    usernameInput.focus();
 }
 
 function hide() {

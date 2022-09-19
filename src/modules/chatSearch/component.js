@@ -59,6 +59,7 @@ export default () => {
             placeholder="Username starts with"
             id="te-chat-search-username-input"
             onkeydown="window.__enhancer_serach_menu_enter(event, this, 'username')"
+            autofocus
           />
           <div class="te-chatSearch-input-btn" onclick="window.__enhancer_search_menu('username')">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
