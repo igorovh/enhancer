@@ -39,6 +39,7 @@ const About = () => {
                     Chrome
                 </a>
                 ·<a href="https://addons.mozilla.org/en-US/firefox/addon/twitch-enhancer/">Firefox</a>·
+                <a href="https://github.com/animekkk/twitch-enhancer">Github</a>·
                 <a href="https://twitter.com/animekkk_">Twitter</a>·
                 <a href="https://coffee.vopp.top/">Buy me a coffee</a>
             </Socials>
