@@ -11,10 +11,7 @@ let enabled = Settings.get('bumps.enabled');
 let hideMessages = Settings.get('bumps.hideMessages');
 
 Settings.registerUpdate('bumps.enabled', (value) => (enabled = value));
-Settings.registerUpdate('bumps.hideMessages', (value) => {
-    Logger.debug('Hiding bump messages', value);
-    hideMessages = value;
-});
+Settings.registerUpdate('bumps.hideMessages', (value) => (hideMessages = value));
 
 Peeker.registerListener('messageEvent', callback);
 
