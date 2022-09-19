@@ -24,7 +24,7 @@
         "sounds/*.ogg",
         "sounds/*.mp3"
     ],
-    "permissions": ["storage", "tabs", "*://*.twitch.tv/*"],
+    "permissions": ["storage", "*://*.twitch.tv/*"],
     "icons": {
         "128": "img/icon.png"
     }
