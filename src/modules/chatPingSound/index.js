@@ -24,18 +24,22 @@ let username = getUsername();
 Peeker.registerListener('messageEvent', callback);
 
 function callback(message, data) {
-    if (!enabled) return;
-    const messageContent = data.props.message?.message?.toLowerCase() ?? data.props.message?.messageBody?.toLowerCase();
-    if (!messageContent) return;
-    const currentName =
-        data?.props?.message?.user.displayName?.toLowerCase() ||
-        data?.props?.message?.user.userDisplayName?.toLowerCase();
-    if (!username) {
-        username = getUsername();
-        return;
-    }
-    if (username.toLowerCase() === currentName.toLowerCase()) return;
-    if (messageContent.includes(username.toLowerCase())) playAudio();
+    setTimeout(() => {
+        if (!enabled) return;
+        if (data.props.message?._enhancer_bumps) return;
+        const messageContent =
+            data.props.message?.message?.toLowerCase() ?? data.props.message?.messageBody?.toLowerCase();
+        if (!messageContent) return;
+        const currentName =
+            data?.props?.message?.user.displayName?.toLowerCase() ||
+            data?.props?.message?.user.userDisplayName?.toLowerCase();
+        if (!username) {
+            username = getUsername();
+            return;
+        }
+        if (username.toLowerCase() === currentName.toLowerCase()) return;
+        if (messageContent.includes(username.toLowerCase())) playAudio();
+    }, 5);
 }
 
 function playAudio() {
