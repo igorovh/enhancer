@@ -3,6 +3,7 @@ import * as Logger from '$Logger';
 import * as Settings from '$Settings';
 import { getChatMessagesById, getChatMessage, getChatService, getChat } from '$Utils/twitch';
 import { getUsername } from '$Utils/chat';
+import { sendMessage } from '$Utils/twitch';
 import { tooltip } from '$Utils/tooltip';
 import { addOption } from '$Utils/messageMenu';
 import Component from './component';
@@ -35,12 +36,22 @@ addOption({
         return `You've already bumped this message`;
     },
     callback: (message, data) => {
-        return bumpMessage(message, data);
+        return bumpMessage(message, data, true);
     },
 });
 
 function bumpMessage(message, data) {
-    if (lastBump >= Date.now()) return false;
+    if (lastBump >= Date.now()) {
+        sendMessage(`You can't bump messages that fast, wait a moment.`, false);
+        return false;
+    }
+
+    if (!localStorage.getItem('__enhancer_first_bump')) {
+        sendMessage(
+            'Hey! This is your first message bump. Bumping works by sending "+1" reply as you (your account), if you are not okay with this you can disable this in the options, which are located in the top right corner of the chat.'
+        );
+        localStorage.setItem('__enhancer_first_bump', true);
+    }
 
     const messageId = data.props?.message?.id;
     const channel = getChat()?.props?.channelLogin;
@@ -115,8 +126,7 @@ function refreshBumps(element, id, amount, alreadyBumped = false) {
     if (alreadyBumped || chatMessage.props.message?._enhancer_already_bumped) {
         chatMessage.props.message._enhancer_already_bumped = true;
         bumps.setAttribute('te-bumped', true);
-    }
-    bumps.addEventListener('click', () => bumpMessage(element, chatMessage));
+    } else bumps.addEventListener('click', () => bumpMessage(element, chatMessage));
 
     content.appendChild(bumps);
     tooltip(bumps, `te-bump-${id}`);
