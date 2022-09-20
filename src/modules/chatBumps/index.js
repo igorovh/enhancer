@@ -78,7 +78,7 @@ function callback(message, data) {
     const debug = { status: [], element: message, props: data.props };
     setTimeout(() => Logger.debug('Bump debug', debug), 5);
 
-    const content = data.props.message?.messageBody;
+    const content = data.props.message?.messageBody.replaceAll('\u{E0000}', '');
     debug.content = content; // DEBUG
     debug.contentSize = content.length; // DEBUG
     if (content && content.trim() === '+1' && data.props.message.reply) {
