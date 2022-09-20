@@ -80,6 +80,7 @@ function callback(message, data) {
 
     const content = data.props.message?.messageBody;
     debug.content = content; // DEBUG
+    debug.contentSize = content.length; // DEBUG
     if (content && content.trim() === '+1' && data.props.message.reply) {
         debug.status.push(1); // DEBUG
         const replyId = data.props.message.reply.parentMsgId;
