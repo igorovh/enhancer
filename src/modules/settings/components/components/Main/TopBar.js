@@ -14,7 +14,7 @@ const TopBar = () => {
                     style={{
                         width: '25px',
                         height: '25px',
-                        fill: 'var(--te-gray-color-light)',
+                        fill: 'var(--te-gray-color-dark)',
                         transition: '0.2s',
                     }}
                 />

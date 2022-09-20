@@ -1,7 +1,7 @@
 {
     "name": "Twitch Enhancer",
     "description": "Extension that adds what is missing on Twitch.",
-    "version": "4.0.0",
+    "version": "4.0.1",
     "manifest_version": 2,
     "content_scripts": [
         {
@@ -24,7 +24,7 @@
         "sounds/*.ogg",
         "sounds/*.mp3"
     ],
-    "permissions": ["storage", "tabs", "*://*.twitch.tv/*"],
+    "permissions": ["storage", "*://*.twitch.tv/*"],
     "icons": {
         "128": "img/icon.png"
     }

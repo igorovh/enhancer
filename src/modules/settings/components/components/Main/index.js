@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { TabContext } from '../../contexts/TabContext';
 import Option from './Option';
 import TopBar from './TopBar';
+import About from './About';
 import { settings } from '../../settings';
 
 const Main = () => {
@@ -12,20 +13,23 @@ const Main = () => {
         <Wrapper>
             <TopBar />
             <MainContent>
-                {selected === 'info'
-                    ? 'In development'
-                    : settings[selected].map(({ id, name, description, type, options }) => {
-                          return (
-                              <Option
-                                  name={name}
-                                  description={description}
-                                  id={id}
-                                  type={type}
-                                  options={options}
-                                  key={id}
-                              />
-                          );
-                      })}
+                {selected === 'info' ? (
+                    <About />
+                ) : (
+                    settings[selected].map(({ id, name, title, description, type, options }) => {
+                        return (
+                            <Option
+                                title={title}
+                                description={description}
+                                name={name}
+                                id={id}
+                                type={type}
+                                options={options}
+                                key={id}
+                            />
+                        );
+                    })
+                )}
             </MainContent>
         </Wrapper>
     );

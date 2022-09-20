@@ -5,5 +5,6 @@ export default () => {
         [???]
         <span class="te-tooltip te-chatters-count te-tooltip-left">Chatters Count</span>
     `;
+    count.title = 'Chatters Count';
     return count;
 };

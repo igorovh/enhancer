@@ -28,36 +28,28 @@ export const LOCAL_BADGES = [
 ];
 
 export const DEFAULT_SETTINGS = {
-    quickLinks: {
-        links: [
-            {
-                name: 'TwitchTracker',
-                url: 'https://twitchtracker.com/%name%',
-            },
-            {
-                name: 'SullyGnome',
-                url: 'https://sullygnome.com/channel/%name%',
-            },
-            {
-                name: 'Emotes',
-                url: 'https://emotes.vopp.top/?name=%name%',
-            },
-        ],
-    },
-    bumps: {
-        enabled: true,
-        hideMessages: true,
-    },
+    quickLinks: [
+        {
+            name: 'TwitchTracker',
+            url: 'https://twitchtracker.com/%name%',
+        },
+        {
+            name: 'SullyGnome',
+            url: 'https://sullygnome.com/channel/%name%',
+        },
+        {
+            name: 'Emotes',
+            url: 'https://emotes.vopp.top/?name=%name%',
+        },
+    ],
+    'bumps.enabled': true,
+    'bumps.hideMessages': true,
     hideNoBadges: true,
-    pingSound: {
-        enable: false,
-        src: getFile('sounds/notification.ogg'),
-    },
+    'pingSound.enabled': false,
+    'pingSound.src': getFile('sounds/notification.ogg'),
     highlightMentions: true,
-    usercard: {
-        service: 'auto',
-        format: 'hour',
-    },
+    'usercard.service': 'auto',
+    'usercard.format': 'hour',
     realVideoTime: true,
     watchtime: true,
 };
@@ -137,10 +129,6 @@ export const LOCAL_HONORS = [
     },
     {
         username: 'kolegajakub_',
-        type: 'tester',
-    },
-    {
-        username: 'plyta__',
         type: 'tester',
     },
     {

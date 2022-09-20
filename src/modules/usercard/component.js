@@ -2,9 +2,10 @@ import * as Settings from '$Settings';
 import * as Logger from '$Logger';
 import { formatTime } from '$Utils/time';
 
-let settings = Settings.get('usercard');
+let settings = Settings.getMultiple('usercard.service', 'usercard.format');
 
-Settings.registerUpdate('usercard', (value) => (settings = value));
+Settings.registerUpdate('usercard.service', (value) => (settings['usercard.service'] = value));
+Settings.registerUpdate('usercard.format', (value) => (settings['usercard.format'] = value));
 
 const formatter = {
     hour: (seconds) => {
@@ -35,12 +36,12 @@ export const elements = [
                     <span>
                         <span class="te-usercard-bold">${streamer.position}.</span>
                         <a href="https://twitch.tv/${streamer.streamer.toLowerCase()}">${streamer.streamer}</a>:
-                        <span">${formatter[settings.format](streamer.time)}</span>
+                        <span">${formatter[settings['usercard.format']](streamer.time)}</span>
                     </span>
                 `;
             }
             div.innerHTML += `
-            <span">~ ${formatter[settings.format](watchtime.totalTime)}</span>
+            <span">~ ${formatter[settings['usercard.format']](watchtime.totalTime)}</span>
             `;
         }
         return div;
@@ -133,5 +134,5 @@ const services = {
 };
 
 async function downloadWatchTime(username) {
-    return await services[settings.service](username);
+    return await services[settings['usercard.service']](username);
 }

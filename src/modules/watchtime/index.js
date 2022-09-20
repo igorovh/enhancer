@@ -17,7 +17,6 @@ setInterval(() => {
     if (!settings) return;
     if (!player || !panel) return;
     if (window.location.href.endsWith('twitch.tv/')) return; // Main page
-    Logger.debug('Panel data', panel);
     if (!panel.props.isLive) return;
     const paused = player.props.mediaPlayerInstance.core.paused;
     if (paused) return;

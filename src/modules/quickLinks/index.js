@@ -3,7 +3,7 @@ import { get } from '$Settings';
 import { getName } from '$Utils/url';
 import Component from './component';
 
-const links = get('quickLinks').links;
+const links = get('quickLinks');
 
 Peeker.add(() => {
     const panel = document.querySelector('.about-section__panel--content');

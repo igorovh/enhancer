@@ -2,6 +2,7 @@ const info = {
     files: {
         url: chrome.runtime.getURL('%path%'),
     },
+    version: chrome.runtime.getManifest().version,
 };
 
 localStorage.setItem('_enhancerInfo', JSON.stringify(info, null, 4));

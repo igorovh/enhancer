@@ -1,3 +1,137 @@
 .te-search-hide {
     display: none;
 }
+
+#te-search {
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: none;
+
+    --te-bg-color-dark: #141414;
+    --te-bg-color-light: #1c1c1c;
+    --te-purple-color: #a970e1;
+    --te-gray-color-light: #f2f2f280;
+}
+
+.te-chatSearch-bg {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9000;
+}
+
+.te-chatSearch-container {
+    width: 500px;
+    background-color: var(--te-bg-color-light);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.33);
+    z-index: 10000;
+
+    & .te-close-button-icon {
+        cursor: pointer;
+
+        &:hover {
+            fill: white;
+            color: white;
+        }
+    }
+}
+
+.te-chatSearch-header {
+    height: 45px;
+    background-color: var(--te-bg-color-dark);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+}
+
+.te-chatSearch-content {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.te-chatSearch-input-container {
+    width: 100%;
+    position: relative;
+    justify-content: space-between;
+    border-radius: 0.5rem;
+    overflow: hidden;
+
+    & input[type='text'] {
+        font-size: 1.4rem !important;
+        height: 3.6rem;
+    }
+
+    &:nth-child(1) {
+        margin-bottom: 1rem;
+    }
+}
+
+.te-chatSearch-input-btn {
+    // background-color: var(--te-bg-color-light);
+    background-color: #3a3a3d;
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    border-left: 2px solid var(--te-bg-color-light);
+    transition: background 100ms ease-in-out;
+
+    &:hover {
+        background-color: #464648;
+    }
+
+    svg {
+        padding: 0.85rem;
+        // fill: var(--te-purple-color);
+        fill: white;
+    }
+}
+
+.te-chatSearch-input {
+    outline: none;
+    border: none;
+    color: white;
+    padding: 0.8rem 1rem;
+    width: 100%;
+    background-color: #464648;
+
+    &::placeholder {
+        color: rgba(255, 255, 255, 0.527);
+        font-weight: 500;
+    }
+}
+
+.te-chatSearch-header-logo {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+
+    svg {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+.te-chatSearch-header-title {
+    height: 100%;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
