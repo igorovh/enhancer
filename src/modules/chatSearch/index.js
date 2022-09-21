@@ -126,6 +126,7 @@ function hide() {
 
 function changeTitle(title = 'Stream Chat') {
     const header = document.querySelector('#chat-room-header-label');
+    if (!header) return;
     header.textContent = title;
 }
 

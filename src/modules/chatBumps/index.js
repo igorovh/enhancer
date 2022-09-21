@@ -74,29 +74,16 @@ function callback(message, data) {
     if (!enabled) return;
     if (!data.props.message) return;
 
-    //TODO Debug bumps
-    const debug = { status: [], element: message, props: data.props };
-    setTimeout(() => Logger.debug('Bump debug', debug), 5);
-
     const content = data.props.message?.messageBody.replaceAll('\u{E0000}', '');
-    debug.content = content; // DEBUG
-    debug.contentSize = content.length; // DEBUG
     if (content && content.trim() === '+1' && data.props.message.reply) {
-        debug.status.push(1); // DEBUG
         const replyId = data.props.message.reply.parentMsgId;
         const bumped = getChatMessagesById(replyId)[0];
-        debug.bumpingMessageId = replyId; // DEBUG
-        debug.bumpingMessage = bumped; // DEBUG
         if (!bumped) return;
-        debug.status.push(2); // DEBUG
         if (data.props.message?._enhancer_bumps?.hide) {
-            debug.status.push(3); // DEBUG
             message.classList.add('te-bump-message');
             return;
         }
-        debug.status.push(4); // DEBUG
         if (data.props.message?._enhancer_bumps?.bumped) return;
-        debug.status.push(5); // DEBUG
 
         const bumpInfo = {
             bumpMessage: {
@@ -106,14 +93,9 @@ function callback(message, data) {
         };
 
         if (hideMessages) {
-            debug.status.push(6); // DEBUG
             bumpInfo.hide = true;
             message.classList.add('te-bump-message');
         }
-
-        debug.status.push(7); // DEBUG
-        debug.bumpInfo = bumpInfo; //DEBUG
-
         data.props.message._enhancer_bumps = bumpInfo;
 
         const bumps = addBumps(bumped.element);
