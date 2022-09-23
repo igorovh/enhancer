@@ -13,8 +13,10 @@ function callback(message, data) {
   let imageElement = document.createElement('img');
   imageElement.classList = 'te-image';
   imageElement.src = linkElement.href;
-  linkElement.innerHTML = '';
-  linkElement.appendChild(imageElement);
+  imageElement.onload = () => {
+    linkElement.innerHTML = '';
+    linkElement.appendChild(imageElement);
+  };
 }
 
 function url(href) {
