@@ -52,6 +52,7 @@ export const DEFAULT_SETTINGS = {
     'usercard.format': 'hour',
     realVideoTime: true,
     watchtime: true,
+    chatImages: false,
 };
 
 export const LOCAL_HONORS = [

@@ -33,6 +33,13 @@ export const settings = {
             description: 'Highlight all messages from user who got mentioned by hovering the mention',
             type: 'checkbox',
         },
+        {
+            id: 'te-chat-images',
+            name: 'chatImages',
+            title: 'Display images on chat',
+            description: 'Displaying chat images from safe websties (e.g. discord, imgur and more)',
+            type: 'checkbox',
+        },
     ],
     usercard: [
         {
