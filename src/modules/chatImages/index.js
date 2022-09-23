@@ -2,15 +2,24 @@ import * as Peeker from '$Peeker';
 
 Peeker.registerListener('messageEvent', callback);
 
+let allowedHosts = ['media.giphy.com', 'i.imgur.com', 'c.tenor.com', 'media.discordapp.net', 'cdn.discordapp.com', 'images-ext-1.discordapp.net', 'imagizer.imageshack.com'];
+
 function callback(message, data) {
-  if (!data.props.message) return;
-  if (!data.props.message?.messageBody.startsWith('https://')) return;
-  if (message.querySelectorAll('a').length > 1) return;
-  let linkElement = message.querySelector('a');
-  let hrefData = url(linkElement.href);
+  const content = data.props?.message?.message || data.props?.message?.messageBody;
+  if (!content) return;
+  if (!content.startsWith('https://')) return;
+  const contentElement =
+      message.querySelector('.message') ||
+      message.querySelector('.seventv-message-context') ||
+      message.querySelector('span[data-test-selector="chat-line-message-body"]');
+  if (!contentElement) return;
+  if (contentElement.querySelectorAll('a').length > 1) return;
+  const linkElement = contentElement.querySelector('a');
+  const hrefData = tryURL(linkElement.href);
   if (!hrefData) return;
+  if (!allowedHosts.includes(hrefData.host)) return;
   if (!(/\.(gif|jpe?g|tiff?|png|webp|bmp)$/i).test(hrefData.pathname)) return;
-  let imageElement = document.createElement('img');
+  const imageElement = new Image();
   imageElement.classList = 'te-image-img';
   imageElement.src = linkElement.href;
   imageElement.onload = () => {
@@ -20,10 +29,10 @@ function callback(message, data) {
   };
 }
 
-function url(href) {
+function tryURL(href) {
   try {
     return new URL(href);
-  } catch (e) {
-    return undefined;
+  } catch (error) {
+    return false;
   }
 }

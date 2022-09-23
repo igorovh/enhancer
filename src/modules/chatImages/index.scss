@@ -1,9 +1,10 @@
 .te-image-a {
   display: block;
   width: max-content;
+  margin: 0.5rem 0;
 }
 
 .te-image-img {
-  display: block;
-  max-height: 208px;
+  min-height: 16px;
+  max-height: 256px;
 }
