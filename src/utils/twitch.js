@@ -160,6 +160,19 @@ export function getChannelInfo() {
     return node?.stateNode;
 }
 
+export function getScrollableChat() {
+    const element = document.querySelector('.chat-scrollable-area__message-container');
+
+    const node = findReactParents(getReactInstance(element), (n) => n.stateNode?.onScroll);
+
+    return {
+        component: node?.stateNode,
+        element,
+    };
+}
+
+window.getScrollableChat = getScrollableChat;
+
 export function sendMessage(message, prefix = true) {
     const controller = getChatController();
 

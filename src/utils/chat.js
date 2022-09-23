@@ -1,4 +1,4 @@
-import { getChatInput, getAutoCompleteHandler, getChat } from './twitch';
+import { getChatInput, getAutoCompleteHandler, getChat, getScrollableChat } from './twitch';
 
 export function setText(text, focus) {
     const chatInput = getChatInput();
@@ -17,4 +17,11 @@ function format(text, value) {
 
 export function getUsername() {
     return getChat()?.props?.currentUserDisplayName?.toLowerCase();
+}
+
+export function unstuckScroll() {
+    const scrollableChat = getScrollableChat();
+    if (!scrollableChat || !scrollableChat?.component) return;
+    if (scrollableChat.element.classList.contains('chat-scrollable-area__message-container--paused')) return;
+    scrollableChat.component.scrollToBottom();
 }
