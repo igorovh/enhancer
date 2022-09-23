@@ -2,43 +2,25 @@ import * as Peeker from '$Peeker';
 
 Peeker.registerListener('messageEvent', callback);
 
-let allowedLinks = [
-  'giphy.com',
-  'imgur.com',
-  'tenor.com'
-]
+function callback(message, data) {
+  if (!data.props.message) return;
+  if (!data.props.message?.messageBody.startsWith('https://')) return;
+  if (message.querySelectorAll('a').length > 1) return;
+  let linkElement = message.querySelector('a');
+  let hrefData = url(linkElement.href);
+  if (!hrefData) return;
+  if (!(/\.(gif|jpe?g|tiff?|png|webp|bmp)$/i).test(hrefData.pathname)) return;
+  let imageElement = document.createElement('img');
+  imageElement.classList = 'te-image';
+  imageElement.src = linkElement.href;
+  linkElement.innerHTML = '';
+  linkElement.appendChild(imageElement);
+}
 
-function callback(message) {
-  let links = message.querySelectorAll('a');
-  let linksCount = links.length;
-
-  if (linksCount == 0) return;
-
-  if (linksCount > 1) {
-    links.forEach(link => {
-      if (allowedLinks.some(value => link.href.includes(value + '/'))) {
-        const gifElement = document.createElement("img");
-        
-        gifElement.classList = 'te-gif-small';
-        gifElement.src = link.href;
-
-        link.innerHTML = '';
-
-        link.appendChild(gifElement);
-      }
-    });
-  } else {
-    let link = message.querySelector('a');
-
-    if (allowedLinks.some(value => link.href.includes(value + '/'))) {
-      const gifElement = document.createElement("img");
-      
-      gifElement.classList = 'te-gif-large';
-      gifElement.src = link.href;
-
-      link.innerHTML = '';
-
-      link.appendChild(gifElement);
-    }
+function url(href) {
+  try {
+    return new URL(href);
+  } catch (e) {
+    return undefined;
   }
 }
