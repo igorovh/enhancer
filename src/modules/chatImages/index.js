@@ -11,9 +11,10 @@ function callback(message, data) {
   if (!hrefData) return;
   if (!(/\.(gif|jpe?g|tiff?|png|webp|bmp)$/i).test(hrefData.pathname)) return;
   let imageElement = document.createElement('img');
-  imageElement.classList = 'te-image';
+  imageElement.classList = 'te-image-img';
   imageElement.src = linkElement.href;
   imageElement.onload = () => {
+    linkElement.classList.add('te-image-a');
     linkElement.innerHTML = '';
     linkElement.appendChild(imageElement);
   };
