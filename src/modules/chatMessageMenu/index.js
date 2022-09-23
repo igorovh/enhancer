@@ -15,6 +15,7 @@ document.addEventListener('click', (event) => {
 function callback(message, data) {
     message.addEventListener('contextmenu', (event) => {
         if (event.target.classList.contains('chat-line__message--emote')) return;
+        if (event.target.classList.contains('te-image-img')) return;
         if (document.getSelection().type === 'Range') return;
         if (event.target.tagName === 'A') return;
         Logger.debug('Opening message context menu.');
