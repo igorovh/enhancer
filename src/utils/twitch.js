@@ -142,6 +142,16 @@ export function getLive() {
     return node?.stateNode;
 }
 
+export function getModeratorLive() {
+    const node = findReactChildren(
+        getReactInstance(document.querySelector('.video-player__overlay')),
+        (n) => n.stateNode?.props && n.stateNode?.props?.content?.channelLogin,
+        50
+    );
+
+    return node?.stateNode;
+}
+
 export function getPlayer() {
     const node = findReactParents(
         getReactInstance(document.querySelector('div[data-a-target="player-overlay-click-handler"]')),
