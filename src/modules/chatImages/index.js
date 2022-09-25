@@ -2,8 +2,14 @@ import * as Peeker from '$Peeker';
 import * as Logger from '$Logger';
 import * as Settings from '$Settings';
 import { unstuckScroll } from '$Utils/chat';
+import { isFFZ } from '$Utils/extensions';
 
-Peeker.registerListener('messageEvent', callback);
+Peeker.registerListener('messageEvent', fix);
+
+function fix(message, data) {
+    if (isFFZ()) callback(message, data);
+    else setTimeout(() => callback(message, data), 10);
+}
 
 let enabled = Settings.get('chatImages');
 
