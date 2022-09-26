@@ -32,7 +32,6 @@ const Wrapper = styled.div`
     background-color: var(--te-bg-color-dark);
     min-height: 60px;
     padding: 0 2rem;
-    gap: 0.5rem;
 `;
 
 const CloseButton = styled.button`

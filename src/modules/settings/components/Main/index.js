@@ -16,18 +16,8 @@ const Main = () => {
                 {selected === 'info' ? (
                     <About />
                 ) : (
-                    settings[selected].map(({ id, name, title, description, type, options }) => {
-                        return (
-                            <Option
-                                title={title}
-                                description={description}
-                                name={name}
-                                id={id}
-                                type={type}
-                                options={options}
-                                key={id}
-                            />
-                        );
+                    settings[selected].map((setting, i) => {
+                        return <Option key={i} setting={setting} />;
                     })
                 )}
             </MainContent>
@@ -42,7 +32,6 @@ const Wrapper = styled.div`
     flex-direction: column;
     position: relative;
     width: 100%;
-    color: white;
 `;
 
 const MainContent = styled.main`
@@ -52,10 +41,11 @@ const MainContent = styled.main`
     gap: 1.2rem;
     overflow-y: auto;
     ::-webkit-scrollbar {
-        width: 10px;
+        width: 6px;
         background-color: var(--te-bg-color-light);
     }
     ::-webkit-scrollbar-thumb {
         background-color: var(--te-bg-color-dark);
+        border-radius: 8px;
     }
 `;

@@ -11,10 +11,8 @@ const Btn = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
-    background: none;
     cursor: pointer;
     height: 50px;
-    border: none;
     transition: 0.2s;
     width: 100%;
 
