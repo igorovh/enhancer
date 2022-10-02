@@ -28,6 +28,7 @@ const SideMenu = () => {
                         <RiChat2Line className="tab-icon" />
                     )}
                 </Button>
+
                 <Button onClick={() => setSelected('usercard')}>
                     {selected === 'usercard' ? (
                         <RiUser3Fill className="tab-icon tab-icon--active" />
@@ -35,6 +36,7 @@ const SideMenu = () => {
                         <RiUser3Line className="tab-icon" />
                     )}
                 </Button>
+
                 <Button onClick={() => setSelected('video')}>
                     {selected === 'video' ? (
                         <RiVideoFill className="tab-icon tab-icon--active" />
@@ -43,6 +45,7 @@ const SideMenu = () => {
                     )}
                 </Button>
             </Tabs>
+
             <Button onClick={() => setSelected('info')}>
                 {selected === 'info' ? (
                     <RiInformationFill className="tab-icon tab-icon--active" />
@@ -63,7 +66,6 @@ const Wrapper = styled.nav`
     align-items: center;
     flex-basis: 60px;
     background-color: var(--te-bg-color-dark);
-    gap: 3rem;
 `;
 const Tabs = styled.div`
     display: flex;

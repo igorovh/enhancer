@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Checkbox from './Checkbox';
 import Radio from './Radio';
 
-const Option = ({ title, name, description, id, type, options }) => {
+const Option = ({ setting: { title, name, description, id, type, options } }) => {
     return (
         <Wrapper>
             <NameWrapper>
@@ -22,9 +22,7 @@ const Wrapper = styled.div`
     display: flex;
     justify-content: space-between;
     padding: 1.2rem;
-    color: white;
     background-color: var(--te-bg-color-dark);
-    border-radius: 0.4rem;
 `;
 
 const NameWrapper = styled.div`

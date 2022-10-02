@@ -31,17 +31,39 @@ const About = () => {
             </div>
             <Copyrights>
                 <span>
-                    Ping sound is from <a href="https://notificationsounds.com/">Notification Sounds</a>.
+                    Ping sound is from{' '}
+                    <a href="https://notificationsounds.com/" target="_blank" rel="noreferrer">
+                        Notification Sounds
+                    </a>
+                    .
                 </span>
             </Copyrights>
             <Socials>
-                <a href="https://chrome.google.com/webstore/detail/twitch-enhancer/knaodoefkjbgmmilogebghadhmnphjih">
+                <a
+                    href="https://chrome.google.com/webstore/detail/twitch-enhancer/knaodoefkjbgmmilogebghadhmnphjih"
+                    target="_blank"
+                    rel="noreferrer">
                     Chrome
                 </a>
-                ·<a href="https://addons.mozilla.org/en-US/firefox/addon/twitch-enhancer/">Firefox</a>·
-                <a href="https://github.com/animekkk/twitch-enhancer">Github</a>·
-                <a href="https://twitter.com/animekkk_">Twitter</a>·
-                <a href="https://coffee.vopp.top/">Buy me a coffee</a>
+                ·
+                <a
+                    href="https://addons.mozilla.org/en-US/firefox/addon/twitch-enhancer/"
+                    target="_blank"
+                    rel="noreferrer">
+                    Firefox
+                </a>
+                ·
+                <a href="https://github.com/animekkk/twitch-enhancer" target="_blank" rel="noreferrer">
+                    Github
+                </a>
+                ·
+                <a href="https://twitter.com/animekkk_" target="_blank" rel="noreferrer">
+                    Twitter
+                </a>
+                ·
+                <a href="https://coffee.vopp.top/" target="_blank" rel="noreferrer">
+                    Buy me a coffee
+                </a>
             </Socials>
         </Wrapper>
     );

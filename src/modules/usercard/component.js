@@ -23,19 +23,21 @@ export const elements = [
             div.innerHTML += `
                 <span>An error occurred, please try again later.</span>
                 <span>You still can check them manually on these pages:</span>
-                <a class="te-usercard-bold" target="_blank" href="https://xayo.pl/${username}">xayo.pl/${username}</a>
-                <a class="te-usercard-bold" target="_blank" href="https://twitchlogger.pl/tracker/${username}">twitchlogger.pl/tracker/${username}</a>
+                <a class="te-usercard-bold" target="_blank" rel="noreferrer" href="https://xayo.pl/${username}">xayo.pl/${username}</a>
+                <a class="te-usercard-bold" target="_blank" rel="noreferrer" href="https://twitchlogger.pl/tracker/${username}">twitchlogger.pl/tracker/${username}</a>
             `;
         } else {
             const url = watchtime.service.replace('{name}', username);
             div.innerHTML += `
-                <a class="te-usercard-bold" href="https://${url}">${url}</a>
+                <a class="te-usercard-bold" target="_blank" rel="noreferrer" href="https://${url}">${url}</a>
             `;
             for (const streamer of watchtime.watchtimes) {
                 div.innerHTML += `
                     <span>
                         <span class="te-usercard-bold">${streamer.position}.</span>
-                        <a href="https://twitch.tv/${streamer.streamer.toLowerCase()}">${streamer.streamer}</a>:
+                        <a href="https://twitch.tv/${streamer.streamer.toLowerCase()}" target="_blank" rel="noreferrer" >${
+                    streamer.streamer
+                }</a>:
                         <span">${formatter[settings['usercard.format']](streamer.time)}</span>
                     </span>
                 `;
