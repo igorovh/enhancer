@@ -29,6 +29,8 @@ Peeker.add(() => {
     return theatreViewersCount;
 }, callback);
 
+Peeker.registerListener('chatInitialize', () => updateChatters());
+
 let counters = [];
 let updater;
 
