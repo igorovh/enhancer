@@ -1,0 +1,42 @@
+.stream-chat-header {
+    z-index: 100;
+}
+
+#te-chat-island {
+    z-index: 5;
+    position: absolute;
+    background-color: rgb(116, 23, 255);
+    margin: 0 10px;
+    width: calc(100% - 20px);
+    padding: 5px;
+    border-radius: 1rem;
+    font-weight: 600;
+    text-align: center;
+    animation: show 0.5s;
+    transform: translateY(5.5rem);
+    transition: transform 0.5s;
+}
+
+.te-chat-island-hidden {
+    transform: translateY(0) !important;
+}
+
+@keyframes show {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(5.5rem);
+    }
+}
+
+/* @keyframes hide {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(200px);
+    }
+} */
