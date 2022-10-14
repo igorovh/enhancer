@@ -24,12 +24,12 @@ let shownTime = 0;
 setInterval(() => {
     const island = document.querySelector('#te-chat-island');
     if (!island) return;
-    if (isHovering) return;
     if (active) {
-        if (shownTime > 5) {
+        if (shownTime > 5 && !isHovering) {
             island.classList.add('te-chat-island-hidden');
             active = false;
             shownTime = 0;
+            setTimeout((island.textContent = ''), 500);
         }
         shownTime += 0.5;
         return;
@@ -40,3 +40,7 @@ setInterval(() => {
     island.textContent = text;
     island.classList.remove('te-chat-island-hidden');
 }, 500);
+
+window.addIslandMessage = (text) => {
+    queue.push(text);
+};

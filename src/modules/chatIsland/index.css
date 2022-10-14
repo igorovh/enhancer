@@ -17,6 +17,10 @@
     transition: transform 0.5s;
 }
 
+#te-chat-island:hover {
+    background-color: rgb(93, 22, 201);
+}
+
 .te-chat-island-hidden {
     transform: translateY(0) !important;
 }
