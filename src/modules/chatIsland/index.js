@@ -25,6 +25,7 @@ setInterval(() => {
     const island = document.querySelector('#te-chat-island');
     if (!island) return;
     if (active) {
+        if (shownTime > 5 && isHovering) shownTime = 3;
         if (shownTime > 5 && !isHovering) {
             island.classList.add('te-chat-island-hidden');
             active = false;
