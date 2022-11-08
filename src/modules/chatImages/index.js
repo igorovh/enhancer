@@ -1,8 +1,12 @@
 import * as Peeker from '$Peeker';
 import * as Logger from '$Logger';
 import * as Settings from '$Settings';
+import * as Island from '$Utils/island';
 import { unstuckScroll } from '$Utils/chat';
+import { getAutoCompleteHandler } from '$Utils/twitch';
 import { isFFZ } from '$Utils/extensions';
+
+const MAX_FILE_SIZE = 5000000;
 
 Peeker.registerListener('messageEvent', fix);
 
@@ -24,6 +28,29 @@ const allowedHosts = [
     'imagizer.imageshack.com',
 ];
 
+let checkedURL;
+setInterval(() => {
+    if (!enabled) return;
+    const value = getAutoCompleteHandler()?.state.value;
+    if (!value.startsWith('https://')) return;
+    const words = value.split(' ');
+    if (words.length < 1) return;
+
+    //TODO Refactor this to one "checkConditions" method
+    const url = tryURL(words[0]);
+    if (!url) return;
+    if (checkedURL === url.href) return;
+    checkedURL = url.href;
+    if (!checkHost(url)) return;
+    if (!/\.(gif|jpe?g|tiff?|png|webp|bmp)$/i.test(url.pathname)) return;
+
+    const imageData = getImageData(url.href);
+    if (!imageData) return;
+    if (imageData.size > MAX_FILE_SIZE) return;
+
+    Island.addToQueue('This image will be displayed on chat.');
+}, 1000);
+
 function callback(message, data) {
     if (!enabled) return;
     const content = data.props?.message?.message || data.props?.message?.messageBody;
@@ -37,6 +64,7 @@ function callback(message, data) {
     const links = contentElement.querySelectorAll('a');
     if (links.length > 1) return;
     const linkElement = links[0];
+
     const url = tryURL(linkElement.href);
     if (!url) return;
     if (!checkHost(url)) return;
@@ -44,9 +72,8 @@ function callback(message, data) {
 
     const imageData = getImageData(url.href);
     if (!imageData) return;
-    const maxFileSize = 5000000;
     const sizeInMB = (imageData.size / 1000000).toFixed(2);
-    if (imageData.size > maxFileSize) {
+    if (imageData.size > MAX_FILE_SIZE) {
         Logger.warn(`Image is too large to render it (${sizeInMB}mb) ->`, linkElement.href);
         return;
     }
