@@ -36,18 +36,11 @@ setInterval(() => {
     const words = value.split(' ');
     if (words.length < 1) return;
 
-    //TODO Refactor this to one "checkConditions" method
     const url = tryURL(words[0]);
     if (!url) return;
     if (checkedURL === url.href) return;
     checkedURL = url.href;
-    if (!checkHost(url)) return;
-    if (!/\.(gif|jpe?g|tiff?|png|webp|bmp)$/i.test(url.pathname)) return;
-
-    const imageData = getImageData(url.href);
-    if (!imageData) return;
-    if (imageData.size > MAX_FILE_SIZE) return;
-
+    if (!checkConditions(url)) return;
     Island.addToQueue('This image will be displayed on chat.');
 }, 1000);
 
@@ -67,21 +60,12 @@ function callback(message, data) {
 
     const url = tryURL(linkElement.href);
     if (!url) return;
-    if (!checkHost(url)) return;
-    if (!/\.(gif|jpe?g|tiff?|png|webp|bmp)$/i.test(url.pathname)) return;
-
-    const imageData = getImageData(url.href);
-    if (!imageData) return;
-    const sizeInMB = (imageData.size / 1000000).toFixed(2);
-    if (imageData.size > MAX_FILE_SIZE) {
-        Logger.warn(`Image is too large to render it (${sizeInMB}mb) ->`, linkElement.href);
-        return;
-    }
+    if (!checkConditions(url)) return;
 
     const imageElement = new Image();
     imageElement.classList = 'te-image-img';
     imageElement.src = linkElement.href;
-    Logger.debug(`Trying to render new chat image (${sizeInMB}mb) ->`, linkElement.href);
+    Logger.debug(`Trying to render new chat image`, linkElement.href);
     imageElement.onload = () => {
         linkElement.classList.add('te-image-a');
         linkElement.innerHTML = '';
@@ -117,4 +101,16 @@ function tryURL(href) {
     } catch (error) {
         return false;
     }
+}
+
+function checkConditions(url, warn = true) {
+    if (!checkHost(url)) return false;
+    if (!/\.(gif|jpe?g|tiff?|png|webp|bmp)$/i.test(url.pathname)) return false;
+    const imageData = getImageData(url.href);
+    if (!imageData) return false;
+    if (imageData.size > MAX_FILE_SIZE) {
+        if (warn) Logger.warn(`Image is too large to render it.`, url.href);
+        return false;
+    }
+    return true;
 }
