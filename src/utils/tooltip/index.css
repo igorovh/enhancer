@@ -21,6 +21,10 @@
     bottom: 2.5em;
 }
 
+.te-tooltip-bottom {
+    top: 2.5em;
+}
+
 .te-tooltip-left::after {
     content: '';
     position: absolute;

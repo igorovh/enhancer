@@ -1,13 +1,13 @@
 #te-settings-button {
-    position: absolute;
-    right: 4.25rem;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: var(--border-radius-medium);
-    width: 30px;
-    height: 30px;
+    width: 2.5rem;
+    height: 2.5rem;
     cursor: pointer;
+    margin: 0 0.5rem;
+    position: relative;
 }
 
 #te-settings-button:hover {
