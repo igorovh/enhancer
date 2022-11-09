@@ -11,6 +11,20 @@
     padding: 4px;
 }
 
+#te-bumps-list-users {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+}
+
+.te-bump-list-user {
+    padding: 4px 8px;
+    background-color: #292a2d;
+    border-radius: 4px;
+}
+
 .te-message-menu-option {
     padding: 8px;
     border-radius: 2px;
