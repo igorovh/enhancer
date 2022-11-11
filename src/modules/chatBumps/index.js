@@ -6,7 +6,12 @@ import { getUsername } from '$Utils/chat';
 import { sendMessage } from '$Utils/twitch';
 import { tooltip } from '$Utils/tooltip';
 import { addOption } from '$Utils/messageMenu';
-import Component from './component';
+import Bump from './components/bump';
+import List from './components/list';
+
+const list = List();
+list.style.display = 'none';
+document.body.appendChild(list);
 
 let enabled = Settings.get('bumps.enabled');
 let hideMessages = Settings.get('bumps.hideMessages');
@@ -40,6 +45,20 @@ addOption({
     },
 });
 
+addOption({
+    position: 1,
+    text: 'Show bumps',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="te-message-menu-icon"><path d="M313.4 32.9c26 5.2 42.9 30.5 37.7 56.5l-2.3 11.4c-5.3 26.7-15.1 52.1-28.8 75.2H464c26.5 0 48 21.5 48 48c0 25.3-19.5 46-44.3 47.9c7.7 8.5 12.3 19.8 12.3 32.1c0 23.4-16.8 42.9-38.9 47.1c4.4 7.2 6.9 15.8 6.9 24.9c0 21.3-13.9 39.4-33.1 45.6c.7 3.3 1.1 6.8 1.1 10.4c0 26.5-21.5 48-48 48H294.5c-19 0-37.5-5.6-53.3-16.1l-38.5-25.7C176 420.4 160 390.4 160 358.3V320 272 247.1c0-29.2 13.3-56.7 36-75l7.4-5.9c26.5-21.2 44.6-51 51.2-84.2l2.3-11.4c5.2-26 30.5-42.9 56.5-37.7zM32 192H96c17.7 0 32 14.3 32 32V448c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32V224c0-17.7 14.3-32 32-32z"/></svg>`,
+    condition: (message, data) => {
+        return data.props.message._enhancer_bumpers?.length > 0;
+    },
+    available: () => true,
+    callback: (message, data) => {
+        showList(data.props.message._enhancer_bumpers);
+        return true;
+    },
+});
+
 function bumpMessage(message, data) {
     if (lastBump >= Date.now()) {
         sendMessage(`You can't bump messages that fast, wait a moment.`, false);
@@ -67,6 +86,8 @@ function bumpMessage(message, data) {
     message.setAttribute('te-bumped', true);
     refreshBumps(message, messageId, addBumps(message), true);
 
+    data.props.message._enhancer_bumpers = addBumpers(getUsername(), data);
+
     return true;
 }
 
@@ -79,6 +100,13 @@ function callback(message, data) {
         const replyId = data.props.message.reply.parentMsgId;
         const bumped = getChatMessagesById(replyId)[0];
         if (!bumped) return;
+
+        const username =
+            data?.props?.message?.user.displayName?.toLowerCase() ||
+            data?.props?.message?.user.userDisplayName?.toLowerCase() ||
+            'unknown';
+        bumped.component.props.message._enhancer_bumpers = addBumpers(username, bumped.component);
+
         if (data.props.message?._enhancer_bumps?.hide) {
             message.classList.add('te-bump-message');
             return;
@@ -96,11 +124,16 @@ function callback(message, data) {
             bumpInfo.hide = true;
             message.classList.add('te-bump-message');
         }
-        data.props.message._enhancer_bumps = bumpInfo;
 
         const bumps = addBumps(bumped.element);
         refreshBumps(bumped.element, replyId, bumps);
     }
+}
+
+function addBumpers(username, data) {
+    const users = data.props.message?._enhancer_bumpers ?? [];
+    if (!users.includes(username)) users.push(username);
+    return users;
 }
 
 function addBumps(bumped, amount = 1) {
@@ -119,7 +152,7 @@ function refreshBumps(element, id, amount, alreadyBumped = false) {
         element.querySelector('.seventv-message-context') ||
         element.querySelector('span[data-test-selector="chat-line-message-body"]');
     if (!content) return;
-    bumps = Component(id, amount);
+    bumps = Bump(id, amount);
 
     const chatMessage = getChatMessage(element);
     if (alreadyBumped || chatMessage.props.message?._enhancer_already_bumped) {
@@ -129,4 +162,16 @@ function refreshBumps(element, id, amount, alreadyBumped = false) {
 
     content.appendChild(bumps);
     tooltip(bumps, `te-bump-${id}`);
+}
+
+function showList(bumpers) {
+    const usersList = list.querySelector('#te-bumps-list-users');
+    usersList.innerHTML = '';
+    for (const name of bumpers) {
+        const user = document.createElement('div');
+        user.className = 'te-bump-list-user';
+        user.textContent = name;
+        usersList.appendChild(user);
+    }
+    list.style.display = 'flex';
 }

@@ -4,14 +4,16 @@ import { tooltip } from '$Utils/tooltip/';
 import { show } from '$Settings';
 
 Peeker.add(() => {
-    const chatButtons = document.querySelector('.stream-chat-header');
-    if (!chatButtons || !Peeker.canCreate('settingsButton', chatButtons)) return;
-    return chatButtons;
+    const topNavigation = document.querySelector('.top-nav__menu');
+    if (!topNavigation) return;
+    if (topNavigation.children.length < 2) return;
+    if (!Peeker.canCreate('settingsButton', topNavigation)) return;
+    return topNavigation.children[2];
 }, callback);
 
-function callback(chatButtons) {
+function callback(topNavigation) {
     const component = Component();
-    chatButtons.appendChild(component);
+    topNavigation.insertBefore(component, topNavigation.firstChild);
     component.addEventListener('click', show);
     tooltip(component, 'te-settings');
 }
