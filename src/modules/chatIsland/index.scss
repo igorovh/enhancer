@@ -15,6 +15,8 @@
     animation: show 0.5s;
     transform: translateY(5.5rem);
     transition: transform 0.5s;
+    transition: display 0.5s;
+    display: inline;
 }
 
 #te-chat-island:hover {
@@ -23,6 +25,12 @@
 
 .te-chat-island-hidden {
     transform: translateY(0) !important;
+}
+
+.mosaic-window-body {
+    .te-chat-island-hidden {
+        display: none !important;
+    }
 }
 
 @keyframes show {
@@ -34,13 +42,3 @@
         transform: translateY(5.5rem);
     }
 }
-
-/* @keyframes hide {
-    from {
-        transform: translateY(0);
-    }
-
-    to {
-        transform: translateY(200px);
-    }
-} */
