@@ -124,6 +124,7 @@ function callback(message, data) {
             bumpInfo.hide = true;
             message.classList.add('te-bump-message');
         }
+        data.props.message._enhancer_bumps = bumpInfo;
 
         const bumps = addBumps(bumped.element);
         refreshBumps(bumped.element, replyId, bumps);
