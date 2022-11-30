@@ -31,7 +31,7 @@ const allowedHosts = [
 ];
 
 let checkedURL;
-setInterval(() => {
+setInterval(async () => {
     if (!enabled) return;
     const value = getAutoCompleteHandler()?.state.value;
     if (!value) return;
@@ -122,7 +122,8 @@ function checkConditions(url, warn = true) {
     if (!/\.(gif|jpe?g|tiff?|png|webp|bmp)$/i.test(url.pathname)) return false;
 
     //Imgur Album Check
-    if (url.host === 'imgur.com') {
+    console.log('[te] url imgur', url);
+    if (url.host === 'i.imgur.com') {
         if (url.pathname.includes('/a/')) return false;
     }
 
