@@ -32,6 +32,7 @@ let checkedURL;
 setInterval(() => {
     if (!enabled) return;
     const value = getAutoCompleteHandler()?.state.value;
+    if (!value) return;
     if (!value.startsWith('https://')) return;
     const words = value.split(' ');
     if (words.length < 1) return;
