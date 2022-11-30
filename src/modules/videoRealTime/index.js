@@ -9,7 +9,7 @@ Settings.registerUpdate('realVideoTime', (value) => (settings = value));
 
 Peeker.add(() => {
     if (!settings) return;
-    if (!window.location.href.includes('/videos/')) return;
+    if (!window.location.href.includes('/videos/') && !window.location.href.includes('/video/')) return;
     const video = document.querySelector('.video-player__overlay');
     if (!video || !Peeker.canCreate('videoRealTime', video)) return;
     return video.querySelector('.player-controls__left-control-group');
@@ -43,6 +43,7 @@ function startTimer() {
     if (timeTimer) clearInterval(timeTimer);
     timeTimer = setInterval(async () => {
         const video = getVideo().props.videoID;
+        console.log('[te] vod', video);
         if (video !== videoId) {
             setupVideo(video);
             return;
@@ -87,7 +88,7 @@ async function setTimeByURL() {
 
 Peeker.addSafer(() => {
     const button = document.querySelector('#te-real-video-time');
-    if (!window.location.href.includes('/videos/') && button) {
+    if (!window.location.href.includes('/videos/') && !window.location.href.includes('/video/') && button) {
         button.remove();
         if (timeTimer) clearInterval(timeTimer);
     }
