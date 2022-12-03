@@ -46,19 +46,3 @@
     --te-purple-color: #a970e1;
     --te-gray-color-light: #f2f2f280;
 }
-.highlight01{
-    background-color: rgba(128, 0, 128, 0.10);
-    height: auto;
-}
-.highlight02{
-    background-color: rgba(128, 0, 128, 0.20);
-    height: auto;
-}
-.highlight03{
-    background-color: rgba(128, 0, 128, 0.60);
-    height: auto;
-}
-.highlight04{
-    background-color: rgba(128, 0, 128, 0.90);
-    height: auto;
-}
