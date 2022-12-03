@@ -161,6 +161,12 @@ function refreshBumps(element, id, amount, alreadyBumped = false) {
         bumps.setAttribute('te-bumped', true);
     } else bumps.addEventListener('click', () => bumpMessage(element, chatMessage));
 
+    let tbump = amount / 10;
+    if(tbump){
+        element.style.backgroundColor = `rgba(128, 0, 128, ${tbump})`;
+    }
+
+
     content.appendChild(bumps);
     tooltip(bumps, `te-bump-${id}`);
 }
