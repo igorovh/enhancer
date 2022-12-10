@@ -1,0 +1,17 @@
+.te-connect-message {
+    .chat-line__timestamp {
+        display: none;
+    }
+
+    .chat-line__message--badges {
+        display: none;
+    }
+
+    .chat-line__username {
+        display: none;
+    }
+
+    span[aria-hidden='true'] {
+        display: none;
+    }
+}

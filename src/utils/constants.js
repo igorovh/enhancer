@@ -53,6 +53,7 @@ export const DEFAULT_SETTINGS = {
     realVideoTime: true,
     watchtime: true,
     chatImages: false,
+    chatConnectMessage: false,
 };
 
 export const LOCAL_HONORS = [

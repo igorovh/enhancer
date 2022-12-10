@@ -40,6 +40,13 @@ export const settings = {
             description: 'Displaying chat images from safe websties (e.g. discord, imgur and more; max 5mb file size)',
             type: 'checkbox',
         },
+        {
+            id: 'te-connect-message',
+            name: 'chatConnectMessage',
+            title: 'Connect messages',
+            description: "Don't display username and badges when it's another message from the same user.",
+            type: 'checkbox',
+        },
     ],
     usercard: [
         {
