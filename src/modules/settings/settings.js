@@ -37,7 +37,7 @@ export const settings = {
             id: 'te-chat-images',
             name: 'chatImages',
             title: 'Display images on chat',
-            description: 'Displaying chat images from safe websties (e.g. discord, imgur and more; max 5mb file size)',
+            description: 'Displaying chat images from safe websites (e.g. discord, imgur and more; max 5mb file size)',
             type: 'checkbox',
         },
         {
