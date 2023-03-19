@@ -28,6 +28,7 @@ setInterval(() => {
 }, 1000);
 
 Peeker.add(() => {
+    if (!settings) return;
     const panel = document.querySelector('.about-section__panel--content');
     if (!panel || !Peeker.canCreate('watchtime', panel)) return;
     return panel.children[0].children[0].children[0] || panel;
