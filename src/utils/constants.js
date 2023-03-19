@@ -37,10 +37,6 @@ export const DEFAULT_SETTINGS = {
             name: 'SullyGnome',
             url: 'https://sullygnome.com/channel/%name%',
         },
-        {
-            name: 'Emotes',
-            url: 'https://emotes.vopp.top/?name=%name%',
-        },
     ],
     'bumps.enabled': true,
     'bumps.hideMessages': true,
