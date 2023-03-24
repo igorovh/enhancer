@@ -79,10 +79,10 @@ if(target) {
             // A child node has been added or removed
             if (mutation.type === "childList") {
                 const messageContent = new URL(mutation.addedNodes[0].querySelector('.link-part').outerText);
-                mutation.addedNodes[0].querySelector('.link-part').style.display = "block";
-                mutation.addedNodes[0].querySelector('.link-part').style.width = "fit-content";
                 const parsedURL = parseURL(messageContent);
                 if(checkConditions(parsedURL)) {
+                    mutation.addedNodes[0].querySelector('.link-part').style.display = "block";
+                    mutation.addedNodes[0].querySelector('.link-part').style.width = "fit-content";
                     mutation.addedNodes[0].querySelector('.link-part').innerHTML = `<img style="
                     min-height: 16px;
                     max-height: 256px;
