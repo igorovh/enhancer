@@ -86,19 +86,20 @@ if(enabled) {
                 const messageContent = new URL(mutation.addedNodes[0].querySelector('.link-part').outerText);
                 const parsedURL = parseURL(messageContent);
                 if(checkConditions(parsedURL)) {
-                    mutation.addedNodes[0].querySelector('.link-part').style.display = "block";
-                    mutation.addedNodes[0].querySelector('.link-part').style.width = "fit-content";
-                    mutation.addedNodes[0].querySelector('.link-part').innerHTML = `<img style="
-                    min-height: 16px;
-                    max-height: 256px;
-                    margin: 0.5rem 0px;
-                    " src="${parsedURL}">`;
+                        mutation.addedNodes[0].querySelector('.link-part').classList.add(['parsed']);
+                        mutation.addedNodes[0].querySelector('.link-part').style.display = "block";
+                        mutation.addedNodes[0].querySelector('.link-part').style.width = "fit-content";
+                        mutation.addedNodes[0].querySelector('.link-part').innerHTML = `<img style="
+                        min-height: 16px;
+                        max-height: 256px;
+                        margin: 0.5rem 0px;
+                        " src="${parsedURL}">`;
+                    }
                 }
-            }
-          }
-    }
-    
-    const observer = new MutationObserver(callback);
-    
+              }
+        }
+        
+        const observer = new MutationObserver(callback);
+        
     observer.observe(target, { attributes: true, childList: true, subtree: true })
 }
