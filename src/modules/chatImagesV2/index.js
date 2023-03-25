@@ -1,3 +1,7 @@
+import * as Settings from '$Settings';
+
+let enabled = Settings.get('chatImages');
+
 const allowedHosts = [
     'media.giphy.com',
     'i.imgur.com',
@@ -71,11 +75,12 @@ function checkConditions(url, warn = true) {
 };
 
 const target = document.querySelector('.seventv-chat-list');
-
-// Work only if 7Tv is detected
-if(target) {
-    const callback = (mutationList) => {
-        for (const mutation of mutationList) {
+// Respect user settings
+if(enabled) {
+    // Work only if 7Tv is detected
+    if(target) {
+        const callback = (mutationList) => {
+            for (const mutation of mutationList) {
             // A child node has been added or removed
             if (mutation.type === "childList") {
                 const messageContent = new URL(mutation.addedNodes[0].querySelector('.link-part').outerText);
