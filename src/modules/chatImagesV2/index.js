@@ -74,58 +74,61 @@ function checkConditions(url, warn = true) {
     return true;
 };
 
-const target = document.querySelector('.seventv-chat-list');
 // Respect user settings
 if(enabled) {
-    // Work only if 7Tv is detected
-    if(target) {
-        const callback = (mutationList) => {
-            for (const mutation of mutationList) {
-                // Filter only mutations that add image links
-                if (mutation.type === "childList" && mutation.addedNodes[0].localName !== "img" && mutation.addedNodes[0].querySelector('.link-part')) {
-                    console.log(mutation);
-                    const messageContent = new URL(mutation.addedNodes[0].querySelector('.link-part').outerText);
+    // Load only after 7Tv has been loaded
+    setTimeout(() => {
+        // Work only if 7Tv is detected
+        const target = document.querySelector('#seventv-root');
+        if(target) {
+            const callback = (mutationList) => {
+                for (const mutation of mutationList) {
+                    // Filter only mutations that add image links
+                    if (mutation.type === "childList" && mutation.addedNodes[0].localName !== "img" && mutation.addedNodes[0].querySelector('.link-part')) {
+                        console.log(mutation);
+                        const messageContent = new URL(mutation.addedNodes[0].querySelector('.link-part').outerText);
+                        const parsedURL = parseURL(messageContent);
+                        if(checkConditions(parsedURL)) {
+                            mutation.addedNodes[0].querySelector('.link-part').classList.add(['parsed']);
+                            mutation.addedNodes[0].querySelector('.link-part').style.display = "block";
+                            mutation.addedNodes[0].querySelector('.link-part').style.width = "fit-content";
+                            mutation.addedNodes[0].querySelector('.link-part').innerHTML = `<img style="
+                            min-height: 16px;
+                            max-height: 256px;
+                            margin: 0.5rem 0px;
+                            " src="${parsedURL}">`;
+                        }
+                    }
+                  }
+            }
+            
+            const observer = new MutationObserver(callback);
+
+            const interval = setInterval(() => {
+                if(!document.querySelector('#seventv-message-container')) return;
+
+                observer.observe(document.querySelector('#seventv-message-container'), { attributes: false, childList: true, subtree: true })
+                
+                // Load all emotes already in chat
+                const media = document.querySelectorAll('.seventv-chat-list .link-part:not(.parsed)');
+    
+                for (let index = 0; index < media.length; index++) {
+                    const element = media[index];
+    
+                    const messageContent = new URL(element.outerText);
                     const parsedURL = parseURL(messageContent);
                     if(checkConditions(parsedURL)) {
-                        mutation.addedNodes[0].querySelector('.link-part').classList.add(['parsed']);
-                        mutation.addedNodes[0].querySelector('.link-part').style.display = "block";
-                        mutation.addedNodes[0].querySelector('.link-part').style.width = "fit-content";
-                        mutation.addedNodes[0].querySelector('.link-part').innerHTML = `<img style="
+                        element.classList.add(['parsed']);
+                        element.style.display = "block";
+                        element.style.width = "fit-content";
+                        element.innerHTML = `<img style="
                         min-height: 16px;
                         max-height: 256px;
                         margin: 0.5rem 0px;
                         " src="${parsedURL}">`;
                     }
                 }
-              }
+            }, 5000);
         }
-        
-        const observer = new MutationObserver(callback);
-        
-        observer.observe(document.querySelector('#seventv-message-container'), { attributes: false, childList: true, subtree: true })
-
-        // Load image links already in chat
-        const interval = setInterval(() => {
-            // Loop through all links in chat that are not parsed
-            const media = target.querySelectorAll('.link-part:not(.parsed)');
-            for (let index = 0; index < media.length; index++) {
-                const element = media[index];
-
-                const messageContent = new URL(element.outerText);
-                const parsedURL = parseURL(messageContent);
-                if(checkConditions(parsedURL)) {
-                    element.classList.add(['parsed']);
-                    element.style.display = "block";
-                    element.style.width = "fit-content";
-                    element.innerHTML = `<img style="
-                    min-height: 16px;
-                    max-height: 256px;
-                    margin: 0.5rem 0px;
-                    " src="${parsedURL}">`;
-                }
-            }
-            console.log(target.querySelectorAll('.link-part'));
-        }, 5000);
-        interval();
-    }
+    }, 10000);
 }
