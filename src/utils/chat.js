@@ -19,6 +19,13 @@ export function getUsername() {
     return getChat()?.props?.currentUserDisplayName?.toLowerCase();
 }
 
+export function unstuckScroll7TV() {
+    const scrollableChat = document.querySelector('.scrollable-contents');
+    if (!scrollableChat) return;
+    if (scrollableChat.querySelector('.seventv-message-buffer-notice')?.textContent === 'Chat Paused') return;
+    scrollableChat.scrollToBottom();
+}
+
 export function unstuckScroll() {
     const scrollableChat = getScrollableChat();
     if (!scrollableChat || !scrollableChat?.component) return;

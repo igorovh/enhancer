@@ -2,7 +2,7 @@ import * as Peeker from '$Peeker';
 import * as Logger from '$Logger';
 import * as Settings from '$Settings';
 import * as Island from '$Utils/island';
-import { unstuckScroll } from '$Utils/chat';
+import { unstuckScroll, unstuckScroll7TV } from '$Utils/chat';
 import { getAutoCompleteHandler } from '$Utils/twitch';
 import { parseURL } from './parsers';
 import { tryURL } from '$Utils/url';
@@ -31,6 +31,7 @@ Peeker.registerListener('chatInitialize', () => {
         Logger.info('Initializing 7TV Chat Images');
         if (sevenTVInterval) clearInterval(sevenTVInterval);
         sevenTVInterval = setInterval(() => {
+            if (!enabled) return;
             const messages = [...document.querySelectorAll('.seventv-message')].filter(
                 (message) => !message.hasAttribute('te-checked')
             );
@@ -48,7 +49,7 @@ Peeker.registerListener('chatInitialize', () => {
                 url = parseURL(url);
                 if (!checkConditions(url)) return;
 
-                createImage(url, link);
+                createImage(url, link, true);
             });
         }, 1000);
     }
@@ -97,7 +98,7 @@ function callback(message, data) {
     createImage(url, linkElement);
 }
 
-function createImage(url, element) {
+function createImage(url, element, seventv = false) {
     const imageElement = new Image();
     imageElement.classList = 'te-image-img';
     imageElement.src = url.href;
@@ -107,6 +108,7 @@ function createImage(url, element) {
         element.innerHTML = '';
         element.appendChild(imageElement);
         unstuckScroll();
+        if (seventv) unstuckScroll7TV();
     };
 }
 
