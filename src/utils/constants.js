@@ -4,7 +4,7 @@ export const LOCAL_BADGES = [
     {
         title: 'Twitch Enhancer Contributor',
         type: 'other',
-        username: 'czarny_animekkk1337',
+        username: 'igor_ovh',
         src: getFile('img/icon.png'),
     },
     {
@@ -37,10 +37,6 @@ export const DEFAULT_SETTINGS = {
             name: 'SullyGnome',
             url: 'https://sullygnome.com/channel/%name%',
         },
-        {
-            name: 'Emotes',
-            url: 'https://emotes.vopp.top/?name=%name%',
-        },
     ],
     'bumps.enabled': true,
     'bumps.hideMessages': true,
@@ -57,7 +53,7 @@ export const DEFAULT_SETTINGS = {
 
 export const LOCAL_HONORS = [
     {
-        username: 'czarny_animekkk1337',
+        username: 'igor_ovh',
         type: 'contibutor',
     },
     {
@@ -137,7 +133,7 @@ export const LOCAL_HONORS = [
         type: 'tester',
     },
     {
-        username: 'reqqun',
+        username: 'rqqn_',
         type: 'tester',
     },
 ];

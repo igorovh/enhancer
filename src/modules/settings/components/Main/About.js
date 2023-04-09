@@ -39,25 +39,15 @@ const About = () => {
                 </span>
             </Copyrights>
             <Socials>
-                <a
-                    href="https://chrome.google.com/webstore/detail/twitch-enhancer/knaodoefkjbgmmilogebghadhmnphjih"
-                    target="_blank"
-                    rel="noreferrer">
-                    Chrome
+                <a href="https://enhancer.pro/" target="_blank" rel="noreferrer">
+                    Enhancer
                 </a>
                 ·
-                <a
-                    href="https://addons.mozilla.org/en-US/firefox/addon/twitch-enhancer/"
-                    target="_blank"
-                    rel="noreferrer">
-                    Firefox
-                </a>
-                ·
-                <a href="https://github.com/animekkk/twitch-enhancer" target="_blank" rel="noreferrer">
+                <a href="https://github.com/igorovh/twitch-enhancer" target="_blank" rel="noreferrer">
                     Github
                 </a>
                 ·
-                <a href="https://twitter.com/animekkk_" target="_blank" rel="noreferrer">
+                <a href="https://twitter.com/igor_ovh" target="_blank" rel="noreferrer">
                     Twitter
                 </a>
                 ·
