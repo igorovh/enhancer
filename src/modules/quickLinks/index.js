@@ -8,7 +8,7 @@ const links = get('quickLinks');
 Peeker.add(() => {
     const panel = document.querySelector('.about-section__panel--content');
     if (!panel || !Peeker.canCreate('quickLinks', panel)) return;
-    return panel.querySelector('.BEqWe') || panel;
+    return panel.querySelector('.kLFSJC') || panel;
 }, callback);
 
 function callback(panel) {
