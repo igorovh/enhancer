@@ -1,4 +1,4 @@
-export const parsers = {
+const parsers = {
     'cdn.discordapp.com': (url) => {
         url.host = 'media.discordapp.net';
         return url;
@@ -9,3 +9,11 @@ export const parsers = {
         return url;
     },
 };
+
+export function parseURL(url) {
+    const parse = parsers[url.host];
+    if (parse) {
+        url = parse(url);
+    }
+    return url;
+}

@@ -3,7 +3,9 @@ import * as Peeker from '$Peeker';
 import { getChatMessage } from '$Utils/twitch';
 
 Peeker.add(() => {
-    const chat = document.querySelector('.chat-scrollable-area__message-container');
+    const chat =
+        document.querySelector('.chat-scrollable-area__message-container') ||
+        document.querySelector('.seventv-chat-list');
     if (!chat || !Peeker.canCreate('messageEvent', chat)) return;
     return chat;
 }, callback);

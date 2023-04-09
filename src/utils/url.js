@@ -14,3 +14,11 @@ export function getVideoId(link) {
     if (id.includes('?')) id = id.substring(0, id.lastIndexOf('?'));
     return id;
 }
+
+export function tryURL(href) {
+    try {
+        return new URL(href);
+    } catch (error) {
+        return false;
+    }
+}
