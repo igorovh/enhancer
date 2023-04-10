@@ -113,7 +113,7 @@ export const LOCAL_HONORS = [
         type: 'tester',
     },
     {
-        username: 'marekk2007',
+        username: 'marekkk2007',
         type: 'tester',
     },
     {
