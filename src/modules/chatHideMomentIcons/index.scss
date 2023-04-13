@@ -1,0 +1,6 @@
+.te-hide-moment-badges {
+    .chat-badge[src^="https://static-cdn.jtvnw.net/badges/v1/bf370830-d79a-497b-81c6-a365b2b60dda/1"],
+    span[data-badge="moment"] {
+        display: none !important;
+    }
+}

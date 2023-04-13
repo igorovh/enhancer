@@ -21,6 +21,12 @@ export const settings = {
             type: 'checkbox',
         },
         {
+            id: 'te-hide-moment-badges',
+            title: 'Hide Moment badges',
+            name: 'hideMomentBadges',
+            type: 'checkbox',
+        },
+        {
             id: 'te-mentioned-sound',
             name: 'pingSound.enabled',
             title: 'Play sound when got mentioned',
