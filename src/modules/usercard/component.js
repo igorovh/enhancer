@@ -90,7 +90,7 @@ const services = {
         };
     },
     xayo: async (username) => {
-        let data = await fetch(`https://wcapi.vopp.top/user/xayo/${username}`);
+        let data = await fetch(`https://wcapi.igor.ovh/user/xayo/${username}`);
         if (data.status != 200) return;
         data = await data.json();
         if (data.length < 1) return;
