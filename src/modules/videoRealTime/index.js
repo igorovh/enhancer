@@ -35,14 +35,14 @@ async function callback(controls) {
 
 async function setupVideo(video) {
     videoElement = document.querySelector('video');
-    videoId = video || getVideo().props.videoID;
+    videoId = video || getVideoId(window.location.href);
     videoData = await getVideoData(videoId);
 }
 
 function startTimer() {
     if (timeTimer) clearInterval(timeTimer);
     timeTimer = setInterval(async () => {
-        const video = getVideo().props.videoID;
+        const video = getVideoId(window.location.href);
         console.log('[te] vod', video);
         if (video !== videoId) {
             setupVideo(video);

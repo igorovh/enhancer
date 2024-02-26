@@ -39,7 +39,7 @@ function findReactChildren(node, predicate, maxDepth = 15, depth = 0) {
 
 function getReactInstance(element) {
     for (const k in element) {
-        if (k.startsWith('__reactInternalInstance$')) {
+        if (k.startsWith('__reactFiber$')) {
             return element[k];
         }
     }
@@ -121,6 +121,7 @@ export function getViewerCard() {
         50
     );
 
+    console.log('[te] [xd]', node);
     return node?.stateNode;
 }
 

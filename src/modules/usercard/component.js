@@ -58,35 +58,11 @@ export default async (username) => {
 
 const services = {
     twitchlogger: async (username) => {
-        const data = await fetch(`https://twitchlogger.pl/Tracker/SerachUser/${username}`);
-        if (data.status != 200) return;
-        const json = await data.json();
-        if (json.userChannels < 1) return;
-
-        json.userChannels.sort((a, b) => {
-            return b.count - a.count;
-        });
-
-        const watchtimes = [];
-        let totalTime = 0;
-        json.userChannels.forEach((channel) => (totalTime += channel.count * 5 * 60));
-        for (let i = 0; i < 5; i++) {
-            const channel = json.userChannels[i];
-            if (channel)
-                watchtimes.push({
-                    position: i + 1,
-                    streamer:
-                        json.channels.filter((broadcaster) => broadcaster.broadcasterId === channel.broadcasterId)[0]
-                            ?.broadcasterName || 'unknown',
-                    time: channel.count * 5 * 60,
-                });
-        }
-
         return {
             service: 'twitchlogger.pl/tracker/{name}',
             username,
-            watchtimes,
-            totalTime,
+            watchtimes: [],
+            totalTime: 0,
         };
     },
     xayo: async (username) => {
