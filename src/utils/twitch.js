@@ -39,7 +39,7 @@ function findReactChildren(node, predicate, maxDepth = 15, depth = 0) {
 
 function getReactInstance(element) {
     for (const k in element) {
-        if (k.startsWith('__reactFiber$')) {
+        if (k.startsWith('__reactFiber$') || k.startsWith('__reactInternalInstance$')) {
             return element[k];
         }
     }
