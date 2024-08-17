@@ -1,8 +1,8 @@
 {
     "name": "Twitch Enhancer",
     "description": "Extension that adds what is missing on Twitch.",
-    "version": "4.0.14",
-    "manifest_version": 2,
+    "version": "4.0.15",
+    "manifest_version": 3,
     "content_scripts": [
         {
             "matches": ["*://*.twitch.tv/*"],
@@ -12,17 +12,22 @@
         }
     ],
     "background": {
-        "scripts": ["worker.js"],
-        "persistent": false
+        "service_worker": "worker.js",
+        "scripts": ["worker.js"]
     },
     "web_accessible_resources": [
-        "index.js",
-        "bundle.css",
-        "img/*.png",
-        "img/*.svg",
-        "img/*.jpg",
-        "sounds/*.ogg",
-        "sounds/*.mp3"
+        {
+            "matches": ["*://*.twitch.tv/*"],
+            "resources": [
+                "index.js",
+                "bundle.css",
+                "img/*.png",
+                "img/*.svg",
+                "img/*.jpg",
+                "sounds/*.ogg",
+                "sounds/*.mp3"
+            ]
+        }
     ],
     "permissions": ["*://*.twitch.tv/*"],
     "icons": {

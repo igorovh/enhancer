@@ -3,6 +3,7 @@ import * as Peeker from '$Peeker';
 import * as Logger from '$Logger';
 import * as Settings from '$Settings';
 import { formatTime } from '$Utils/time';
+import { getName } from '$Utils/url';
 
 let settings = Settings.get('watchtime');
 
@@ -13,13 +14,10 @@ let updated = false;
 setInterval(() => {
     if (!updated) requestUpdate();
     const player = getPlayer();
-    const panel = getChannelInfo();
     if (!settings) return;
-    if (!player || !panel) return;
+    if (!player) return;
     if (window.location.href.endsWith('twitch.tv/')) return; // Main page
-    if (!panel.props.isLive) return;
-    const paused = player.props.mediaPlayerInstance.core.paused;
-    if (paused) return;
+    if (!player.props.isPlaying) return;
     document.dispatchEvent(
         new CustomEvent('enhancer-watchtime', {
             detail: { type: 'watchtime', id: 'watch', data: { channel: player.props.content.channelLogin } },
@@ -43,7 +41,7 @@ function callback(panel) {
 }
 
 function requestUpdate() {
-    const channel = getChannelInfo()?.props.channelLogin;
+    const channel = getName();
     if (!channel) return;
     document.dispatchEvent(
         new CustomEvent('enhancer-watchtime', { detail: { type: 'watchtime', id: 'get', data: { channel } } })
@@ -59,7 +57,7 @@ document.addEventListener('enhancer-watchtime-response', (event) => {
 function createText(seconds, date) {
     if (!seconds || !date) return `<span class="te-watchtime-gray">Currently there is no watchtime data.</span>`;
     let formattedTime = formatTime(seconds);
-    if (formattedTime.length < 1) formattedTime = '> 1 min';
+    if (formattedTime.length < 1) formattedTime = '< 1 min';
     return `
         <span class="te-watchtime-bold">${formattedTime}</span> 
         <span class="te-watchtime-gray">watchtime since</span> 

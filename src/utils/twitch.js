@@ -121,7 +121,6 @@ export function getViewerCard() {
         50
     );
 
-    console.log('[te] [xd]', node);
     return node?.stateNode;
 }
 

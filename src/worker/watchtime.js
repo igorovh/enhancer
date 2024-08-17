@@ -44,6 +44,7 @@ request.onsuccess = () => {
 
 async function getWatchtime(username) {
     if (!database) return;
+    console.log('Getting watchtime for:', username);
     const tx = database.transaction('watchtime', 'readonly');
     const store = tx.objectStore('watchtime');
     const index = store.index('by_username');
