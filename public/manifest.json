@@ -32,5 +32,10 @@
     "permissions": ["*://*.twitch.tv/*"],
     "icons": {
         "128": "img/icon.png"
+    },
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "{09b8dba2-ae33-4bea-8bf1-d85e50691408}"
+        }
     }
 }
