@@ -15,7 +15,8 @@ function callback(chat) {
     const observerCallback = (mutationList) => {
         for (const mutation of mutationList) {
             if (mutation.type === 'childList' && mutation.addedNodes) {
-                for (const message of mutation.addedNodes) {
+                for (const divMessage of mutation.addedNodes) {
+                    const message = divMessage.children[0];
                     const data = getChatMessage(message);
                     if (!data) continue;
                     Peeker.getListenersById('messageEvent').forEach((listener) => listener.callback(message, data));
